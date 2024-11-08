@@ -58,11 +58,10 @@ public class UserController {
         }
     }
 
-    @PostMapping("/details")
-    public ResponseEntity<UserResponse> getUserDetailsFromToken(@RequestHeader("Authorization") String authorizationHeader){
+    @GetMapping("/details")
+    public ResponseEntity<UserResponse> getUserDetailsFromId(@RequestParam long id){
         try {
-            String extractedToken = authorizationHeader.substring(7);
-            User user = userService.getUserDetailFromToken(extractedToken);
+            User user = userService.getUserFromId(id);
             return ResponseEntity.ok(UserResponse.fromUser(user));
         } catch (Exception e) {
             return ResponseEntity.badRequest().build();
@@ -105,5 +104,4 @@ public class UserController {
         userService.switchActive(userID);
         return ResponseEntity.ok("Switch successfully");
     }
-
 }

@@ -92,6 +92,10 @@ public class UserService {
         }
     }
 
+    public User getUserFromId(long id) {
+        return userRepository.findById(id).orElseThrow(() -> new RuntimeException("User not found"));
+    }
+
     public User updateUserDetails(UserDTO userDTO, String token) throws Exception {
         String email = jwtTokenUtil.extractEmail(token);
         Optional<User> optionalUser = userRepository.findByEmail(email);
