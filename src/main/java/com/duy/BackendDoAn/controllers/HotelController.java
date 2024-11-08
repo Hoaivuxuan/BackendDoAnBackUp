@@ -130,6 +130,7 @@ public class HotelController {
         DateTimeFormatter dateTimeFormat = (DateTimeFormatter.ISO_LOCAL_DATE);
         LocalDate checkin_date = LocalDate.parse(checkin, dateTimeFormat);
         LocalDate checkout_date = dateTimeFormat.parse(checkout, LocalDate::from);
+
         Page<HotelResponse> hotelPage =hotelService.getAllHotels(keyword, groupAdults, groupChildren, noRooms, checkin_date, checkout_date, typeOfRoom, minRating, maxRating, pageRequest);
         int totalPages =hotelPage.getTotalPages();
         List<HotelResponse> hotels = hotelPage.getContent();
@@ -149,5 +150,6 @@ public class HotelController {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
+
 
 }

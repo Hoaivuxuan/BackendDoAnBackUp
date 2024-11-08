@@ -17,6 +17,9 @@ public class UserResponse {
     @JsonProperty("id")
     private Long id;
 
+    @JsonProperty("name")
+    private String name;
+
     @JsonProperty("first_name")
     private String firstName;
 
@@ -25,6 +28,9 @@ public class UserResponse {
 
     @JsonProperty("phone_number")
     private String phoneNumber;
+
+    @JsonProperty("email")
+    private String email;
 
     @JsonProperty("avatar")
     private String avatar;
@@ -43,13 +49,16 @@ public class UserResponse {
 
     public static UserResponse fromUser(User user){
         return UserResponse.builder().id(user.getId())
+                .name(user.getName())
                 .firstName(user.getFirst_name())
                 .lastName(user.getLast_name())
                 .phoneNumber(user.getPhone_number())
+                .email(user.getEmail())
                 .avatar(user.getAvatar())
                 .address(user.getAddress())
                 .dateOfBirth(user.getDate_of_birth())
                 .active(user.isActive())
+                .role(user.getRole())
                 .build();
     }
 }

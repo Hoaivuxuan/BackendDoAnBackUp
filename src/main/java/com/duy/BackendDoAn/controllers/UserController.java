@@ -6,10 +6,14 @@ import com.duy.BackendDoAn.dtos.UserRegisterDTO;
 import com.duy.BackendDoAn.models.User;
 import com.duy.BackendDoAn.responses.LoginResponse;
 import com.duy.BackendDoAn.responses.RegisterResponse;
+import com.duy.BackendDoAn.responses.UserListResponse;
 import com.duy.BackendDoAn.responses.UserResponse;
 import com.duy.BackendDoAn.services.UserService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
@@ -24,17 +28,8 @@ import java.util.List;
 public class UserController {
     private final UserService userService;
     @PostMapping("/register")
-    public ResponseEntity<RegisterResponse> register(@Valid @RequestBody UserRegisterDTO userRegisterDTO, BindingResult result){
+    public ResponseEntity<RegisterResponse> register(@Valid @RequestBody UserRegisterDTO userRegisterDTO){
         RegisterResponse registerResponse = new RegisterResponse();
-        if(result.hasErrors()) {
-            List<String> errorMessages = result.getFieldErrors()
-                    .stream()
-                    .map(FieldError::getDefaultMessage)
-                    .toList();
-            registerResponse.setMessage(errorMessages.toString());
-            return ResponseEntity.badRequest().body(registerResponse);
-        }
-
         try {
             User user = userService.add(userRegisterDTO);
             registerResponse.setMessage("Register Successfully");
@@ -51,6 +46,9 @@ public class UserController {
         LoginResponse loginResponse = new LoginResponse();
         try {
             String token  = userService.login(userLoginDTO.getEmail(), userLoginDTO.getPassword());
+            User user = userService.getUserDetailFromToken(token);
+            loginResponse.setId(user.getId());
+            loginResponse.setUsername(user.getName());
             loginResponse.setToken(token);
             loginResponse.setMessage("Login successfully");
             return ResponseEntity.ok(loginResponse);
@@ -61,7 +59,7 @@ public class UserController {
     }
 
     @PostMapping("/details")
-    public ResponseEntity<UserResponse> getUserDetails(@RequestHeader("Authorization") String authorizationHeader){
+    public ResponseEntity<UserResponse> getUserDetailsFromToken(@RequestHeader("Authorization") String authorizationHeader){
         try {
             String extractedToken = authorizationHeader.substring(7);
             User user = userService.getUserDetailFromToken(extractedToken);
@@ -83,5 +81,29 @@ public class UserController {
         }
     }
 
+    @GetMapping("")
+    public ResponseEntity<UserListResponse> getAllUsers(
+            @RequestParam(defaultValue = "", required = false) String keyword,
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int limit
+    ) {
+        PageRequest pageRequest = PageRequest.of(
+                page, limit,
+                Sort.by("id").ascending()
+        );
+        Page<UserResponse> userPage = userService.getAllUsers(keyword, pageRequest);
+        int totalPages = userPage.getTotalPages();
+        List<UserResponse> users = userPage.getContent();
+        return ResponseEntity.ok(UserListResponse.builder()
+                        .users(users)
+                        .totalPages(totalPages)
+                .build());
+    }
+
+    @PatchMapping("/{userID}/switchActive")
+    public ResponseEntity<String> switchUserActive(@PathVariable Long userID) throws Exception {
+        userService.switchActive(userID);
+        return ResponseEntity.ok("Switch successfully");
+    }
 
 }

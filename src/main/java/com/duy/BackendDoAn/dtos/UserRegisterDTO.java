@@ -19,4 +19,7 @@ public class UserRegisterDTO {
 
     @JsonProperty("confirm_password")
     private String confirmPassword;
+
+    @JsonProperty("role")
+    private String role;
 }

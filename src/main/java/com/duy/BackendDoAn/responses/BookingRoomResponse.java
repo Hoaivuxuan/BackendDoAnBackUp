@@ -29,6 +29,9 @@ public class BookingRoomResponse {
     @JsonProperty("total_price")
     private Float totalPrice;
 
+    @JsonProperty("status")
+    private String status;
+
     @JsonProperty("user_id")
     private Long user;
 
@@ -42,6 +45,7 @@ public class BookingRoomResponse {
                 .checkInDate(bookingRoom.getCheck_in_date())
                 .checkOutDate(bookingRoom.getCheck_out_date())
                 .totalPrice(bookingRoom.getTotal_price())
+                .status(bookingRoom.getStatus())
                 .user(bookingRoom.getUser().getId())
                 .bookedRooms(bookingRoom.getBookedRooms())
                 .build();

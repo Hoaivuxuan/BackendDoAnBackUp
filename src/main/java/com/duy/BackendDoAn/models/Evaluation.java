@@ -17,13 +17,13 @@ public class Evaluation {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "rating")
+    @Column(name = "rating_score")
     private Long rating;
 
     @Column(name = "comment")
     private String comment;
 
-    @Column(name = "evaluation_date")
+    @Column(name = "evaluation")
     private LocalDate evaluation_date;
 
     @ManyToOne

@@ -6,8 +6,11 @@ import com.duy.BackendDoAn.dtos.UserDTO;
 import com.duy.BackendDoAn.dtos.UserRegisterDTO;
 import com.duy.BackendDoAn.models.*;
 import com.duy.BackendDoAn.repositories.*;
+import com.duy.BackendDoAn.responses.UserResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.expression.ExpressionException;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -38,12 +41,12 @@ public class UserService {
             throw new Exception("Password and Confirm password doesn't match");
         }
         User newUser = User.builder()
-                .first_name(getUsernameFromEmail(userRegisterDTO.getEmail()))
+                .name(getUsernameFromEmail(userRegisterDTO.getEmail()))
                 .avatar(unknownUserAvatar)
                 .email(userRegisterDTO.getEmail())
                 .active(true)
                 .password(userRegisterDTO.getPassword())
-                .role("USER")
+                .role(Optional.ofNullable(userRegisterDTO.getRole()).orElse("USER"))
                 .build();
         String password = userRegisterDTO.getPassword();
         String encodedPassword = passwordEncoder.encode(password);
@@ -93,6 +96,7 @@ public class UserService {
         String email = jwtTokenUtil.extractEmail(token);
         Optional<User> optionalUser = userRepository.findByEmail(email);
         User user = optionalUser.orElseThrow(() -> new Exception("User not found"));
+        user.setName(userDTO.getName());
         user.setAddress(userDTO.getAddress());
         user.setFirst_name(userDTO.getFirstName());
         user.setLast_name(userDTO.getLastName());
@@ -102,4 +106,16 @@ public class UserService {
         user.setAvatar(userDTO.getAvatar());
         return userRepository.save(user);
     }
+
+    public Page<UserResponse> getAllUsers(String keyword, PageRequest pageRequest){
+        Page<User> userPage = userRepository.findAll(keyword, pageRequest);
+        return userPage.map(UserResponse::fromUser);
+    }
+
+    public void switchActive(Long userId) throws Exception {
+        User user = userRepository.findById(userId).orElseThrow(() -> new Exception("User not found"));
+        user.setActive(!user.isActive());
+        userRepository.save(user);
+    }
+
 }

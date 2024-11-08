@@ -17,6 +17,9 @@ import java.util.Date;
 @Getter
 @Setter
 public class UserDTO {
+    @JsonProperty("name")
+    private String name;
+
     @JsonProperty("first_name")
     private String firstName;
 

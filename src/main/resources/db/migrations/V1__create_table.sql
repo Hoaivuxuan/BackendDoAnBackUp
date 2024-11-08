@@ -1,6 +1,7 @@
 CREATE TABLE users (
     id INT auto_increment primary key,
-    first_name varchar(100) not null,
+    name varchar(100),
+    first_name varchar(100),
     last_name varchar(100),
     phone_number varchar(20) unique,
     avatar varchar(255),
@@ -154,17 +155,19 @@ CREATE TABLE booking_vehicle (
     CONSTRAINT fk_booking_motor_motor foreign key (vehicle_id) references vehicle(id)
 );
 
-create table service (
+create table accessory (
     id INT AUTO_INCREMENT PRIMARY KEY,
     name NVARCHAR(255),
-    price FLOAT
+    price FLOAT,
+    type NVARCHAR(255)
 );
 
-CREATE TABLE service_booking (
+CREATE TABLE accessory_booking (
     id INT AUTO_INCREMENT PRIMARY KEY,
-    service_id INT,
+    price_per FLOAT,
+    accessory_id INT,
     booking_vehicle_id INT,
-    CONSTRAINT fk_service_booking_service foreign key (service_id) references service(id),
+    CONSTRAINT fk_service_booking_service foreign key (accessory_id) references accessory(id),
     CONSTRAINT fk_service_booking_booking foreign key (booking_vehicle_id) references booking_vehicle(id)
 );
 
@@ -235,6 +238,7 @@ CREATE TABLE evaluation (
     CONSTRAINT fk_evaluation_hotel foreign key (hotel_id) references hotel(id),
     CONSTRAINT fk_evaluation_user foreign key (user_id) references users(id)
 );
+
 
 
 

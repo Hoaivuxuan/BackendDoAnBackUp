@@ -26,3 +26,14 @@ VALUES
 ('Hieu', 'Dang', '0976543210', 'user6@com.example', '103 Third St', '1991-08-25', TRUE, 'password123', 'ADMIN'),
 ('An', 'Pham', '0345678901', 'user7@com.example', '50 Oak St', '1992-12-14', TRUE, 'password321', 'USER'),
 ('Trung', 'Le', '0354326789', 'user8@com.example', '22 Maple Ave', '1985-06-30', TRUE, 'password789', 'ADMIN');
+
+INSERT INTO accessory (name, price, type) VALUES
+('Helmet', 10.00, 'MOTOR'),
+('GPS', 15.00, 'CAR'),
+('Child Seat', 20.00, 'CAR'),
+('Phone Holder', 5.00, 'MOTOR'),
+('Roof Rack', 25.00, 'CAR'),
+('Bluetooth Speaker', 8.00, 'MOTOR'),
+('First Aid Kit', 7.00, 'CAR'),
+('Extra Battery', 12.00, 'MOTOR');
+
