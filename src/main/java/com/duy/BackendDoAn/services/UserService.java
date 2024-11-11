@@ -105,9 +105,7 @@ public class UserService {
         user.setFirst_name(userDTO.getFirstName());
         user.setLast_name(userDTO.getLastName());
         user.setPhone_number(userDTO.getPhoneNumber());
-        user.setPhone_number(userDTO.getPhoneNumber());
         user.setDate_of_birth(userDTO.getDateOfBirth());
-        user.setAvatar(userDTO.getAvatar());
         return userRepository.save(user);
     }
 
