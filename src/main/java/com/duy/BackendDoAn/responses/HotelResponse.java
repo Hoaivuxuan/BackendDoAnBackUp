@@ -6,6 +6,7 @@ import com.duy.BackendDoAn.models.Room;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.*;
 
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,13 +18,19 @@ import java.util.List;
 public class HotelResponse {
     private Long id;
 
-    @JsonProperty("hotel_name")
+    @JsonProperty("name")
     private String hotelName;
 
-    @JsonProperty("hotel_email")
-    private String hotelEmail;
+    @JsonProperty("type")
+    private String typeOfHotel;
 
     private String description;
+
+    @JsonProperty("address")
+    private String address;
+
+    @JsonProperty("email")
+    private String hotelEmail;
 
     @JsonProperty("longitude")
     private Float longitude;
@@ -31,31 +38,30 @@ public class HotelResponse {
     @JsonProperty("latitude")
     private Float latitude;
 
+    @JsonProperty("checkIn_time")
+    private LocalTime checkInTime;
+
+    @JsonProperty("checkOut_time")
+    private LocalTime checkOutTime;
+
     @JsonProperty("phone_number")
     private String phoneNumber;
-
-    @JsonProperty("address")
-    private String address;
 
     private Float rating;
 
     @JsonProperty("status")
     private String status;
 
-    @JsonProperty("city_id")
-    private Long city;
+    @JsonProperty("city")
+    private String city;
 
-    @JsonProperty("owner_id")
-    private Long owner;
-
-    @JsonProperty("type_of_hotel")
-    private String typeOfHotel;
-
-    @JsonProperty("hotel_images")
+    @JsonProperty("images")
     private List<HotelImage> hotelImages = new ArrayList<>();
 
     @JsonProperty("rooms")
     private List<Room> rooms = new ArrayList<>();
+
+
 
     public static HotelResponse fromHotel(Hotel hotel){
         HotelResponse hotelResponse = HotelResponse.builder()
@@ -69,8 +75,7 @@ public class HotelResponse {
                 .address(hotel.getAddress())
                 .rating(hotel.getRating())
                 .status(hotel.getHotelStatus())
-                .city(hotel.getCity().getId())
-                .owner(hotel.getOwner().getId())
+                .city(hotel.getCity().getCity_name())
                 .typeOfHotel(hotel.getType_of_hotel())
                 .hotelImages(hotel.getHotelImages())
                 .rooms(hotel.getRooms())

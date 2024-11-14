@@ -4,15 +4,12 @@ import com.duy.BackendDoAn.dtos.HotelDTO;
 import com.duy.BackendDoAn.dtos.HotelImageDTO;
 import com.duy.BackendDoAn.models.Hotel;
 import com.duy.BackendDoAn.models.HotelImage;
-import com.duy.BackendDoAn.responses.HotelListResponse;
-import com.duy.BackendDoAn.responses.HotelResponse;
+import com.duy.BackendDoAn.responses.hotels.HotelListResponse;
+import com.duy.BackendDoAn.responses.hotels.HotelResponse;
 import com.duy.BackendDoAn.services.HotelService;
 import com.duy.BackendDoAn.utils.FileUtils;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
@@ -111,8 +108,6 @@ public class HotelController {
     @GetMapping
     public ResponseEntity<HotelListResponse> searchHotel(
             @RequestParam(defaultValue = "") String keyword,
-            @RequestParam int groupAdults,
-            @RequestParam int groupChildren,
             @RequestParam int noRooms,
             @RequestParam String checkin,
             @RequestParam String checkout,
@@ -131,7 +126,7 @@ public class HotelController {
         LocalDate checkin_date = LocalDate.parse(checkin, dateTimeFormat);
         LocalDate checkout_date = dateTimeFormat.parse(checkout, LocalDate::from);
 
-        Page<HotelResponse> hotelPage =hotelService.getAllHotels(keyword, groupAdults, groupChildren, noRooms, checkin_date, checkout_date, typeOfRoom, minRating, maxRating, pageRequest);
+        Page<HotelResponse> hotelPage =hotelService.getAllHotels(keyword,noRooms, checkin_date, checkout_date, typeOfRoom, minRating, maxRating, pageRequest);
         int totalPages =hotelPage.getTotalPages();
         List<HotelResponse> hotels = hotelPage.getContent();
         return ResponseEntity.ok(HotelListResponse.builder()
@@ -150,6 +145,4 @@ public class HotelController {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
-
-
 }

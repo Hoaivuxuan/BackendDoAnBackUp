@@ -3,6 +3,7 @@ package com.duy.BackendDoAn.controllers;
 import com.duy.BackendDoAn.dtos.RoomDTO;
 import com.duy.BackendDoAn.models.Room;
 import com.duy.BackendDoAn.responses.RoomResponse;
+import com.duy.BackendDoAn.services.AmenityService;
 import com.duy.BackendDoAn.services.RoomService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 public class RoomController {
     public final RoomService roomService;
+    public final AmenityService amenityService;
     @PostMapping
     public ResponseEntity<RoomResponse> createRoom(@Valid @RequestBody RoomDTO roomDTO) throws Exception{
         Room newRoom = roomService.addRoom(roomDTO);

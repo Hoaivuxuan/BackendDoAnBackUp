@@ -21,13 +21,9 @@ public interface HotelRepository extends JpaRepository<Hotel, Long> {
             "AND (:maxRating IS NULL OR h.rating <= :maxRating) " +
             "AND (r.id NOT IN (SELECT b.room.id FROM BookedRoom b JOIN b.bookingRoom bk WHERE bk.check_in_date <= :checkout AND bk.check_out_date >= :checkin)) " +
             "GROUP BY h " +
-            "HAVING SUM(r.available_room) >= :noRooms " +
-            "AND SUM(r.adult_count * r.available_room) >= :groupAdults " +
-            "AND SUM(r.child_count * r.available_room) >= :groupChildren")
+            "HAVING SUM(r.available_room) >= :noRooms")
     Page<Hotel> searchHotels(
             @Param("keyword") String keyword,
-            @Param("groupAdults") int groupAdults,
-            @Param("groupChildren") int groupChildren,
             @Param("noRooms") int noRooms,
             @Param("checkin") LocalDate checkin,
             @Param("checkout") LocalDate checkout,

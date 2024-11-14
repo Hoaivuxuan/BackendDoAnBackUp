@@ -20,8 +20,6 @@ public class RoomService {
         Room newRoom = Room.builder()
                 .price_per_day(roomDTO.getPricePerDay())
                 .description(roomDTO.getDescription())
-                .child_count(roomDTO.getChildCount())
-                .adult_count(roomDTO.getAdultCount())
                 .available_room(roomDTO.getAvailableRoom())
                 .type_of_room(roomDTO.getTypeOfRoom())
                 .type_of_bed(roomDTO.getTypeOfBed())
@@ -44,12 +42,6 @@ public class RoomService {
             }
             if (roomDTO.getDescription() != null && !roomDTO.getDescription().isEmpty()){
                 existingRoom.setDescription(roomDTO.getDescription());
-            }
-            if(roomDTO.getChildCount() >= 0){
-                existingRoom.setChild_count(roomDTO.getChildCount());
-            }
-            if(roomDTO.getAdultCount() >= 1){
-                existingRoom.setAdult_count(roomDTO.getAdultCount());
             }
             if(roomDTO.getAvailableRoom() >= 0){
                 existingRoom.setAvailable_room(roomDTO.getAvailableRoom());

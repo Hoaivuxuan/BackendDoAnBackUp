@@ -28,6 +28,9 @@ CREATE TABLE hotel (
     longitude FLOAT,
     latitude FLOAT,
     description TEXT,
+    check_in_time TIME,
+    check_out_time TIME,
+    website NVARCHAR(255),
     rating FLOAT,
     city_id INT,
     owner_id INT,
@@ -49,9 +52,10 @@ CREATE TABLE room (
     id INT AUTO_INCREMENT PRIMARY KEY,
     price_per_day FLOAT,
     description TEXT,
-    child_count INT,
-    adult_count INT,
-    available_room INT,
+    max_guests INT,
+    room_size INT,
+    view NVARCHAR(255),
+    available_rooms INT,
     hotel_id INT,
     type_of_room NVARCHAR(255),
     type_of_bed NVARCHAR(255),
@@ -228,16 +232,46 @@ CREATE TABLE booking_ticket (
     CONSTRAINT fk_booking_ticket_user foreign key (user_id) references users(id)
 );
 
-CREATE TABLE evaluation (
+CREATE TABLE review (
     id INT AUTO_INCREMENT PRIMARY key,
-    rating_score FLOAT,
+    rating FLOAT,
     comment TEXT,
-    evaluation DATE,
+    review_date DATE,
     hotel_id INT,
     user_id INT,
     CONSTRAINT fk_evaluation_hotel foreign key (hotel_id) references hotel(id),
     CONSTRAINT fk_evaluation_user foreign key (user_id) references users(id)
 );
+
+CREATE TABLE nearby_attraction (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    distance FLOAT,
+    hotel_id INT,
+    tour_id INT,
+    CONSTRAINT fk_nearby_hotel foreign key (hotel_id) references hotel(id),
+    CONSTRAINT fk_nearby_tour foreign key (tour_id) references tour(id)
+);
+
+CREATE TABLE hotel_policy (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    cancellation_policy NVARCHAR(255),
+    deposit_required NVARCHAR(255),
+    pets_allowed TINYINT(1),
+    smoking_policy NVARCHAR(255),
+    extra_bed_policy NVARCHAR(255),
+    hotel_id INT,
+    CONSTRAINT fk_policy_hotel foreign key (hotel_id) references hotel(id)
+);
+
+CREATE TABLE amenity_for_hotel (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    amenity_id INT,
+    hotel_id INT,
+    CONSTRAINT fk_amenity_for_hotel_amenity FOREIGN KEY (amenity_id) REFERENCES amenity(id),
+    CONSTRAINT fk_amenity_for_hotel_hotel FOREIGN KEY (hotel_id) REFERENCES hotel(id)
+);
+
+
 
 
 

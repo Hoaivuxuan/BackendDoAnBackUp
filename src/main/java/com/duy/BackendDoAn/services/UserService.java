@@ -8,6 +8,7 @@ import com.duy.BackendDoAn.models.*;
 import com.duy.BackendDoAn.repositories.*;
 import com.duy.BackendDoAn.responses.UserResponse;
 import lombok.RequiredArgsConstructor;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -17,6 +18,7 @@ import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.beans.factory.annotation.Value;
 
 import javax.swing.text.html.Option;
 import java.util.Optional;
@@ -26,12 +28,16 @@ import java.util.regex.Pattern;
 @Service
 @RequiredArgsConstructor
 public class UserService {
+
+    @Value("${user.default.avatar-url}")
+    private String unknownUserAvatar;
+
     private final UserRepository userRepository;
     private final JwtTokenUtil jwtTokenUtil;
     private final AuthenticationManager authenticationManager;
     private final PasswordEncoder passwordEncoder;
     private static final Pattern EMAIL = Pattern.compile("([^@]+)@");
-    private static final String unknownUserAvatar = "uploads/UNKNOWN_USER.PNG";
+
 
     public User add(UserRegisterDTO userRegisterDTO) throws Exception {
         if (userRepository.existsByEmail(userRegisterDTO.getEmail())) {
@@ -119,5 +125,4 @@ public class UserService {
         user.setActive(!user.isActive());
         userRepository.save(user);
     }
-
 }

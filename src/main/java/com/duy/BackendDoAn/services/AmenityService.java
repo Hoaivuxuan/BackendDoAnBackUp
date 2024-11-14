@@ -6,6 +6,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -14,5 +15,9 @@ public class AmenityService {
 
     public List<Amenity> getAllAmenities() {
         return amenityRepository.findAll();
+    }
+
+    public Optional<Amenity> getAmenityById(long id) {
+        return amenityRepository.findById(id);
     }
 }

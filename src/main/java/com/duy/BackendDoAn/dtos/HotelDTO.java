@@ -3,6 +3,8 @@ package com.duy.BackendDoAn.dtos;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.*;
 
+import java.time.LocalTime;
+
 @Data
 @Builder
 @AllArgsConstructor
@@ -28,8 +30,16 @@ public class HotelDTO {
     @JsonProperty("latitude")
     private Float latitude;
 
+    @JsonProperty("check_in_time")
+    private LocalTime checkInTime;
+
+    @JsonProperty("check_out_time")
+    private LocalTime checkOutTime;
+
     @JsonProperty("description")
     private String description;
+
+    private String website;
 
     @JsonProperty("rating")
     private Float rating;

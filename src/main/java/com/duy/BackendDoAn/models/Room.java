@@ -1,8 +1,11 @@
 package com.duy.BackendDoAn.models;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.*;
+
+import java.util.List;
 
 @Entity
 @Table(name = "room")
@@ -22,13 +25,16 @@ public class Room {
     @Column(name = "description")
     private String description;
 
-    @Column(name = "child_count")
-    private Long child_count;
+    @Column(name = "max_guests")
+    private Long max_guests;
 
-    @Column(name = "adult_count")
-    private Long adult_count;
+    @Column(name = "room_size")
+    private Long room_size;
 
-    @Column(name = "available_room")
+    @Column(name = "view")
+    private String view;
+
+    @Column(name = "available_rooms")
     private Long available_room;
 
     @Column(name = "type_of_room")
@@ -41,4 +47,8 @@ public class Room {
     @JoinColumn(name = "hotel_id")
     @JsonBackReference
     private Hotel hotel;
+
+    @OneToMany(mappedBy = "room", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JsonManagedReference
+    private List<AmenityForRoom> amenityForRooms;
 }

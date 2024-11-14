@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.time.LocalTime;
 import java.util.List;
 
 @Entity
@@ -39,6 +40,15 @@ public class Hotel {
     @Column(name = "description")
     private String description;
 
+    @Column(name = "check_in_time")
+    private LocalTime check_in_time;
+
+    @Column(name = "check_out_time")
+    private LocalTime check_out_time;
+
+    @Column(name = "website")
+    private String website;
+
     @Column(name = "rating")
     private Float rating;
 
@@ -61,6 +71,23 @@ public class Hotel {
     private List<HotelImage> hotelImages;
 
     @OneToMany(mappedBy = "hotel", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JsonManagedReference
     private List<Room> rooms;
+
+    @OneToMany(mappedBy = "hotel", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JsonManagedReference
+    private List<HotelPolicy> hotelPolicies;
+
+    @OneToMany(mappedBy = "hotel", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JsonManagedReference
+    private List<NearbyAttractions> nearbyAttractions;
+
+    @OneToMany(mappedBy = "hotel", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JsonManagedReference
+    private List<AmenityForHotel> amenityForHotels;
+
+    @OneToMany(mappedBy = "hotel", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JsonManagedReference
+    private List<ReviewHotel> reviews;
 }
 

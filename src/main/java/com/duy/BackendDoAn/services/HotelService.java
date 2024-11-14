@@ -4,7 +4,7 @@ import com.duy.BackendDoAn.dtos.HotelDTO;
 import com.duy.BackendDoAn.dtos.HotelImageDTO;
 import com.duy.BackendDoAn.models.*;
 import com.duy.BackendDoAn.repositories.*;
-import com.duy.BackendDoAn.responses.HotelResponse;
+import com.duy.BackendDoAn.responses.hotels.HotelResponse;
 import com.duy.BackendDoAn.utils.FileUtils;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
@@ -13,6 +13,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -34,6 +35,9 @@ public class HotelService {
                 .hotelEmail(hotelDTO.getHotelEmail())
                 .phone_number(hotelDTO.getPhoneNumber())
                 .address(hotelDTO.getAddress())
+                .check_in_time(hotelDTO.getCheckInTime())
+                .check_out_time(hotelDTO.getCheckOutTime())
+                .website(hotelDTO.getWebsite())
                 .longitude(hotelDTO.getLongitude())
                 .latitude(hotelDTO.getLatitude())
                 .description(hotelDTO.getDescription())
@@ -95,9 +99,9 @@ public class HotelService {
         return hotelImageRepository.save(hotelImage);
     }
 
-    public Page<HotelResponse> getAllHotels(String keyword, int groupAdults, int groupChildren, int noRooms, LocalDate checkin, LocalDate checkout, String type_of_room, Float minRating, Float maxRating, PageRequest pageRequest){
+    public Page<HotelResponse> getAllHotels(String keyword, int noRooms, LocalDate checkin, LocalDate checkout, String type_of_room, Float minRating, Float maxRating, PageRequest pageRequest){
         Page<Hotel> hotelsPage;
-        hotelsPage = hotelRepository.searchHotels(keyword, groupAdults, groupChildren, noRooms, checkin, checkout, type_of_room, minRating, maxRating, pageRequest);
+        hotelsPage = hotelRepository.searchHotels(keyword, noRooms, checkin, checkout, type_of_room, minRating, maxRating, pageRequest);
         return hotelsPage.map(HotelResponse::fromHotel);
     }
 
