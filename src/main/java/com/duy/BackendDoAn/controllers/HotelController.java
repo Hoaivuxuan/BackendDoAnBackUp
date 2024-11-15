@@ -52,7 +52,7 @@ public class HotelController {
             return ResponseEntity.ok(hotelResponse);
         }
         catch (Exception e){
-            return ResponseEntity.badRequest().body(null);
+            return ResponseEntity.badRequest().body(hotelResponse);
         }
     }
 

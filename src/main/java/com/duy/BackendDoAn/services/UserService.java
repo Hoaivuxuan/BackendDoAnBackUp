@@ -110,6 +110,7 @@ public class UserService {
         user.setAddress(userDTO.getAddress());
         user.setFirst_name(userDTO.getFirstName());
         user.setLast_name(userDTO.getLastName());
+        user.setAvatar(userDTO.getAvatar());
         user.setPhone_number(userDTO.getPhoneNumber());
         user.setDate_of_birth(userDTO.getDateOfBirth());
         return userRepository.save(user);
