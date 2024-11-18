@@ -15,7 +15,9 @@ CREATE TABLE users (
 
 CREATE TABLE city (
     id INT AUTO_INCREMENT PRIMARY KEY,
-    city_name NVARCHAR(100) NOT NULL
+    city_name NVARCHAR(100) NOT NULL,
+    type NVARCHAR(100),
+    parent_name NVARCHAR(100)
 );
 
 

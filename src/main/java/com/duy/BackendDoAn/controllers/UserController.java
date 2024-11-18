@@ -50,6 +50,7 @@ public class UserController {
             loginResponse.setId(user.getId());
             loginResponse.setUsername(user.getName());
             loginResponse.setToken(token);
+            loginResponse.setRole(user.getRole());
             loginResponse.setMessage("Login successfully");
             return ResponseEntity.ok(loginResponse);
         } catch (Exception e) {

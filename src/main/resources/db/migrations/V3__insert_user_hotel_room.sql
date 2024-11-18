@@ -1,7 +1,7 @@
 --
 INSERT INTO hotel (address, check_in_time, check_out_time, city_id, description, hotel_email, hotel_name, latitude, longitude, owner_id, phone_number, rating, status, type_of_hotel, website)
 VALUES
-('123 Main St', '14:00', '12:00', 1, 'Located in the heart of the city', 'info@cityhotel.com', 'City Hotel', 21.0285, 105.8542, 1, '0909123456', 4.5, 'confirmed', 'Luxury', 'www.cityhotel.com'),
+('123 Main St', '14:00', '12:00', 9, 'Located in the heart of the city', 'info@cityhotel.com', 'City Hotel', 21.0285, 105.8542, 1, '0909123456', 4.5, 'confirmed', 'Luxury', 'www.cityhotel.com'),
 
 ('456 Beach Ave', '15:00', '11:00', 2, 'Beachfront hotel with stunning ocean views', 'contact@beachresort.com', 'Beach Resort', 20.9951, 105.8689, 1, '0909987654', 4.8, 'confirmed', 'Resort', 'www.beachresort.com'),
 

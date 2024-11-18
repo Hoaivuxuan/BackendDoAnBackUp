@@ -17,4 +17,10 @@ public class City {
 
     @Column(name = "city_name", length = 100)
     private String city_name;
+
+    @Column(name = "type")
+    private String type;
+
+    @Column(name = "parent_name")
+    private String parent;
 }

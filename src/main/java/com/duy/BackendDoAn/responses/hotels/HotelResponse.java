@@ -3,6 +3,7 @@ package com.duy.BackendDoAn.responses.hotels;
 import com.duy.BackendDoAn.models.Hotel;
 import com.duy.BackendDoAn.models.HotelImage;
 import com.duy.BackendDoAn.responses.RoomResponse;
+import com.duy.BackendDoAn.responses.cities.CityResponse;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.*;
 
@@ -31,7 +32,7 @@ public class HotelResponse {
     private String address;
 
     @JsonProperty("city")
-    private String city;
+    private CityResponse city;
 
     @JsonProperty("location")
     private LocationResponse locationResponse;
@@ -74,7 +75,9 @@ public class HotelResponse {
         response.typeOfHotel = hotel.getType_of_hotel();
         response.description = hotel.getDescription();
         response.address = hotel.getAddress();
-        response.city = hotel.getCity().getCity_name();
+        if (hotel.getCity() != null) {
+            response.city = CityResponse.fromCity(hotel.getCity());
+        }
 
         // Check if nearbyAttractions is null
         response.locationResponse = (hotel.getNearbyAttractions() != null)
