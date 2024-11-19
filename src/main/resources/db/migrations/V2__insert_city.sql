@@ -1,4 +1,4 @@
-INSERT INTO city (city_name, type, parent_name)
+INSERT INTO city (city_name, type, parent_id)
 VALUES
 ('Hà Nội', 'Thành phố', NULL),
 ('Hồ Chí Minh', 'Thành phố', NULL),
@@ -7,8 +7,8 @@ VALUES
 ('Cần Thơ', 'Thành phố', NULL),
 ('Biên Hòa', 'Tỉnh', NULL),
 ('Nha Trang', 'Tỉnh', NULL),
-('Hoàn Kiếm', 'Quận', 'Hà Nội'),
-('Ba Đình', 'Quận', 'Hà Nội');
+('Hoàn Kiếm', 'Quận', 1),
+('Ba Đình', 'Quận', 1);
 
 INSERT INTO users (name, first_name, last_name, phone_number, email, address, date_of_birth, active, password, role)
 VALUES

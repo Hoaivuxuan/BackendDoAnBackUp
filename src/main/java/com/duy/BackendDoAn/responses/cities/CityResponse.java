@@ -24,10 +24,7 @@ public class CityResponse {
         return new CityResponse(
                 city.getCity_name(),
                 city.getType(),
-                city.getParent()
+                city.getParent() != null ? city.getParent().getCity_name() : null
         );
     }
-
-
-
 }

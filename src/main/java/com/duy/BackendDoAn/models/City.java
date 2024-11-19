@@ -21,6 +21,7 @@ public class City {
     @Column(name = "type")
     private String type;
 
-    @Column(name = "parent_name")
-    private String parent;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "parent_id")
+    private City parent;
 }
