@@ -60,6 +60,29 @@ public class UserService {
         return userRepository.save(newUser);
     }
 
+    public User addAdmin(UserRegisterDTO userRegisterDTO) throws Exception {
+        if (userRepository.existsByEmail(userRegisterDTO.getEmail())) {
+            throw new DataIntegrityViolationException("Email already been used");
+        }
+        if (!userRegisterDTO.getPassword().equals(userRegisterDTO.getConfirmPassword())) {
+            throw new Exception("Password and Confirm password doesn't match");
+        }
+        User newUser = User.builder()
+                .name(getUsernameFromEmail(userRegisterDTO.getEmail()))
+                .avatar(unknownUserAvatar)
+                .email(userRegisterDTO.getEmail())
+                .active(true)
+                .password(userRegisterDTO.getPassword())
+                .role(Optional.ofNullable(userRegisterDTO.getRole()).orElse("ADMIN"))
+                .build();
+        String password = userRegisterDTO.getPassword();
+        String encodedPassword = passwordEncoder.encode(password);
+        newUser.setPassword(encodedPassword);
+        return userRepository.save(newUser);
+    }
+
+
+
     public static String getUsernameFromEmail(String email) {
         Matcher matcher = EMAIL.matcher(email);
         if (matcher.find()) {

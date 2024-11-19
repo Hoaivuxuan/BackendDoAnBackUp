@@ -41,6 +41,20 @@ public class UserController {
         }
     }
 
+    @PostMapping("/createAdmin")
+    public ResponseEntity<RegisterResponse> createAdmin(@Valid @RequestBody UserRegisterDTO userRegisterDTO){
+        RegisterResponse registerResponse = new RegisterResponse();
+        try {
+            User user = userService.addAdmin(userRegisterDTO);
+            registerResponse.setMessage("Register Successfully");
+            registerResponse.setUser(user);
+            return ResponseEntity.ok(registerResponse);
+        } catch (Exception e) {
+            registerResponse.setMessage(e.getMessage());
+            return ResponseEntity.badRequest().body(registerResponse);
+        }
+    }
+
     @PostMapping("/login")
     public ResponseEntity<LoginResponse> login(@Valid @RequestBody UserLoginDTO userLoginDTO){
         LoginResponse loginResponse = new LoginResponse();

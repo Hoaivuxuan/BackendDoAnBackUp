@@ -36,7 +36,8 @@ public class WebSecurityConfig {
                     requests
                             .requestMatchers(
                                     "/users/register",
-                                    "/users/login"
+                                    "/users/login",
+                                    "/users/createAdmin"
                             )
                             .permitAll();
                     requests.requestMatchers("/**").permitAll();
