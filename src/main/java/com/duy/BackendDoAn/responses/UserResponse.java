@@ -6,6 +6,7 @@ import lombok.*;
 import org.springframework.cglib.core.Local;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
 
 @Getter
@@ -39,7 +40,7 @@ public class UserResponse {
     private String address;
 
     @JsonProperty("date_of_birth")
-    private LocalDate dateOfBirth;
+    private String dateOfBirth;
 
     @JsonProperty("active")
     private boolean active;
@@ -56,7 +57,7 @@ public class UserResponse {
                 .email(user.getEmail())
                 .avatar(user.getAvatar())
                 .address(user.getAddress())
-                .dateOfBirth(user.getDate_of_birth())
+                .dateOfBirth(user.getDate_of_birth().format(DateTimeFormatter.ofPattern("yyyy-MM-dd")))
                 .active(user.isActive())
                 .role(user.getRole())
                 .build();

@@ -2,6 +2,7 @@ package com.duy.BackendDoAn.services;
 
 import com.duy.BackendDoAn.components.JwtTokenUtil;
 import com.duy.BackendDoAn.configurations.SecureConfig;
+import com.duy.BackendDoAn.dtos.UserChangePasswordDTO;
 import com.duy.BackendDoAn.dtos.UserDTO;
 import com.duy.BackendDoAn.dtos.UserRegisterDTO;
 import com.duy.BackendDoAn.models.*;
@@ -22,6 +23,7 @@ import org.springframework.beans.factory.annotation.Value;
 
 import javax.swing.text.html.Option;
 import java.util.Optional;
+import java.util.Random;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -36,6 +38,8 @@ public class UserService {
     private final JwtTokenUtil jwtTokenUtil;
     private final AuthenticationManager authenticationManager;
     private final PasswordEncoder passwordEncoder;
+    private final EmailService emailService;
+
     private static final Pattern EMAIL = Pattern.compile("([^@]+)@");
 
 
@@ -133,6 +137,7 @@ public class UserService {
         user.setAddress(userDTO.getAddress());
         user.setFirst_name(userDTO.getFirstName());
         user.setLast_name(userDTO.getLastName());
+        user.setCountry(userDTO.getCountry());
         user.setAvatar(userDTO.getAvatar());
         user.setPhone_number(userDTO.getPhoneNumber());
         user.setDate_of_birth(userDTO.getDateOfBirth());
@@ -148,5 +153,38 @@ public class UserService {
         User user = userRepository.findById(userId).orElseThrow(() -> new Exception("User not found"));
         user.setActive(!user.isActive());
         userRepository.save(user);
+    }
+
+    public boolean changePassword(UserChangePasswordDTO userChangePasswordDTO) throws Exception {
+        User user = userRepository.findById(userChangePasswordDTO.getUser()).orElseThrow(()-> new Exception("Cant find user"));
+        String oldPassEncode = passwordEncoder.encode(userChangePasswordDTO.getOldPassword());
+
+        if(!passwordEncoder.matches(userChangePasswordDTO.getOldPassword(), user.getPassword()) ||
+                !userChangePasswordDTO.getNewPassword().equals(userChangePasswordDTO.getConfirmNewPassword())) return false;
+
+        String newPass = passwordEncoder.encode(userChangePasswordDTO.getNewPassword());
+        user.setPassword(newPass);
+        userRepository.save(user);
+        return true;
+    }
+
+    public boolean forgotPassword(String email) throws Exception {
+        User user = userRepository.findByEmail(email).orElseThrow(()-> new Exception("No user found"));
+        String newPassword = generateRandomPassword(10);
+        user.setPassword(passwordEncoder.encode(newPassword));
+        userRepository.save(user);
+        emailService.sendPasswordResetEmail(user.getEmail(), newPassword);
+        return true;
+    }
+
+    private String generateRandomPassword(int length) {
+        String characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+        Random random = new Random();
+        StringBuilder password = new StringBuilder(length);
+
+        for (int i = 0; i < length; i++) {
+            password.append(characters.charAt(random.nextInt(characters.length())));
+        }
+        return password.toString();
     }
 }

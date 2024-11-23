@@ -1,5 +1,8 @@
 package com.duy.BackendDoAn.utils;
 
+import com.google.cloud.storage.Blob;
+import com.google.cloud.storage.Bucket;
+import com.google.firebase.cloud.StorageClient;
 import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 import org.apache.commons.io.FilenameUtils;
@@ -44,6 +47,21 @@ public class FileUtils {
         // Sao chép file vào thư mục đích
         Files.copy(file.getInputStream(), destination, StandardCopyOption.REPLACE_EXISTING);
         return uniqueFilename;
+    }
+
+    public static String uploadToFirebase(MultipartFile file) throws Exception {
+        try {
+            // Tạo tên file unique
+            String fileName = UUID.randomUUID().toString() + "_" + file.getOriginalFilename();
+            Bucket bucket = StorageClient.getInstance().bucket();
+            Blob blob = bucket.create(fileName, file.getBytes(), file.getContentType());
+
+            // Trả về URL công khai của file
+            return String.format("https://firebasestorage.googleapis.com/v0/b/%s/o/%s?alt=media",
+                    bucket.getName(), fileName);
+        } catch (Exception e) {
+            throw new Exception("Failed to upload file to Firebase", e);
+        }
     }
 
 }

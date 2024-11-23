@@ -8,9 +8,11 @@ import com.duy.BackendDoAn.repositories.HotelRepository;
 import com.duy.BackendDoAn.repositories.ReviewHotelRepository;
 import com.duy.BackendDoAn.repositories.UserRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -18,9 +20,14 @@ public class ReviewHotelService {
     private final ReviewHotelRepository reviewHotelRepository;
     private final HotelRepository hotelRepository;
     private final UserRepository userRepository;
+    private final HotelService hotelService;
+    private final UserService userService;
+
     public ReviewHotel postNewReview(ReviewDTO reviewDTO) throws Exception {
         Hotel hotel = hotelRepository.findById(reviewDTO.getHotel()).orElseThrow(()-> new Exception("Hotel not found"));
         User user = userRepository.findById(reviewDTO.getUser()).orElseThrow(()-> new Exception("User not found"));
+        boolean existed = reviewHotelRepository.existsByUserIdAndHotelId(reviewDTO.getUser(), reviewDTO.getHotel());
+        if(existed) throw new IllegalStateException("User already rate this hotel");
         ReviewHotel reviewHotel = ReviewHotel.builder()
                 .rating(reviewDTO.getRating())
                 .comment(reviewDTO.getComment())
@@ -28,7 +35,21 @@ public class ReviewHotelService {
                 .hotel(hotel)
                 .user(user)
                 .build();
+        hotelService.updateRatingOnAddNewReview(reviewDTO.getHotel(), reviewDTO.getRating());
         return reviewHotelRepository.save(reviewHotel);
     }
 
+    public boolean deleteReview(long id, String extractedToken) throws Exception {
+        ReviewHotel reviewHotel = reviewHotelRepository.findById(id).orElseThrow(()-> new Exception("Review doesnt exist!"));
+
+        User nowUser = userService.getUserDetailFromToken(extractedToken);
+        if(reviewHotel.getUser() != nowUser){
+            return false;
+        }
+        hotelService.updateRatingOnDeleteReview(reviewHotel.getHotel().getId(), reviewHotel.getRating());
+        reviewHotelRepository.delete(reviewHotel);
+        return true;
+    }
+
+    
 }

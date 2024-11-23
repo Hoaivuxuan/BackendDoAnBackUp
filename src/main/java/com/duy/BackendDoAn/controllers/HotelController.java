@@ -57,32 +57,35 @@ public class HotelController {
     }
 
     @PostMapping(value = "/uploads/{id}", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-    public ResponseEntity<?> uploadImages(@PathVariable("id") long hotelId, @RequestParam("files")List<MultipartFile> files){
+    public ResponseEntity<?> uploadImages(@PathVariable("id") long hotelId, @RequestParam("files") List<MultipartFile> files) {
         try {
             Hotel existingHotel = hotelService.getHotelById(hotelId);
-            files = files == null ? new ArrayList<MultipartFile>() : files;
-            if(files.size() > 5){
-                return ResponseEntity.badRequest().body("More than 5 image for a hotel");
+            files = files == null ? new ArrayList<>() : files;
+            if (files.size() > 5) {
+                return ResponseEntity.badRequest().body("More than 5 images for a hotel");
             }
+
             List<HotelImage> hotelImages = new ArrayList<>();
-            for(MultipartFile file: files){
-                if(file.getSize() == 0){
+            for (MultipartFile file : files) {
+                if (file.getSize() == 0) {
                     continue;
                 }
 
-                if(file.getSize() > 10 * 1024 * 1024) {
+                if (file.getSize() > 10 * 1024 * 1024) {
                     return ResponseEntity.status(HttpStatus.PAYLOAD_TOO_LARGE).body("File size bigger than 10MB");
                 }
-                String filename = FileUtils.storeFile(file);
-                HotelImage hotelImage = hotelService.createHotelImage(existingHotel.getId(), HotelImageDTO.builder().hotel(existingHotel.getId()).imageUrl(filename).build());
+
+                String imageUrl = FileUtils.uploadToFirebase(file);
+                HotelImage hotelImage = hotelService.createHotelImage(existingHotel.getId(),
+                        HotelImageDTO.builder().hotel(existingHotel.getId()).imageUrl(imageUrl).build());
                 hotelImages.add(hotelImage);
             }
             return ResponseEntity.ok().body(hotelImages);
-        }
-        catch (Exception e){
+        } catch (Exception e) {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
+
 
 
     @PutMapping("/{id}")
@@ -114,6 +117,8 @@ public class HotelController {
             @RequestParam(name = "type_of_room") String typeOfRoom,
             @RequestParam Float minRating,
             @RequestParam Float maxRating,
+//            @RequestParam Long noAdults,
+//            @RequestParam Long noChildren,
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "10") int limit
     ) {
@@ -145,4 +150,6 @@ public class HotelController {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
+
+
 }

@@ -1,5 +1,6 @@
 package com.duy.BackendDoAn.controllers;
 
+import com.duy.BackendDoAn.dtos.UserChangePasswordDTO;
 import com.duy.BackendDoAn.dtos.UserDTO;
 import com.duy.BackendDoAn.dtos.UserLoginDTO;
 import com.duy.BackendDoAn.dtos.UserRegisterDTO;
@@ -118,5 +119,17 @@ public class UserController {
     public ResponseEntity<String> switchUserActive(@PathVariable Long userID) throws Exception {
         userService.switchActive(userID);
         return ResponseEntity.ok("Switch successfully");
+    }
+
+    @PostMapping("/change-password")
+    public ResponseEntity<String> changePassword(@RequestBody UserChangePasswordDTO userChangePasswordDTO) throws Exception {
+        boolean result = userService.changePassword(userChangePasswordDTO);
+        return (result ? ResponseEntity.ok("Change password successfully") : ResponseEntity.badRequest().body("Changing uncomplete!"));
+    }
+
+    @PostMapping("/forgot-password")
+    public ResponseEntity<String> forgotPassword(@RequestParam String email) throws Exception {
+        boolean result = userService.forgotPassword(email);
+        return (result ? ResponseEntity.ok("A mail containing new password delivered!") : ResponseEntity.badRequest().body("Forgot password uncomplete!"));
     }
 }

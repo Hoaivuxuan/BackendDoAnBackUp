@@ -35,6 +35,9 @@ public class UserDTO {
     @JsonProperty("email")
     private String email;
 
+    @JsonProperty("country")
+    private String country;
+
     @JsonProperty("address")
     private String address;
 

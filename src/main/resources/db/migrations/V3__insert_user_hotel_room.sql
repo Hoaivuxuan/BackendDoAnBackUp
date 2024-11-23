@@ -1,15 +1,15 @@
 --
-INSERT INTO hotel (address, check_in_time, check_out_time, city_id, description, hotel_email, hotel_name, latitude, longitude, owner_id, phone_number, rating, status, type_of_hotel, website)
+INSERT INTO hotel (address, check_in_time, check_out_time, city_id, description, hotel_email, hotel_name, latitude, longitude, owner_id, phone_number, rating, total_rating, review_count, status, type_of_hotel, website)
 VALUES
-('123 Main St', '14:00', '12:00', 9, 'Located in the heart of the city', 'info@cityhotel.com', 'City Hotel', 21.0285, 105.8542, 1, '0909123456', 4.5, 'confirmed', 'Luxury', 'www.cityhotel.com'),
+('123 Main St', '14:00', '12:00', 9, 'Located in the heart of the city', 'info@cityhotel.com', 'City Hotel', 21.0285, 105.8542, 1, '0909123456', 0, 0, 0,'confirmed', 'Luxury', 'www.cityhotel.com'),
 
-('456 Beach Ave', '15:00', '11:00', 2, 'Beachfront hotel with stunning ocean views', 'contact@beachresort.com', 'Beach Resort', 20.9951, 105.8689, 1, '0909987654', 4.8, 'confirmed', 'Resort', 'www.beachresort.com'),
+('456 Beach Ave', '15:00', '11:00', 2, 'Beachfront hotel with stunning ocean views', 'contact@beachresort.com', 'Beach Resort', 20.9951, 105.8689, 1, '0909987654', 0,0, 0, 'confirmed', 'Resort', 'www.beachresort.com'),
 
-('789 Mountain Rd', '13:00', '10:00', 3, 'Cozy mountain retreat ideal for relaxation', 'stay@mountainlodge.com', 'Mountain Lodge', 22.1234, 104.2234, 1, '0912345678', 4.3, 'waiting', 'Lodge', 'www.mountainlodge.com'),
+('789 Mountain Rd', '13:00', '10:00', 3, 'Cozy mountain retreat ideal for relaxation', 'stay@mountainlodge.com', 'Mountain Lodge', 22.1234, 104.2234, 1, '0912345678', 0,0, 0, 'waiting', 'Lodge', 'www.mountainlodge.com'),
 
-('101 Skyview Dr', '14:00', '12:00', 1, 'High-rise hotel with panoramic views of the city skyline', 'skyview@luxurytower.com', 'Luxury Tower', 21.1235, 105.8745, 1, '0911122334', 4.9, 'confirmed', 'Luxury', 'www.luxurytower.com'),
+('101 Skyview Dr', '14:00', '12:00', 1, 'High-rise hotel with panoramic views of the city skyline', 'skyview@luxurytower.com', 'Luxury Tower', 21.1235, 105.8745, 1, '0911122334', 0,0, 0, 'confirmed', 'Luxury', 'www.luxurytower.com'),
 
-('222 Countryside Lane', '16:00', '11:00', 4, 'Peaceful retreat located in the countryside', 'contact@farmstay.com', 'Farmstay Retreat', 20.8765, 106.5432,1, '0909234567', 4.2, 'refused', 'Farmstay', 'www.farmstayretreat.com');
+('222 Countryside Lane', '16:00', '11:00', 4, 'Peaceful retreat located in the countryside', 'contact@farmstay.com', 'Farmstay Retreat', 20.8765, 106.5432,1, '0909234567', 0,0, 0, 'refused', 'Farmstay', 'www.farmstayretreat.com');
 
 
 INSERT INTO room (available_rooms, description, hotel_id, max_guests, price_per_day, room_size, type_of_bed, type_of_room, view)
@@ -37,9 +37,6 @@ INSERT INTO nearby_attraction (distance, hotel_id, tour_id)
 VALUES
 (4, 1, 1);
 
-INSERT INTO review (rating, comment, review_date, hotel_id, user_id)
-VALUES
-(4, 'Great experience, highly recommended!', '2024-11-14', 1, 1);
 
 INSERT INTO hotel_image (image_url, hotel_id)
 VALUES

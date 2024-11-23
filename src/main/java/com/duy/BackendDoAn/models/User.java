@@ -40,6 +40,9 @@ public class User implements UserDetails {
     @Column(name = "avatar", length = 254)
     private String avatar;
 
+    @Column(name = "country", length = 254)
+    private String country;
+
     @Column(name = "email", length = 254, nullable = false)
     private String email;
 

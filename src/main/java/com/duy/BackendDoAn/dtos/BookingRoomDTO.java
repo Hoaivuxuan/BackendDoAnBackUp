@@ -17,6 +17,9 @@ public class BookingRoomDTO {
     @JsonProperty("booking_date")
     private LocalDate bookingDate;
 
+    private Long adults;
+    private Long children;
+
     @JsonProperty("check_in_date")
     private LocalDate checkInDate;
 

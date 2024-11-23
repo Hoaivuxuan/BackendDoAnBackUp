@@ -11,7 +11,7 @@ import com.duy.BackendDoAn.repositories.BookedRoomRepository;
 import com.duy.BackendDoAn.repositories.BookingRoomRepository;
 import com.duy.BackendDoAn.repositories.RoomRepository;
 import com.duy.BackendDoAn.repositories.UserRepository;
-import com.duy.BackendDoAn.responses.BookingRoomResponse;
+import com.duy.BackendDoAn.responses.bookingRooms.BookingRoomResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -32,17 +32,21 @@ public class BookingRoomService {
     private final RoomRepository roomRepository;
     private final BookedRoomRepository bookedRoomRepository;
     private final JwtTokenUtil jwtTokenUtil;
+
     public BookingRoom createBooking (BookingRoomDTO bookingRoomDTO) throws Exception {
         User user = userRepository.findById(bookingRoomDTO.getUser()).orElseThrow(()-> new Exception("User not found"));
         BookingRoom newBookingRoom = BookingRoom.builder()
                 .booking_date(LocalDate.now())
+                .adults(bookingRoomDTO.getAdults())
+                .children(bookingRoomDTO.getChildren())
                 .check_in_date(bookingRoomDTO.getCheckInDate())
                 .check_out_date(bookingRoomDTO.getCheckOutDate())
                 .status(bookingRoomDTO.getStatus())
                 .user(user)
                 .build();
         Float total = 0F;
-        long days = ChronoUnit.DAYS.between(newBookingRoom.getCheck_out_date(), newBookingRoom.getCheck_in_date());
+        Long totalRoom = 0L;
+        long days = ChronoUnit.DAYS.between(newBookingRoom.getCheck_in_date(), newBookingRoom.getCheck_out_date());
         List<BookedRoom> instanceBookedRoom = new ArrayList<>();
         for (BookedRoomDTO bookedRoomDTO : bookingRoomDTO.getBookedRooms()){
             Room room = roomRepository.findById(bookedRoomDTO.getRoom()).orElseThrow(()-> new Exception("Room not found"));
@@ -57,9 +61,11 @@ public class BookingRoomService {
                 room.setAvailable_room(room.getAvailable_room() - bookedRoom.getAmount());
             }
             roomRepository.save(room);
+            totalRoom += bookedRoom.getAmount();
             total += bookedRoom.getPrice_per();
         }
         newBookingRoom.setTotal_price(total);
+        newBookingRoom.setTotal_rooms(totalRoom);
         newBookingRoom.setBookedRooms(instanceBookedRoom);
         bookingRoomRepository.save(newBookingRoom);
         bookedRoomRepository.saveAll(instanceBookedRoom);
@@ -76,10 +82,10 @@ public class BookingRoomService {
         User user = optionalUser.orElseThrow(() -> new Exception("User not found"));
         if(user.getRole().equals("ADMIN")) {
             Page<BookingRoom> bookingRoomPage = bookingRoomRepository.findAll(pageRequest);
-            return bookingRoomPage.map(BookingRoomResponse::fromBookingRoom);
+            return bookingRoomPage.map(BookingRoomResponse::fromBooking);
         } else if (user.getRole().equals("USER")) {
             Page<BookingRoom> bookingRoomPage = bookingRoomRepository.findByUser(user, pageRequest);
-            return bookingRoomPage.map(BookingRoomResponse::fromBookingRoom);
+            return bookingRoomPage.map(BookingRoomResponse::fromBooking);
         }
         return null;
     }

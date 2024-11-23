@@ -86,18 +86,19 @@ public class HotelService {
         return null;
     }
 
-    public HotelImage createHotelImage(Long id, HotelImageDTO hotelImageDTO) throws Exception{
+    public HotelImage createHotelImage(Long id, HotelImageDTO hotelImageDTO) throws Exception {
         Hotel existingHotel = getHotelById(id);
         HotelImage hotelImage = HotelImage.builder()
                 .hotel(existingHotel)
                 .image_url(hotelImageDTO.getImageUrl())
                 .build();
         int size = hotelImageRepository.countByHotelId(id);
-        if(size > HotelImage.MAX_IMAGES_PER_HOTEL){
-            throw new Exception("Number of images more than "+HotelImage.MAX_IMAGES_PER_HOTEL);
+        if (size >= HotelImage.MAX_IMAGES_PER_HOTEL) {
+            throw new Exception("Number of images more than " + HotelImage.MAX_IMAGES_PER_HOTEL);
         }
         return hotelImageRepository.save(hotelImage);
     }
+
 
     public Page<HotelResponse> getAllHotels(String keyword, int noRooms, LocalDate checkin, LocalDate checkout, String type_of_room, Float minRating, Float maxRating, PageRequest pageRequest){
         Page<Hotel> hotelsPage;
@@ -111,5 +112,22 @@ public class HotelService {
         optionalHotel.ifPresent(hotelRepository::delete);
     }
 
+    public void updateRatingOnDeleteReview(Long id, Long rating) throws Exception {
+        Hotel hotel = hotelRepository.findById(id).orElseThrow(()-> new Exception("Hotel not exist"));
+        hotel.setTotalRating(hotel.getTotalRating() - rating);
+        hotel.setReviewCount(hotel.getReviewCount()-1);
+        float average = (float) hotel.getTotalRating() / hotel.getReviewCount();
+        hotel.setRating(Math.round(average * 10.0f) / 10.0f);
+        hotelRepository.save(hotel);
+    }
+
+    public void updateRatingOnAddNewReview(Long id, long newRating) throws Exception {
+        Hotel hotel = hotelRepository.findById(id).orElseThrow(()-> new Exception("Hotel doesnt exist"));
+        hotel.setTotalRating(hotel.getTotalRating()+newRating);
+        hotel.setReviewCount(hotel.getReviewCount() +1);
+        float average = (float) hotel.getTotalRating() / hotel.getReviewCount();
+        hotel.setRating(Math.round(average * 10.0f) / 10.0f);
+        hotelRepository.save(hotel);
+    }
 
 }

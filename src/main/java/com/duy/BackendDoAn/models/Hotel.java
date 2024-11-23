@@ -52,6 +52,12 @@ public class Hotel {
     @Column(name = "rating")
     private Float rating;
 
+    @Column(name = "total_rating")
+    private Long totalRating;
+
+    @Column(name = "review_count")
+    private Long reviewCount;
+
     @Column(name = "status")
     private String hotelStatus;
 

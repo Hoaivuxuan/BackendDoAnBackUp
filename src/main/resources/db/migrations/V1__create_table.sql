@@ -6,6 +6,7 @@ CREATE TABLE users (
     phone_number varchar(20) unique,
     avatar varchar(255),
     email varchar(255) not null unique,
+    country varchar(255),
     address varchar(255),
     date_of_birth DATE,
     active TINYINT(1),
@@ -34,6 +35,8 @@ CREATE TABLE hotel (
     check_out_time TIME,
     website NVARCHAR(255),
     rating FLOAT,
+    total_rating INT,
+    review_count INT,
     city_id INT,
     owner_id INT,
     status NVARCHAR(255),
@@ -81,9 +84,12 @@ create table amenity_for_room (
 CREATE TABLE booking_room (
     id INT AUTO_INCREMENT PRIMARY KEY,
     booking_date DATE,
+    adults INT,
+    children INT,
     check_in_date DATE,
     check_out_date DATE,
     total_price FLOAT,
+    total_rooms INT,
     status NVARCHAR(255),
     user_id INT,
     CONSTRAINT fk_booking_room_users foreign key (user_id) references users(id)
@@ -236,7 +242,7 @@ CREATE TABLE booking_ticket (
 
 CREATE TABLE review (
     id INT AUTO_INCREMENT PRIMARY key,
-    rating FLOAT,
+    rating INT,
     comment TEXT,
     review_date DATE,
     hotel_id INT,

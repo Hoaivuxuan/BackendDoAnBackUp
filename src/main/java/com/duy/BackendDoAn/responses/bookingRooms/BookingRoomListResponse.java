@@ -1,5 +1,6 @@
-package com.duy.BackendDoAn.responses;
+package com.duy.BackendDoAn.responses.bookingRooms;
 
+import com.duy.BackendDoAn.responses.bookingRooms.BookingRoomResponse;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

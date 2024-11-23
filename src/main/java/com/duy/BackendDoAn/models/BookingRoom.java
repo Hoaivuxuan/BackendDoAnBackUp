@@ -25,6 +25,12 @@ public class BookingRoom {
     @Column(name = "booking_date")
     private LocalDate booking_date;
 
+    @Column(name = "adults")
+    private Long adults;
+
+    @Column(name = "children")
+    private Long children;
+
     @Column(name = "check_in_date")
     private LocalDate check_in_date;
 
@@ -33,6 +39,9 @@ public class BookingRoom {
 
     @Column(name = "total_price")
     private Float total_price;
+
+    @Column(name = "total_rooms")
+    private Long total_rooms;
 
     @ManyToOne
     @JoinColumn(name = "user_id")
@@ -47,8 +56,8 @@ public class BookingRoom {
 
     public Hotel getHotel() {
         if (bookedRooms != null && !bookedRooms.isEmpty()) {
-            BookedRoom bookedRoom = bookedRooms.get(0); // Lấy một phòng đã đặt
-            return bookedRoom.getRoom().getHotel(); // Truy xuất khách sạn từ phòng đã đặt
+            BookedRoom bookedRoom = bookedRooms.get(0);
+            return bookedRoom.getRoom().getHotel();
         }
         return null;
     }

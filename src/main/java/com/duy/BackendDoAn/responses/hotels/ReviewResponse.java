@@ -30,7 +30,7 @@ public class ReviewResponse {
 
     public static ReviewResponse fromReviews(Hotel hotel){
         ReviewResponse response = new ReviewResponse();
-        response.totalReviews = (long) hotel.getReviews().size();
+        response.totalReviews = hotel.getTotalRating();
         response.averageRating = hotel.getRating();
 
         List<ReviewHotel> reviews = hotel.getReviews();
