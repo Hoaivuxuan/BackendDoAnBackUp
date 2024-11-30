@@ -27,6 +27,6 @@ public class NearbyAttractions {
     private Hotel hotel;
 
     @ManyToOne
-    @JoinColumn(name = "tour_id")
-    private Tour tour;
+    @JoinColumn(name = "attraction_id")
+    private Attraction attraction;
 }

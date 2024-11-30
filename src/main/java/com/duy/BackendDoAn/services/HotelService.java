@@ -28,7 +28,6 @@ public class HotelService {
     @Transactional
     public Hotel requestAddHotel(HotelDTO hotelDTO) throws Exception{
         City city = cityRepository.findById(hotelDTO.getCity()).orElseThrow(() -> new Exception("Not support this province"));
-        User owner = userRepository.findById(hotelDTO.getOwner()).orElseThrow(() -> new Exception("Not support this owner"));
 
         Hotel newHotel = Hotel.builder()
                 .hotelName(hotelDTO.getHotelName())
@@ -42,11 +41,9 @@ public class HotelService {
                 .latitude(hotelDTO.getLatitude())
                 .description(hotelDTO.getDescription())
                 .rating(hotelDTO.getRating())
-                .hotelStatus("WAITING")
                 .type_of_hotel(hotelDTO.getTypeOfHotel())
                 .build();
         newHotel.setCity(city);
-        newHotel.setOwner(owner);
         return hotelRepository.save(newHotel);
     }
 

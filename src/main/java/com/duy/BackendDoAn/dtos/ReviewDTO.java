@@ -16,8 +16,8 @@ public class ReviewDTO {
     @JsonProperty("comment")
     private String comment;
 
-    @JsonProperty("hotel_id")
-    private Long hotel;
+    @JsonProperty("product_id")
+    private Long product;
 
     @JsonProperty("user_id")
     private Long user;

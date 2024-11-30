@@ -19,8 +19,7 @@ import java.util.List;
 @Builder
 public class BookingRoom {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private String id;
 
     @Column(name = "booking_date")
     private LocalDate booking_date;

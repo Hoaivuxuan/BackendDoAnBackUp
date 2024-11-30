@@ -19,10 +19,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
-import java.util.Set;
+import java.util.*;
 
 @Service
 @RequiredArgsConstructor
@@ -35,7 +32,9 @@ public class BookingRoomService {
 
     public BookingRoom createBooking (BookingRoomDTO bookingRoomDTO) throws Exception {
         User user = userRepository.findById(bookingRoomDTO.getUser()).orElseThrow(()-> new Exception("User not found"));
+        String id = generateUniqueBookingRoomId();
         BookingRoom newBookingRoom = BookingRoom.builder()
+                .id(id)
                 .booking_date(LocalDate.now())
                 .adults(bookingRoomDTO.getAdults())
                 .children(bookingRoomDTO.getChildren())
@@ -90,11 +89,11 @@ public class BookingRoomService {
         return null;
     }
 
-    public BookingRoom getBookingById(long id){
+    public BookingRoom getBookingById(String id){
         return bookingRoomRepository.findById(id).orElseThrow(()-> new RuntimeException("Booking not found"));
     }
 
-    public void deleteBookingRoom(long id) throws Exception {
+    public void deleteBookingRoom(String id) throws Exception {
         BookingRoom bookingRoom = bookingRoomRepository.findById(id).orElseThrow(()-> new Exception("Booking not found"));
         if(bookingRoom!= null){
             bookingRoom.setStatus("CANCELLED");
@@ -102,7 +101,7 @@ public class BookingRoomService {
         }
     }
 
-    public BookingRoom updateStatusBooking(long id, BookingRoomDTO bookingRoomDTO) throws Exception {
+    public BookingRoom updateStatusBooking(String id, BookingRoomDTO bookingRoomDTO) throws Exception {
         BookingRoom bookingRoom = bookingRoomRepository.findById(id).orElseThrow(()-> new Exception("Booking not found"));
         Set<String> validStatuses = Set.of("CONFIRMED", "WAITING", "REFUSED");
         if(!validStatuses.contains(bookingRoomDTO.getStatus().toUpperCase())){
@@ -110,5 +109,24 @@ public class BookingRoomService {
         }
         bookingRoom.setStatus(bookingRoomDTO.getStatus());
         return bookingRoomRepository.save(bookingRoom);
+    }
+
+    public String generateUniqueBookingRoomId() {
+        String uniqueId;
+        boolean isUnique;
+
+        do {
+            uniqueId = generateRandomId();
+            isUnique = !bookingRoomRepository.existsById(uniqueId);  // Kiểm tra xem ID đã tồn tại trong DB chưa
+        } while (!isUnique);  // Nếu đã tồn tại, tiếp tục tạo lại ID mới
+
+        return uniqueId;
+    }
+
+    // Hàm tạo ID ngẫu nhiên 20 ký tự
+    private String generateRandomId() {
+        // Sử dụng UUID để tạo ID ngẫu nhiên
+        String randomId = UUID.randomUUID().toString().replace("-", "").substring(0, 20);
+        return randomId;
     }
 }

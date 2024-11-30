@@ -14,7 +14,7 @@ public class NearbyAttractionResponse {
 
     public static NearbyAttractionResponse fromNearbyAttraction(NearbyAttractions nearbyAttractions){
         NearbyAttractionResponse response = new NearbyAttractionResponse();
-        response.name = nearbyAttractions.getTour().getName();
+        response.name = nearbyAttractions.getAttraction().getName();
         response.distance = nearbyAttractions.getDistance();
         return response;
     }

@@ -38,11 +38,13 @@ CREATE TABLE hotel (
     total_rating INT,
     review_count INT,
     city_id INT,
-    owner_id INT,
-    status NVARCHAR(255),
     type_of_hotel NVARCHAR(255),
-    CONSTRAINT fk_hotel_city FOREIGN KEY (city_id) REFERENCES city(id),
-    CONSTRAINT fk_hotel_owner FOREIGN KEY (owner_id) REFERENCES users(id)
+    cancellation_policy NVARCHAR(255),
+    deposit_required NVARCHAR(255),
+    pets_allowed TINYINT(1),
+    smoking_policy TINYINT(1),
+    extra_bed_policy TINYINT(1),
+    CONSTRAINT fk_hotel_city FOREIGN KEY (city_id) REFERENCES city(id)
 );
 
 CREATE TABLE hotel_image (
@@ -82,7 +84,7 @@ create table amenity_for_room (
 
 
 CREATE TABLE booking_room (
-    id INT AUTO_INCREMENT PRIMARY KEY,
+    id NVARCHAR(20) PRIMARY KEY,
     booking_date DATE,
     adults INT,
     children INT,
@@ -100,9 +102,19 @@ CREATE TABLE booked_room (
     amount INT,
     price_per FLOAT,
     room_id INT,
-    booking_room_id INT,
+    booking_room_id NVARCHAR(20),
     CONSTRAINT fk_booked_room_room foreign key (room_id) references room(id),
     CONSTRAINT fk_booked_room_booking foreign key (booking_room_id) references booking_room(id)
+);
+
+CREATE TABLE attraction (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    name NVARCHAR(255),
+    description TEXT    ,
+    type NVARCHAR(255),
+    image TEXT,
+    city_id INT,
+    CONSTRAINT fk_attraction_city foreign key (city_id) references city(id)
 );
 
 
@@ -113,17 +125,17 @@ CREATE TABLE rental_facility (
     email NVARCHAR(100),
     description TEXT,
     address TEXT,
-    city_id INT,
-    owner_id INT,
-    CONSTRAINT fk_rental_facility_city FOREIGN KEY (city_id) REFERENCES city(id),
-    CONSTRAINT fk_rental_facility_owner FOREIGN KEY (owner_id) REFERENCES users(id)
+    attraction_id INT,
+    rating FLOAT,
+    total_rating INT,
+    review_count INT,
+    CONSTRAINT fk_rental_facility_attraction FOREIGN KEY (attraction_id) REFERENCES attraction(id)
 );
 
 
 CREATE TABLE vehicle (
     id INT AUTO_INCREMENT PRIMARY KEY,
     name NVARCHAR(255),
-    price_per_hour FLOAT,
     stake FLOAT,
     image_url NVARCHAR(255),
     description TEXT,
@@ -140,6 +152,7 @@ CREATE TABLE motor (
     motor_id INT PRIMARY KEY,
     type_of_motor NVARCHAR(255),
     handle_bar_type NVARCHAR(255),
+    engine INT,
     FOREIGN KEY (motor_id) references vehicle(id)
 );
 
@@ -183,7 +196,6 @@ CREATE TABLE accessory_booking (
     CONSTRAINT fk_service_booking_booking foreign key (booking_vehicle_id) references booking_vehicle(id)
 );
 
-
 CREATE TABLE tour (
     id INT AUTO_INCREMENT PRIMARY KEY,
     name NVARCHAR(255),
@@ -191,8 +203,8 @@ CREATE TABLE tour (
     start_time TIME,
     end_time TIME,
     description TEXT,
-    city_id INT,
-    CONSTRAINT fk_tour_city foreign key (city_id) references city(id)
+    attraction_id INT,
+    CONSTRAINT fk_tour_city foreign key (attraction_id) references attraction(id)
 );
 
 CREATE TABLE tour_image (
@@ -244,7 +256,7 @@ CREATE TABLE review (
     id INT AUTO_INCREMENT PRIMARY key,
     rating INT,
     comment TEXT,
-    review_date DATE,
+    review_date DATETIME,
     hotel_id INT,
     user_id INT,
     CONSTRAINT fk_evaluation_hotel foreign key (hotel_id) references hotel(id),
@@ -255,20 +267,9 @@ CREATE TABLE nearby_attraction (
     id INT AUTO_INCREMENT PRIMARY KEY,
     distance FLOAT,
     hotel_id INT,
-    tour_id INT,
+    attraction_id INT,
     CONSTRAINT fk_nearby_hotel foreign key (hotel_id) references hotel(id),
-    CONSTRAINT fk_nearby_tour foreign key (tour_id) references tour(id)
-);
-
-CREATE TABLE hotel_policy (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    cancellation_policy NVARCHAR(255),
-    deposit_required NVARCHAR(255),
-    pets_allowed TINYINT(1),
-    smoking_policy NVARCHAR(255),
-    extra_bed_policy NVARCHAR(255),
-    hotel_id INT,
-    CONSTRAINT fk_policy_hotel foreign key (hotel_id) references hotel(id)
+    CONSTRAINT fk_nearby_attraction foreign key (attraction_id) references attraction(id)
 );
 
 CREATE TABLE amenity_for_hotel (
@@ -279,7 +280,31 @@ CREATE TABLE amenity_for_hotel (
     CONSTRAINT fk_amenity_for_hotel_hotel FOREIGN KEY (hotel_id) REFERENCES hotel(id)
 );
 
+CREATE TABLE notification (
+    id INT PRIMARY KEY,
+    content TEXT,
+    type NVARCHAR(10)
+);
 
+CREATE TABLE review_rental (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    rating INT,
+        comment TEXT,
+        review_date DATETIME,
+        rental_id INT,
+        user_id INT,
+        CONSTRAINT fk_review_rental foreign key (rental_id) references rental_facility(id),
+        CONSTRAINT fk_review_rental_user foreign key (user_id) references users(id)
+);
+
+CREATE TABLE vehicle_rental_facility (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    vehicle_id INT NOT NULL,
+    rental_facility_id INT NOT NULL,
+    price FLOAT NOT NULL,
+    CONSTRAINT fk_vrf_vehicle FOREIGN KEY (vehicle_id) REFERENCES vehicle(id),
+    CONSTRAINT fk_vrf_rental FOREIGN KEY (rental_facility_id) REFERENCES rental_facility(id)
+);
 
 
 

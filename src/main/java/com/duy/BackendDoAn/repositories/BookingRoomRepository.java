@@ -10,6 +10,6 @@ import org.springframework.data.repository.query.Param;
 
 import java.util.Optional;
 
-public interface BookingRoomRepository extends JpaRepository<BookingRoom, Long> {
+public interface BookingRoomRepository extends JpaRepository<BookingRoom, String> {
     Page<BookingRoom> findByUser(User user, Pageable pageable);
 }

@@ -47,12 +47,6 @@ public class HotelDTO {
     @JsonProperty("city_id")
     private Long city;
 
-    @JsonProperty("owner_id")
-    private Long owner;
-
-    @JsonProperty("status")
-    private String status;
-
     @JsonProperty("type_of_hotel")
     private String typeOfHotel;
 }

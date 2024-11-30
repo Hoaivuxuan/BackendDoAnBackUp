@@ -20,5 +20,5 @@ public class BookedRoomDTO {
     private Long room;
 
     @JsonProperty("booking_room_id")
-    private Long bookingRoom;
+    private String bookingRoom;
 }

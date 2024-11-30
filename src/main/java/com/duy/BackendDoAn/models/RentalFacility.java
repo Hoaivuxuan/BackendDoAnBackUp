@@ -1,7 +1,11 @@
 package com.duy.BackendDoAn.models;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.*;
+
+import java.util.List;
 
 @Entity
 @Table(name = "rental_facility")
@@ -30,11 +34,25 @@ public class RentalFacility {
     @Column(name = "address")
     private String address;
 
-    @ManyToOne
-    @JoinColumn(name = "city_id")
-    private City city;
+    @Column(name = "rating")
+    private Float rating;
+
+    @Column(name = "total_rating")
+    private Long total_rating;
+
+    @Column(name = "review_count")
+    private Long review_count;
 
     @ManyToOne
-    @JoinColumn(name = "owner_id")
-    private User owner;
+    @JsonBackReference
+    @JoinColumn(name = "attraction_id")
+    private Attraction attraction;
+
+    @OneToMany(mappedBy = "rentalFacility", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JsonManagedReference
+    private List<VehicleRentalFacility> vehicleRentalFacilities;
+
+    @OneToMany(mappedBy = "rentalFacility", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JsonManagedReference
+    private List<ReviewRentalFacility> reviewRentalFacilities;
 }

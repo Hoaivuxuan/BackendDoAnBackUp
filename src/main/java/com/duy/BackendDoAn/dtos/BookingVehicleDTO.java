@@ -38,6 +38,9 @@ public class BookingVehicleDTO {
     @JsonProperty("total_price")
     private Float totalPrice;
 
+    @JsonProperty("rental_id")
+    private Long rental;
+
     @JsonProperty("vehicle_id")
     private Long vehicle;
 

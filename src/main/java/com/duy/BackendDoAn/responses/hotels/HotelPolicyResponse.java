@@ -1,6 +1,6 @@
 package com.duy.BackendDoAn.responses.hotels;
 
-import com.duy.BackendDoAn.models.HotelPolicy;
+import com.duy.BackendDoAn.models.Hotel;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.*;
 
@@ -20,18 +20,18 @@ public class HotelPolicyResponse {
     private boolean petsAllowed;
 
     @JsonProperty("smoking_policy")
-    private String smokingPolicy;
+    private boolean smokingPolicy;
 
     @JsonProperty("extra_bed_policy")
-    private String extraBedPolicy;
+    private boolean extraBedPolicy;
 
-    public static HotelPolicyResponse fromHotelPolicy(HotelPolicy hotelPolicy){
+    public static HotelPolicyResponse fromHotelPolicy(Hotel hotel){
         HotelPolicyResponse hotelPolicyResponse = HotelPolicyResponse.builder()
-                .cancellationPolicy(hotelPolicy.getCancellation_policy())
-                .depositRequired(hotelPolicy.getDeposit_required())
-                .petsAllowed(hotelPolicy.isPets_allowed())
-                .smokingPolicy(hotelPolicy.getSmoking_policy())
-                .extraBedPolicy(hotelPolicy.getExtra_bed_policy())
+                .cancellationPolicy(hotel.getCancellation_policy())
+                .depositRequired(hotel.getDeposit_required())
+                .petsAllowed(hotel.isPets_allowed())
+                .smokingPolicy(hotel.isSmoking_policy())
+                .extraBedPolicy(hotel.isExtra_bed_policy())
                 .build();
         return hotelPolicyResponse;
     }

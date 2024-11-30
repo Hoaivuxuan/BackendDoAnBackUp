@@ -49,9 +49,6 @@ public class HotelResponse {
 
     private Float rating;
 
-    @JsonProperty("status")
-    private String status;
-
     @JsonProperty("city")
     private String city;
 
@@ -74,7 +71,6 @@ public class HotelResponse {
                 .phoneNumber(hotel.getPhone_number())
                 .address(hotel.getAddress())
                 .rating(hotel.getRating())
-                .status(hotel.getHotelStatus())
                 .city(hotel.getCity().getCity_name())
                 .typeOfHotel(hotel.getType_of_hotel())
                 .hotelImages(hotel.getHotelImages())

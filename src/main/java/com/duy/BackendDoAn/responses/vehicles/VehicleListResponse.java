@@ -1,5 +1,6 @@
-package com.duy.BackendDoAn.responses;
+package com.duy.BackendDoAn.responses.vehicles;
 
+import com.duy.BackendDoAn.responses.vehicles.VehicleResponse;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

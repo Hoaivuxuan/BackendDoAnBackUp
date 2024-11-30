@@ -25,9 +25,6 @@ public class Vehicle {
     @Column(name = "name")
     private String name;
 
-    @Column(name = "price_per_hour")
-    private Float price_per_hour;
-
     @Column(name = "stake")
     private Float stake;
 
@@ -46,9 +43,9 @@ public class Vehicle {
     @Column(name = "fuel_type")
     private String fuel_type;
 
-    @ManyToOne
-    @JoinColumn(name = "facility_id")
-    private RentalFacility rentalFacility;
+    @OneToMany(mappedBy = "vehicle", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JsonManagedReference
+    private List<VehicleRentalFacility> vehicleRentalFacilities;
 
     @OneToMany(mappedBy = "vehicle", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JsonIgnore

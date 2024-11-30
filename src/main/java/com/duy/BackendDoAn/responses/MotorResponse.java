@@ -56,7 +56,6 @@ public class MotorResponse {
         MotorResponse motorResponse = MotorResponse.builder()
                 .id(motor.getId())
                 .name(motor.getName())
-                .pricePerHour(motor.getPrice_per_hour())
                 .stake(motor.getStake())
                 .imageUrl(motor.getImage_url())
                 .description(motor.getDescription())

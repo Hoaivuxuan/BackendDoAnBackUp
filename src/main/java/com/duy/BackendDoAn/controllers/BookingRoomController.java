@@ -32,7 +32,7 @@ public class BookingRoomController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<BookingRoomResponse> updateStatus(@PathVariable Long id, @RequestBody BookingRoomDTO bookingRoomDTO) throws Exception {
+    public ResponseEntity<BookingRoomResponse> updateStatus(@PathVariable String id, @RequestBody BookingRoomDTO bookingRoomDTO) throws Exception {
         BookingRoom bookingRoom = bookingRoomService.updateStatusBooking(id, bookingRoomDTO);
         return ResponseEntity.ok(BookingRoomResponse.fromBooking(bookingRoom));
     }
@@ -58,13 +58,13 @@ public class BookingRoomController {
     }
 
     @GetMapping("/{bookingRoomId}")
-    public ResponseEntity<BookingRoomResponse> getBookingById(@PathVariable("bookingRoomId") long id) {
+    public ResponseEntity<BookingRoomResponse> getBookingById(@PathVariable("bookingRoomId") String id) {
         BookingRoom bookingRoom = bookingRoomService.getBookingById(id);
         return ResponseEntity.ok(BookingRoomResponse.fromBooking(bookingRoom));
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<String> deleteBooking(@PathVariable long id) throws Exception {
+    public ResponseEntity<String> deleteBooking(@PathVariable String id) throws Exception {
         bookingRoomService.deleteBookingRoom(id);
         return ResponseEntity.ok("Delete booking successfully");
     }

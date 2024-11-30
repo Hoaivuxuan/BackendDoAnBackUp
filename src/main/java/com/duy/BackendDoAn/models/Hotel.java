@@ -58,16 +58,24 @@ public class Hotel {
     @Column(name = "review_count")
     private Long reviewCount;
 
-    @Column(name = "status")
-    private String hotelStatus;
+    @Column(name = "cancellation_policy")
+    private String cancellation_policy;
+
+    @Column(name = "deposit_required")
+    private String deposit_required;
+
+    @Column(name = "pets_allowed")
+    private boolean pets_allowed;
+
+    @Column(name = "smoking_policy")
+    private boolean smoking_policy;
+
+    @Column(name = "extra_bed_policy")
+    private boolean extra_bed_policy;
 
     @ManyToOne
     @JoinColumn(name = "city_id")
     private City city;
-
-    @ManyToOne
-    @JoinColumn(name = "owner_id")
-    private User owner;
 
     @Column(name = "type_of_hotel")
     private String type_of_hotel;
@@ -79,10 +87,6 @@ public class Hotel {
     @OneToMany(mappedBy = "hotel", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JsonManagedReference
     private List<Room> rooms;
-
-    @OneToMany(mappedBy = "hotel", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JsonManagedReference
-    private List<HotelPolicy> hotelPolicies;
 
     @OneToMany(mappedBy = "hotel", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JsonManagedReference

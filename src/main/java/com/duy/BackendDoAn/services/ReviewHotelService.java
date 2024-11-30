@@ -12,6 +12,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Optional;
 
 @Service
@@ -24,18 +25,18 @@ public class ReviewHotelService {
     private final UserService userService;
 
     public ReviewHotel postNewReview(ReviewDTO reviewDTO) throws Exception {
-        Hotel hotel = hotelRepository.findById(reviewDTO.getHotel()).orElseThrow(()-> new Exception("Hotel not found"));
+        Hotel hotel = hotelRepository.findById(reviewDTO.getProduct()).orElseThrow(()-> new Exception("Hotel not found"));
         User user = userRepository.findById(reviewDTO.getUser()).orElseThrow(()-> new Exception("User not found"));
-        boolean existed = reviewHotelRepository.existsByUserIdAndHotelId(reviewDTO.getUser(), reviewDTO.getHotel());
+        boolean existed = reviewHotelRepository.existsByUserIdAndHotelId(reviewDTO.getUser(), reviewDTO.getProduct());
         if(existed) throw new IllegalStateException("User already rate this hotel");
         ReviewHotel reviewHotel = ReviewHotel.builder()
                 .rating(reviewDTO.getRating())
                 .comment(reviewDTO.getComment())
-                .review_date(LocalDate.now())
+                .review_date(LocalDateTime.now())
                 .hotel(hotel)
                 .user(user)
                 .build();
-        hotelService.updateRatingOnAddNewReview(reviewDTO.getHotel(), reviewDTO.getRating());
+        hotelService.updateRatingOnAddNewReview(reviewDTO.getProduct(), reviewDTO.getRating());
         return reviewHotelRepository.save(reviewHotel);
     }
 

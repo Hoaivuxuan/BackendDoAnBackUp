@@ -13,15 +13,17 @@ import java.time.LocalTime;
 
 public interface VehicleRepository extends JpaRepository<Vehicle, Long> {
     @Query(value = "SELECT DISTINCT v FROM Vehicle v " +
-            "LEFT JOIN v.rentalFacility f " +
-            "LEFT JOIN f.city c " +
-            "LEFT JOIN Car car ON car.id = v.id " +
-            "LEFT JOIN Motor m ON m.id = v.id " +
-            "WHERE (:type IS NULL OR v.vehicle_type LIKE %:type) " +
-            "AND (:location IS NULL OR c.city_name LIKE %:location) " +
-            "AND v.id NOT IN (SELECT b.vehicle.id FROM BookingVehicle b " +
-            "WHERE b.start_date < :endDate AND b.return_date > :startDate " +
-            "AND b.start_time < :endTime AND b.return_time > :startTime)")
+            "LEFT JOIN FETCH v.vehicleRentalFacilities vrf " +  // JOIN FETCH để tránh LazyInitializationException
+            "LEFT JOIN FETCH vrf.rentalFacility rf " +          // Liên kết với RentalFacility
+            "LEFT JOIN FETCH rf.attraction a " +                // Liên kết với Attraction
+            "LEFT JOIN FETCH a.city c " +                       // Liên kết với City
+            "WHERE (:type IS NULL OR LOWER(v.vehicle_type) LIKE LOWER(CONCAT('%', :type, '%'))) " +  // LIKE với CONCAT
+            "AND (:location IS NULL OR LOWER(c.city_name) LIKE LOWER(CONCAT('%', :location, '%'))) " + // Tìm kiếm không phân biệt hoa thường
+            "AND v.id NOT IN (" +
+            "    SELECT bv.vehicle.id FROM BookingVehicle bv " +
+            "    WHERE bv.start_date < :endDate AND bv.return_date > :startDate " +
+            "    AND bv.start_time < :endTime AND bv.return_time > :startTime" +
+            ")")
     Page<Vehicle> searchVehicle(
             @Param("type") String type,
             @Param("location") String location,
@@ -31,6 +33,7 @@ public interface VehicleRepository extends JpaRepository<Vehicle, Long> {
             @Param("endTime") LocalTime endTime,
             Pageable pageable
     );
+
 
 
 }

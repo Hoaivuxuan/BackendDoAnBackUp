@@ -94,10 +94,8 @@ public class HotelResponse {
         response.checkInTime = hotel.getCheck_in_time().format(DateTimeFormatter.ofPattern("HH:mm"));
         response.checkOutTime = hotel.getCheck_out_time().format(DateTimeFormatter.ofPattern("HH:mm"));
 
-        // Check if hotelPolicies list is null or empty
-        if (hotel.getHotelPolicies() != null && !hotel.getHotelPolicies().isEmpty()) {
-            response.hotelPolicyResponse = HotelPolicyResponse.fromHotelPolicy(hotel.getHotelPolicies().get(0));
-        }
+        response.hotelPolicyResponse = HotelPolicyResponse.fromHotelPolicy(hotel);
+
 
         response.phoneNumber = hotel.getPhone_number();
         response.email = hotel.getHotelEmail();

@@ -10,6 +10,25 @@ VALUES
 ('Hoàn Kiếm', 'Quận', 1),
 ('Ba Đình', 'Quận', 1);
 
+INSERT INTO attraction (name, description, type, image, city_id)
+VALUES
+('Hồ Gươm', 'Hồ Gươm nằm ở trung tâm thành phố, gắn liền với lịch sử và văn hóa của Hà Nội.', 'Di tích lịch sử', 'ho_guom.jpg', 8),
+('Lăng Chủ tịch Hồ Chí Minh', 'Lăng Bác là nơi lưu giữ thi hài của Chủ tịch Hồ Chí Minh.', 'Di tích lịch sử', 'lang_bac.jpg', 9),
+('Chợ Bến Thành', 'Chợ nổi tiếng tại trung tâm thành phố Hồ Chí Minh.', 'Địa điểm mua sắm', 'cho_ben_thanh.jpg', 2),
+('Cầu Rồng', 'Cây cầu độc đáo tại Đà Nẵng với hình dáng con rồng, có khả năng phun lửa.', 'Công trình kiến trúc', 'cau_rong.jpg', 3),
+('Bãi biển Mỹ Khê', 'Bãi biển đẹp nhất Đà Nẵng, thu hút du khách.', 'Bãi biển', 'my_khe_beach.jpg', 3),
+('Bảo tàng Quân đội', 'Bảo tàng lịch sử quân sự Việt Nam tại Hà Nội.', 'Bảo tàng', 'bao_tang_quan_doi.jpg', 1),
+('Bảo tàng Cần Thơ', 'Bảo tàng giới thiệu về lịch sử và văn hóa Cần Thơ.', 'Bảo tàng', 'bao_tang_can_tho.jpg', 5),
+('Vinpearl Land Nha Trang', 'Khu vui chơi giải trí hiện đại tại Nha Trang.', 'Khu vui chơi', 'vinpearl_land.jpg', 7),
+('Chùa Dơi', 'Ngôi chùa nổi tiếng ở miền Tây, nơi sinh sống của nhiều loài dơi.', 'Di tích văn hóa', 'chua_doi.jpg', 5),
+('Nhà thờ Đức Bà', 'Nhà thờ nổi tiếng tại trung tâm thành phố Hồ Chí Minh.', 'Công trình kiến trúc', 'nha_tho_duc_ba.jpg', 2),
+('Văn phòng thuê xe ABC', 'Chuyên cung cấp các loại xe ô tô du lịch và xe máy cho thuê. Đội ngũ nhân viên nhiệt tình, chuyên nghiệp.', 'RENTAL', 'abc_office_image.jpg', 1),
+('Dịch vụ thuê xe XYZ', 'Dịch vụ cho thuê xe máy, ô tô với giá cả phải chăng, thủ tục nhanh chóng.', 'RENTAL', 'xyz_office_image.jpg', 1),
+('Công ty TNHH Thuê Xe 123', 'Cung cấp các dịch vụ thuê xe tự lái và có tài xế. Xe đời mới, đa dạng mẫu mã.', 'RENTAL', '123_office_image.jpg', 1),
+('Văn phòng Thuê Xe Bình Minh', 'Địa điểm thuê xe uy tín, cung cấp các dòng xe từ phổ thông đến cao cấp.', 'RENTAL', 'binhminh_office_image.jpg', 1),
+('Dịch vụ thuê xe Gia Hưng', 'Chuyên cho thuê xe du lịch, xe cưới hỏi và xe công tác dài hạn.', 'RENTAL', 'giahung_office_image.jpg', 1);
+
+
 INSERT INTO users (name, first_name, last_name, phone_number, email, address, date_of_birth, active, password, role)
 VALUES
 ('DUY', 'Duy', 'Nguyen', '0123456789', 'user1@com.example', '123 Main St', '1990-01-01', TRUE, 'password123', 'USER'),

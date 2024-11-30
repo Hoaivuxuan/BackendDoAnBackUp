@@ -1,5 +1,6 @@
 package com.duy.BackendDoAn.models;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -7,13 +8,13 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "review")
+@Table(name = "review_rental")
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class ReviewHotel {
+public class ReviewRentalFacility {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -28,8 +29,9 @@ public class ReviewHotel {
     private LocalDateTime review_date;
 
     @ManyToOne
-    @JoinColumn(name = "hotel_id")
-    private Hotel hotel;
+    @JoinColumn(name = "rental_id")
+    @JsonBackReference
+    private RentalFacility rentalFacility;
 
     @ManyToOne
     @JoinColumn(name = "user_id")

@@ -23,7 +23,7 @@ public class UserReviewResponse {
         UserReviewResponse response = UserReviewResponse.builder()
                 .rating(reviewHotel.getRating())
                 .user(reviewHotel.getUser().getName())
-                .date(reviewHotel.getReview_date().format(DateTimeFormatter.ofPattern("yyyy-MM-dd")))
+                .date(reviewHotel.getReview_date().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")))
                 .comment(reviewHotel.getComment())
                 .build();
         return response;

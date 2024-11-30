@@ -26,6 +26,9 @@ public class VehicleDTO {
     @JsonProperty("description")
     private String description;
 
+    @JsonProperty("type")
+    private String type;
+
     @JsonProperty("seat_amount")
     private Long seatAmount;
 
@@ -37,5 +40,20 @@ public class VehicleDTO {
 
     @JsonProperty("facility_id")
     private Long facility;
+
+    @JsonProperty("type_of_motor")
+    private String typeOfMotor;
+
+    @JsonProperty("handle")
+    private String handleBarType;
+
+    @JsonProperty("engine")
+    private Long engine;
+
+    @JsonProperty("transmission_type")
+    private String transmission;
+
+    @JsonProperty("trunk_capacity")
+    private Float trunk;
 
 }

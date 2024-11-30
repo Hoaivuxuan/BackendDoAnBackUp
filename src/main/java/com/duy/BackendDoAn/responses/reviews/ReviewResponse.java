@@ -6,6 +6,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.*;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Getter
 @Setter
@@ -19,15 +20,12 @@ public class ReviewResponse {
     @JsonProperty("comment")
     private String comment;
 
-    @JsonFormat(pattern = "yyyy-MM-dd")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm")
     @JsonProperty("review_date")
-    private LocalDate reviewDate;
+    private LocalDateTime reviewDate;
 
     @JsonProperty("reviewer_name")
     private String user;
-
-    @JsonProperty("hotel_name")
-    private String hotel;
 
     public static ReviewResponse fromReview(ReviewHotel reviewHotel) {
         ReviewResponse reviewResponse = ReviewResponse.builder()
@@ -35,7 +33,6 @@ public class ReviewResponse {
                 .comment(reviewHotel.getComment())
                 .reviewDate(reviewHotel.getReview_date())
                 .user(reviewHotel.getUser().getName())
-                .hotel(reviewHotel.getHotel().getHotelName())
                 .build();
         return reviewResponse;
     }

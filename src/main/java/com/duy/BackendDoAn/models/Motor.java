@@ -20,4 +20,6 @@ public class Motor extends Vehicle {
     @Column(name = "handle_bar_type")
     private String handle_bar_type;
 
+    @Column(name = "engine")
+    private Long engine;
 }

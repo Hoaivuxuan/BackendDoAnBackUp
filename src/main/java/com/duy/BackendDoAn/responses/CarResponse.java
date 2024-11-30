@@ -38,9 +38,6 @@ public class CarResponse {
     @JsonProperty("luggage_amount")
     private Long luggageAmount;
 
-    @JsonProperty("facility_id")
-    private Long facility;
-
     @JsonProperty("transmission_type")
     private String transmissionType;
 
@@ -57,13 +54,11 @@ public class CarResponse {
         CarResponse carResponse = CarResponse.builder()
                 .id(car.getId())
                 .name(car.getName())
-                .pricePerHour(car.getPrice_per_hour())
                 .stake(car.getStake())
                 .imageUrl(car.getImage_url())
                 .description(car.getDescription())
                 .seatAmount(car.getSeat_amount())
                 .luggageAmount(car.getLuggage_amount())
-                .facility(car.getRentalFacility().getId())
                 .transmissionType(car.getTransmission_type())
                 .trunkCapacity(car.getTrunk_capacity())
                 .fuelType(car.getFuel_type())
