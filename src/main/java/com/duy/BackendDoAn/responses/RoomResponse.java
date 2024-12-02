@@ -18,43 +18,51 @@ import java.util.stream.Collectors;
 @Builder
 public class RoomResponse {
 
-    @JsonProperty("price_per_day")
-    private Float pricePerDay;
+    @JsonProperty("name")
+    private String name;
 
-    @JsonProperty("description")
-    private String description;
+    @JsonProperty("type")
+    private String type;
 
-    @JsonProperty("available_room")
-    private Long availableRoom;
-
-    @JsonProperty("type_of_room")
-    private String typeOfRoom;
+    @JsonProperty("size")
+    private Long roomSize;
 
     @JsonProperty("max_guests")
     private Long maxGuests;
 
-    @JsonProperty("room_size")
-    private Long roomSize;
+    @JsonProperty("type_bed_1")
+    private String typeBed1;
 
-    @JsonProperty("view")
-    private String view;
+    @JsonProperty("no_bed_1")
+    private Long noBed1;
 
-    @JsonProperty("bed_type")
-    private String typeOfBed;
+    @JsonProperty("type_bed_2")
+    private String typeBed2;
+
+    @JsonProperty("no_bed_2")
+    private Long noBed2;
+
+    @JsonProperty("price")
+    private Float price;
+
+    @JsonProperty("available_rooms")
+    private Long availableRooms;
 
     @JsonProperty("amenity_for_room")
     private List<String> amenityForRoom = new ArrayList<>();
 
     public static RoomResponse fromRoom(Room room){
         RoomResponse response = new RoomResponse();
-        response.pricePerDay = room.getPrice_per_day();
-        response.description = room.getDescription();
-        response.availableRoom = room.getAvailable_room();
-        response.typeOfRoom = room.getType_of_room();
+        response.name = room.getName();
+        response.price = room.getPrice();
+        response.availableRooms = room.getAvailable_room();
+        response.type = room.getType();
+        response.typeBed1 = room.getTypeBed1();
+        response.noBed1 = room.getNoBed1();
+        response.typeBed2 = room.getTypeBed2();
+        response.noBed2 = room.getNoBed2();
         response.maxGuests = room.getMax_guests();
         response.roomSize = room.getRoom_size();
-        response.view = room.getView();
-        response.typeOfBed = room.getType_of_bed();
         response.amenityForRoom = (room.getAmenityForRooms() != null)
                 ? room.getAmenityForRooms().stream()
                 .map(amenityForRoom -> amenityForRoom.getAmenity().getName())

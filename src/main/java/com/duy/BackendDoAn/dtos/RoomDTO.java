@@ -1,5 +1,6 @@
 package com.duy.BackendDoAn.dtos;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.*;
 
@@ -10,26 +11,36 @@ import lombok.*;
 @Getter
 @Setter
 public class RoomDTO {
-    @JsonProperty("price_per_day")
-    private Float pricePerDay;
+    @JsonProperty("name")
+    private String name;
 
-    @JsonProperty("description")
-    private String description;
+    @JsonProperty("type")
+    private String type;
 
-    @JsonProperty("child_count")
-    private Long childCount;
+    @JsonProperty("size")
+    private Long roomSize;
 
-    @JsonProperty("adult_count")
-    private Long adultCount;
+    @JsonProperty("max_guests")
+    private Long maxGuests;
 
-    @JsonProperty("available_room")
-    private Long availableRoom;
+    @JsonProperty("type_bed_1")
+    private String typeBed1;
 
-    @JsonProperty("type_of_room")
-    private String typeOfRoom;
+    @JsonProperty("no_bed_1")
+    private Long noBed1;
 
-    @JsonProperty("type_of_bed")
-    private String typeOfBed;
+    @JsonProperty("type_bed_2")
+    private String typeBed2;
+
+    @JsonProperty("no_bed_2")
+    private Long noBed2;
+
+    @JsonProperty("price")
+    private Float price;
+
+    @JsonProperty("available_rooms")
+    private Long availableRooms;
+
 
     @JsonProperty("hotel_id")
     private Long hotel;

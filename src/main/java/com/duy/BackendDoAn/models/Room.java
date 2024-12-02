@@ -19,29 +19,36 @@ public class Room {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "price_per_day")
-    private Float price_per_day;
+    @Column(name = "name")
+    private String name;
 
-    @Column(name = "description")
-    private String description;
-
-    @Column(name = "max_guests")
-    private Long max_guests;
+    @Column(name = "type")
+    private String type;
 
     @Column(name = "room_size")
     private Long room_size;
 
-    @Column(name = "view")
-    private String view;
+    @Column(name = "max_guests")
+    private Long max_guests;
+
+    @Column(name = "type_bed_1")
+    private String typeBed1;
+
+    @Column(name = "no_bed_1")
+    private Long noBed1;
+
+    @Column(name = "type_bed_2")
+    private String typeBed2;
+
+    @Column(name = "no_bed_2")
+    private Long noBed2;
+
+    @Column(name = "price")
+    private Float price;
+
 
     @Column(name = "available_rooms")
     private Long available_room;
-
-    @Column(name = "type_of_room")
-    private String type_of_room;
-
-    @Column(name = "type_of_bed")
-    private String type_of_bed;
 
     @ManyToOne
     @JoinColumn(name = "hotel_id")

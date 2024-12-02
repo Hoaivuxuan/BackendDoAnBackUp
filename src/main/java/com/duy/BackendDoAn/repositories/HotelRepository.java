@@ -16,12 +16,12 @@ public interface HotelRepository extends JpaRepository<Hotel, Long> {
             "JOIN h.rooms r " +
             "JOIN h.city c " +
             "WHERE (:keyword IS NULL OR c.city_name LIKE %:keyword%) " +
-            "AND (:typeOfRoom IS NULL OR r.type_of_room LIKE %:typeOfRoom) " +
+            "AND (:typeOfRoom IS NULL OR r.type LIKE %:typeOfRoom%) " +
             "AND (:minRating IS NULL OR h.rating >= :minRating) " +
             "AND (:maxRating IS NULL OR h.rating <= :maxRating) " +
             "AND (r.id NOT IN (SELECT b.room.id FROM BookedRoom b JOIN b.bookingRoom bk WHERE bk.check_in_date <= :checkout AND bk.check_out_date >= :checkin)) " +
             "GROUP BY h " +
-            "HAVING SUM(r.available_room) >= :noRooms")
+            "HAVING COALESCE(SUM(r.available_room), 0) >= :noRooms")
     Page<Hotel> searchHotels(
             @Param("keyword") String keyword,
             @Param("noRooms") int noRooms,

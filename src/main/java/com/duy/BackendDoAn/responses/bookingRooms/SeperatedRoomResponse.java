@@ -7,13 +7,15 @@ import lombok.*;
 @NoArgsConstructor
 @Builder
 public class SeperatedRoomResponse {
+    private String name;
     private String type;
     private Long count;
     private Float price;
 
     public static SeperatedRoomResponse fromBookedRoom(BookedRoom bookedRoom) {
         SeperatedRoomResponse response = new SeperatedRoomResponse();
-        response.type = bookedRoom.getRoom().getType_of_room();
+        response.name = bookedRoom.getRoom().getName();
+        response.type = bookedRoom.getRoom().getType();
         response.count = bookedRoom.getAmount();
         response.price = bookedRoom.getPrice_per();
         return response;

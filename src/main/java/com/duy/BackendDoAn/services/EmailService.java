@@ -1,9 +1,11 @@
 package com.duy.BackendDoAn.services;
 
+import com.duy.BackendDoAn.dtos.EmailDTO;
 import com.duy.BackendDoAn.models.Hotel;
 import com.duy.BackendDoAn.repositories.HotelRepository;
 import com.duy.BackendDoAn.responses.bookingRooms.BookingRoomResponse;
 import com.duy.BackendDoAn.responses.bookingRooms.SeperatedRoomResponse;
+import jakarta.mail.MessagingException;
 import jakarta.mail.internet.MimeMessage;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +14,7 @@ import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
 
+import java.io.UnsupportedEncodingException;
 import java.util.Optional;
 
 @Service
@@ -70,6 +73,22 @@ public class EmailService {
         }
     }
 
+    public void sendDefaultMessage(EmailDTO emailDTO) {
+        try {
+            MimeMessage message = mailSender.createMimeMessage();
+            MimeMessageHelper helper = new MimeMessageHelper( message, true, "UTF-8");
+            helper.setFrom("no-reply@hotelbooking.com", "Hotel Booking");
+            helper.setTo(emailDTO.getMail());
+            helper.setSubject("Unknown purpose");
+            helper.setText(emailDTO.getText());
+            mailSender.send(message);
+        } catch (MessagingException e) {
+            throw new RuntimeException(e);
+        } catch (UnsupportedEncodingException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
     private String buildEmailBody(BookingRoomResponse bookingResponse) {
         StringBuilder body = new StringBuilder();
         Optional<Hotel> optionalHotel = hotelRepository.findById(bookingResponse.getHotel());
@@ -105,5 +124,6 @@ public class EmailService {
 
         return body.toString();
     }
+
 
 }

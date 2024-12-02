@@ -57,15 +57,17 @@ CREATE TABLE hotel_image (
 
 CREATE TABLE room (
     id INT AUTO_INCREMENT PRIMARY KEY,
-    price_per_day FLOAT,
-    description TEXT,
-    max_guests INT,
+    name NVARCHAR(255),
+    type NVARCHAR(255),
     room_size INT,
-    view NVARCHAR(255),
+    max_guests INT,
+    type_bed_1 NVARCHAR(255),
+    no_bed_1 INT,
+    type_bed_2 NVARCHAR(255),
+    no_bed_2 INT,
+    price FLOAT,
     available_rooms INT,
     hotel_id INT,
-    type_of_room NVARCHAR(255),
-    type_of_bed NVARCHAR(255),
     CONSTRAINT fk_room_hotel FOREIGN KEY (hotel_id) references hotel(id)
 );
 
@@ -110,7 +112,8 @@ CREATE TABLE booked_room (
 CREATE TABLE attraction (
     id INT AUTO_INCREMENT PRIMARY KEY,
     name NVARCHAR(255),
-    description TEXT    ,
+    description TEXT,
+    address NVARCHAR(255),
     type NVARCHAR(255),
     image TEXT,
     city_id INT,
@@ -130,6 +133,16 @@ CREATE TABLE rental_facility (
     total_rating INT,
     review_count INT,
     CONSTRAINT fk_rental_facility_attraction FOREIGN KEY (attraction_id) REFERENCES attraction(id)
+);
+
+CREATE TABLE office (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    name NVARCHAR(255),
+    address NVARCHAR(255),
+    attraction_id INT,
+    rental_facility_id INT,
+    CONSTRAINT fk_office_attraction foreign key (attraction_id) references attraction(id),
+    CONSTRAINT fk_office_rental foreign key (rental_facility_id) references rental_facility(id)
 );
 
 

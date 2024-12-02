@@ -51,7 +51,7 @@ public class BookingRoomService {
             Room room = roomRepository.findById(bookedRoomDTO.getRoom()).orElseThrow(()-> new Exception("Room not found"));
             BookedRoom bookedRoom = BookedRoom.builder()
                     .amount(bookedRoomDTO.getAmount())
-                    .price_per(bookedRoomDTO.getAmount() * room.getPrice_per_day() * days)
+                    .price_per(bookedRoomDTO.getAmount() * room.getPrice() * days)
                     .room(room)
                     .bookingRoom(newBookingRoom)
                     .build();

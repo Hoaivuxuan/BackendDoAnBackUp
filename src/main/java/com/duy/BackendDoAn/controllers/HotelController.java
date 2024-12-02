@@ -122,7 +122,7 @@ public class HotelController {
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "10") int limit
     ) {
-        PageRequest pageRequest =PageRequest.of(
+        PageRequest pageRequest = PageRequest.of(
                 page, limit,
                 Sort.by("id").ascending()
         );

@@ -18,11 +18,16 @@ public class RoomService {
     public Room addRoom(RoomDTO roomDTO) throws Exception{
         Hotel hotel = hotelRepository.findById(roomDTO.getHotel()).orElseThrow(() -> new Exception("Hotel ID not found"));
         Room newRoom = Room.builder()
-                .price_per_day(roomDTO.getPricePerDay())
-                .description(roomDTO.getDescription())
-                .available_room(roomDTO.getAvailableRoom())
-                .type_of_room(roomDTO.getTypeOfRoom())
-                .type_of_bed(roomDTO.getTypeOfBed())
+                .name(roomDTO.getName())
+                .type(roomDTO.getType())
+                .room_size(roomDTO.getRoomSize())
+                .max_guests(roomDTO.getMaxGuests())
+                .typeBed1(roomDTO.getTypeBed1())
+                .noBed1(roomDTO.getNoBed1())
+                .typeBed2(roomDTO.getTypeBed2())
+                .noBed2(roomDTO.getNoBed2())
+                .price(roomDTO.getPrice())
+                .available_room(roomDTO.getAvailableRooms())
                 .hotel(hotel)
                 .build();
         return roomRepository.save(newRoom);
@@ -32,30 +37,65 @@ public class RoomService {
         return roomRepository.findById(id).orElseThrow(() -> new Exception("Can't find room with ID = "+id));
     }
 
-    public Room updateRoom(Long id, RoomDTO roomDTO) throws Exception{
+    public Room updateRoom(Long id, RoomDTO roomDTO) throws Exception {
+        // Tìm phòng hiện có theo ID
         Room existingRoom = getRoomById(id);
-        if(existingRoom != null){
-            Hotel existingHotel = hotelRepository.findById(roomDTO.getHotel()).orElseThrow(() -> new Exception("Can't find hotel"));
+        if (existingRoom != null) {
+            // Tìm khách sạn hiện có theo ID từ DTO
+            Hotel existingHotel = hotelRepository.findById(roomDTO.getHotel())
+                    .orElseThrow(() -> new Exception("Can't find hotel"));
+
+            // Cập nhật thông tin khách sạn cho phòng
             existingRoom.setHotel(existingHotel);
-            if(roomDTO.getPricePerDay() >= 0){
-                existingRoom.setPrice_per_day(roomDTO.getPricePerDay());
+
+            // Kiểm tra và cập nhật từng thuộc tính của Room
+            if (roomDTO.getName() != null && !roomDTO.getName().isEmpty()) {
+                existingRoom.setName(roomDTO.getName());
             }
-            if (roomDTO.getDescription() != null && !roomDTO.getDescription().isEmpty()){
-                existingRoom.setDescription(roomDTO.getDescription());
+
+            if (roomDTO.getType() != null && !roomDTO.getType().isEmpty()) {
+                existingRoom.setType(roomDTO.getType());
             }
-            if(roomDTO.getAvailableRoom() >= 0){
-                existingRoom.setAvailable_room(roomDTO.getAvailableRoom());
+
+            if (roomDTO.getRoomSize() != null && roomDTO.getRoomSize() > 0) {
+                existingRoom.setRoom_size(roomDTO.getRoomSize());
             }
-            if(roomDTO.getTypeOfRoom() != null && !roomDTO.getTypeOfRoom().isEmpty()){
-                existingRoom.setType_of_room(existingRoom.getType_of_room());
+
+            if (roomDTO.getMaxGuests() != null && roomDTO.getMaxGuests() > 0) {
+                existingRoom.setMax_guests(roomDTO.getMaxGuests());
             }
-            if (roomDTO.getTypeOfBed() != null && !roomDTO.getTypeOfBed().isEmpty()){
-                existingRoom.setType_of_bed(existingRoom.getType_of_bed());
+
+            if (roomDTO.getTypeBed1() != null && !roomDTO.getTypeBed1().isEmpty()) {
+                existingRoom.setTypeBed1(roomDTO.getTypeBed1());
             }
+
+            if (roomDTO.getNoBed1() != null && roomDTO.getNoBed1() >= 0) {
+                existingRoom.setNoBed1(roomDTO.getNoBed1());
+            }
+
+            if (roomDTO.getTypeBed2() != null && !roomDTO.getTypeBed2().isEmpty()) {
+                existingRoom.setTypeBed2(roomDTO.getTypeBed2());
+            }
+
+            if (roomDTO.getNoBed2() != null && roomDTO.getNoBed2() >= 0) {
+                existingRoom.setNoBed2(roomDTO.getNoBed2());
+            }
+
+            if (roomDTO.getPrice() != null && roomDTO.getPrice() >= 0) {
+                existingRoom.setPrice(roomDTO.getPrice());
+            }
+
+            if (roomDTO.getAvailableRooms() != null && roomDTO.getAvailableRooms() >= 0) {
+                existingRoom.setAvailable_room(roomDTO.getAvailableRooms());
+            }
+
+            // Lưu thay đổi vào cơ sở dữ liệu
             return roomRepository.save(existingRoom);
+        } else {
+            throw new Exception("Room not found");
         }
-        return null;
     }
+
 
     public void deleteRoom(long id){
         Optional<Room> optionalRoom = roomRepository.findById(id);
