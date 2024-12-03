@@ -57,9 +57,13 @@ public class UserResponse {
                 .email(user.getEmail())
                 .avatar(user.getAvatar())
                 .address(user.getAddress())
-                .dateOfBirth(user.getDate_of_birth().format(DateTimeFormatter.ofPattern("yyyy-MM-dd")))
+                .dateOfBirth(formatDateOfBirth(user.getDate_of_birth()))
                 .active(user.isActive())
                 .role(user.getRole())
                 .build();
+    }
+
+    private static String formatDateOfBirth(LocalDate dateOfBirth) {
+        return (dateOfBirth != null) ? dateOfBirth.format(DateTimeFormatter.ofPattern("yyyy-MM-dd")) : null;
     }
 }

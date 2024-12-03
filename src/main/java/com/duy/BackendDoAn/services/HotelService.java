@@ -52,36 +52,73 @@ public class HotelService {
     }
 
     @Transactional
-    public Hotel updateHotel(long hotelID, HotelDTO hotelDTO) throws Exception{
+    public Hotel updateHotel(long hotelID, HotelDTO hotelDTO) throws Exception {
         Hotel hotel = getHotelById(hotelID);
-        if(hotel != null){
-            City existingCity = cityRepository.findById(hotelDTO.getCity())
-                    .orElseThrow(() -> new Exception("Cannot find city with id: "+hotelDTO.getCity()));
-
-            if(hotelDTO.getHotelName() != null && !hotelDTO.getHotelName().isEmpty()){
-                hotel.setHotelName(hotelDTO.getHotelName());
-            }
-
-            hotel.setCity(existingCity);
-            if(hotelDTO.getHotelEmail() != null && !hotelDTO.getHotelEmail().isEmpty()){
-                hotel.setHotelEmail(hotelDTO.getHotelEmail());
-            }
-
-            if (hotelDTO.getDescription() != null && !hotelDTO.getDescription().isEmpty()){
-                hotel.setDescription(hotelDTO.getDescription());
-            }
-
-            if(hotelDTO.getPhoneNumber() != null && !hotelDTO.getPhoneNumber().isEmpty()){
-                hotel.setPhone_number(hotelDTO.getPhoneNumber());
-            }
-
-            if(hotelDTO.getAddress() != null && !hotelDTO.getAddress().isEmpty()){
-                hotel.setAddress(hotelDTO.getAddress());
-            }
-            return hotelRepository.save(hotel);
+        if (hotel == null) {
+            throw new Exception("Hotel not found with ID: " + hotelID);
         }
-        return null;
+
+        // Tìm city và gán cho hotel nếu cityID có trong DTO
+        if (hotelDTO.getCity() != null) {
+            City existingCity = cityRepository.findById(hotelDTO.getCity())
+                    .orElseThrow(() -> new Exception("Cannot find city with id: " + hotelDTO.getCity()));
+            hotel.setCity(existingCity);
+        }
+
+        // Cập nhật các trường có trong DTO nếu chúng không null hoặc rỗng
+        if (hotelDTO.getHotelName() != null && !hotelDTO.getHotelName().isEmpty()) {
+            hotel.setHotelName(hotelDTO.getHotelName());
+        }
+
+        if (hotelDTO.getHotelEmail() != null && !hotelDTO.getHotelEmail().isEmpty()) {
+            hotel.setHotelEmail(hotelDTO.getHotelEmail());
+        }
+
+        if (hotelDTO.getDescription() != null && !hotelDTO.getDescription().isEmpty()) {
+            hotel.setDescription(hotelDTO.getDescription());
+        }
+
+        if (hotelDTO.getPhoneNumber() != null && !hotelDTO.getPhoneNumber().isEmpty()) {
+            hotel.setPhone_number(hotelDTO.getPhoneNumber());
+        }
+
+        if (hotelDTO.getAddress() != null && !hotelDTO.getAddress().isEmpty()) {
+            hotel.setAddress(hotelDTO.getAddress());
+        }
+
+        // Cập nhật thêm các trường mới từ DTO
+        if (hotelDTO.getLongitude() != null) {
+            hotel.setLongitude(hotelDTO.getLongitude());
+        }
+
+        if (hotelDTO.getLatitude() != null) {
+            hotel.setLatitude(hotelDTO.getLatitude());
+        }
+
+        if (hotelDTO.getCheckInTime() != null) {
+            hotel.setCheck_in_time(hotelDTO.getCheckInTime());
+        }
+
+        if (hotelDTO.getCheckOutTime() != null) {
+            hotel.setCheck_out_time(hotelDTO.getCheckOutTime());
+        }
+
+        if (hotelDTO.getWebsite() != null && !hotelDTO.getWebsite().isEmpty()) {
+            hotel.setWebsite(hotelDTO.getWebsite());
+        }
+
+        if (hotelDTO.getRating() != null) {
+            hotel.setRating(hotelDTO.getRating());
+        }
+
+        if (hotelDTO.getTypeOfHotel() != null && !hotelDTO.getTypeOfHotel().isEmpty()) {
+            hotel.setType_of_hotel(hotelDTO.getTypeOfHotel());
+        }
+
+        // Lưu và trả về thông tin khách sạn đã được cập nhật
+        return hotelRepository.save(hotel);
     }
+
 
     public HotelImage createHotelImage(Long id, HotelImageDTO hotelImageDTO) throws Exception {
         Hotel existingHotel = getHotelById(id);
