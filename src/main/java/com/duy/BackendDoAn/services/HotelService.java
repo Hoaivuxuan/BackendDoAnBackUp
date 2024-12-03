@@ -97,9 +97,9 @@ public class HotelService {
     }
 
 
-    public Page<HotelResponse> getAllHotels(String keyword, int noRooms, LocalDate checkin, LocalDate checkout, String type_of_room, Float minRating, Float maxRating, PageRequest pageRequest){
+    public Page<HotelResponse> getAllHotels(String keyword, int noRooms, PageRequest pageRequest){
         Page<Hotel> hotelsPage;
-        hotelsPage = hotelRepository.searchHotels(keyword, noRooms, checkin, checkout, type_of_room, minRating, maxRating, pageRequest);
+        hotelsPage = hotelRepository.searchHotels(keyword, noRooms, pageRequest);
         return hotelsPage.map(HotelResponse::fromHotel);
     }
 

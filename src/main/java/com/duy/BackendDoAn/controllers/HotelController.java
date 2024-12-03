@@ -112,13 +112,6 @@ public class HotelController {
     public ResponseEntity<HotelListResponse> searchHotel(
             @RequestParam(defaultValue = "") String keyword,
             @RequestParam int noRooms,
-            @RequestParam String checkin,
-            @RequestParam String checkout,
-            @RequestParam(name = "type_of_room") String typeOfRoom,
-            @RequestParam Float minRating,
-            @RequestParam Float maxRating,
-//            @RequestParam Long noAdults,
-//            @RequestParam Long noChildren,
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "10") int limit
     ) {
@@ -127,11 +120,7 @@ public class HotelController {
                 Sort.by("id").ascending()
         );
 
-        DateTimeFormatter dateTimeFormat = (DateTimeFormatter.ISO_LOCAL_DATE);
-        LocalDate checkin_date = LocalDate.parse(checkin, dateTimeFormat);
-        LocalDate checkout_date = dateTimeFormat.parse(checkout, LocalDate::from);
-
-        Page<HotelResponse> hotelPage =hotelService.getAllHotels(keyword,noRooms, checkin_date, checkout_date, typeOfRoom, minRating, maxRating, pageRequest);
+        Page<HotelResponse> hotelPage =hotelService.getAllHotels(keyword, noRooms, pageRequest);
         int totalPages =hotelPage.getTotalPages();
         List<HotelResponse> hotels = hotelPage.getContent();
         return ResponseEntity.ok(HotelListResponse.builder()
