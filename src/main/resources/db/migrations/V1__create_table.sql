@@ -112,7 +112,8 @@ CREATE TABLE booked_room (
 CREATE TABLE attraction (
     id INT AUTO_INCREMENT PRIMARY KEY,
     name NVARCHAR(255),
-    description TEXT,
+    latitude FLOAT,
+    longitude FLOAT,
     address NVARCHAR(255),
     type NVARCHAR(255),
     image TEXT,
@@ -137,8 +138,6 @@ CREATE TABLE rental_facility (
 
 CREATE TABLE office (
     id INT AUTO_INCREMENT PRIMARY KEY,
-    name NVARCHAR(255),
-    address NVARCHAR(255),
     attraction_id INT,
     rental_facility_id INT,
     CONSTRAINT fk_office_attraction foreign key (attraction_id) references attraction(id),

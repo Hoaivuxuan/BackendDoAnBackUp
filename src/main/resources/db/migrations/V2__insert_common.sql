@@ -69,11 +69,11 @@ VALUES
 ('Vĩnh Phúc', 'tỉnh', NULL),
 ('Yên Bái', 'tỉnh', NULL);
 
-INSERT INTO attraction (name, description, address, type, image, city_id)
+INSERT INTO attraction (name, latitude, longitude, address, type, image, city_id)
 VALUES
 (
     'Hồ Gươm',
-    'Hồ Gươm nằm ở trung tâm thành phố, gắn liền với lịch sử và văn hóa của Hà Nội.',
+    21.0285, 105.8520,
     'Phố Đinh Tiên Hoàng, Hoàn Kiếm, Hà Nội',
     'Di tích lịch sử',
     'ho_guom.jpg',
@@ -81,7 +81,7 @@ VALUES
 ),
 (
     'Lăng Chủ tịch Hồ Chí Minh',
-    'Lăng Bác là nơi lưu giữ thi hài của Chủ tịch Hồ Chí Minh.',
+    21.0369, 105.8342,
     '2 Hùng Vương, Ba Đình, Hà Nội',
     'Di tích lịch sử',
     'lang_bac.jpg',
@@ -89,7 +89,7 @@ VALUES
 ),
 (
     'Chợ Bến Thành',
-    'Chợ nổi tiếng tại trung tâm thành phố Hồ Chí Minh.',
+    10.7725, 106.6981,
     'Quận 1, Thành phố Hồ Chí Minh',
     'Địa điểm mua sắm',
     'cho_ben_thanh.jpg',
@@ -97,7 +97,7 @@ VALUES
 ),
 (
     'Cầu Rồng',
-    'Cây cầu độc đáo tại Đà Nẵng với hình dáng con rồng, có khả năng phun lửa.',
+    16.0605, 108.2271,
     'Đường Nguyễn Văn Linh, Đà Nẵng',
     'Công trình kiến trúc',
     'cau_rong.jpg',
@@ -105,7 +105,7 @@ VALUES
 ),
 (
     'Bãi biển Mỹ Khê',
-    'Bãi biển đẹp nhất Đà Nẵng, thu hút du khách.',
+    16.0599, 108.2496,
     'Đường Võ Nguyên Giáp, Đà Nẵng',
     'Bãi biển',
     'my_khe_beach.jpg',
@@ -113,7 +113,7 @@ VALUES
 ),
 (
     'Bảo tàng Quân đội',
-    'Bảo tàng lịch sử quân sự Việt Nam tại Hà Nội.',
+    21.0308, 105.8330,
     '28A Điện Biên Phủ, Ba Đình, Hà Nội',
     'Bảo tàng',
     'bao_tang_quan_doi.jpg',
@@ -121,7 +121,7 @@ VALUES
 ),
 (
     'Bảo tàng Cần Thơ',
-    'Bảo tàng giới thiệu về lịch sử và văn hóa Cần Thơ.',
+    10.0343, 105.7871,
     'Số 1 Đại lộ Hòa Bình, Cần Thơ',
     'Bảo tàng',
     'bao_tang_can_tho.jpg',
@@ -129,7 +129,7 @@ VALUES
 ),
 (
     'Vinpearl Land Nha Trang',
-    'Khu vui chơi giải trí hiện đại tại Nha Trang.',
+    12.2388, 109.1967,
     'Đảo Hòn Tre, Nha Trang',
     'Khu vui chơi',
     'vinpearl_land.jpg',
@@ -137,7 +137,7 @@ VALUES
 ),
 (
     'Chùa Dơi',
-    'Ngôi chùa nổi tiếng ở miền Tây, nơi sinh sống của nhiều loài dơi.',
+    9.6033, 105.9787,
     'Đường Lê Hồng Phong, Sóc Trăng',
     'Di tích văn hóa',
     'chua_doi.jpg',
@@ -145,7 +145,7 @@ VALUES
 ),
 (
     'Nhà thờ Đức Bà',
-    'Nhà thờ nổi tiếng tại trung tâm thành phố Hồ Chí Minh.',
+    10.7798, 106.6994,
     'Quận 1, Thành phố Hồ Chí Minh',
     'Công trình kiến trúc',
     'nha_tho_duc_ba.jpg',
