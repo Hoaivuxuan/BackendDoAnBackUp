@@ -25,7 +25,6 @@ public class AttractionResponse {
     public static AttractionResponse fromAttraction(Attraction attraction) {
         AttractionResponse response = AttractionResponse.builder()
                 .name(attraction.getName())
-                .description(attraction.getDescription())
                 .type(attraction.getType())
                 .image(attraction.getImage())
                 .city(attraction.getCity().getId())
