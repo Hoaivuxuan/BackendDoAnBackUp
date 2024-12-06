@@ -152,12 +152,6 @@ VALUES
     2
 );
 
-
-INSERT INTO users (name, first_name, last_name, phone_number, email, address, date_of_birth, active, password, role)
-VALUES
-('DUY', 'Duy', 'Nguyen', '0123456789', 'user1@com.example', '123 Main St', '1990-01-01', TRUE, 'password123', 'USER'),
-('THANH', 'Thanh', 'Tran', '0987654321', 'user2@com.example', '456 Secondary St', '1995-05-05', TRUE, 'password456', 'ADMIN');
-
 -----------------------------------------------------------------------------------------------
 
 
