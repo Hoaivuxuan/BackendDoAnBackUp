@@ -116,8 +116,7 @@ public class HotelController {
             @RequestParam(defaultValue = "10") int limit
     ) {
         PageRequest pageRequest = PageRequest.of(
-                page, limit,
-                Sort.by("id").ascending()
+            page, limit, Sort.by("id").ascending()
         );
 
         Page<HotelResponse> hotelPage =hotelService.getAllHotels(keyword, noRooms, pageRequest);

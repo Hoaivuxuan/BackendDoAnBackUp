@@ -63,7 +63,8 @@ INSERT INTO hotel (
     '15:00',
     '12:00',
     'https://www.anantaramuine.com',
-    4.6, 280, 160, 19, 'Resort',
+    4.6, 280, 160, 19,
+    'Resort',
     'Hủy miễn phí trong vòng 72 giờ trước khi nhận phòng.',
     'Yes',
     1, 0, 1
@@ -142,7 +143,7 @@ INSERT INTO hotel (
     '14:00',
     '12:00',
     'https://www.grandmercuredanang.com',
-    4.5, 270, 175, 1,
+    4.5, 270, 175, 3,
     'Hotel',
     'Hủy miễn phí trong vòng 48 giờ trước khi nhận phòng.',
     'Yes',
@@ -189,7 +190,7 @@ INSERT INTO hotel (
     '14:00',
     '12:00',
     'https://www.saigonprince.com',
-    4.4, 300, 180, 1,
+    4.4, 300, 180, 2,
     'Hotel',
     'Hủy miễn phí trong vòng 48 giờ trước khi nhận phòng.',
     'Yes',
@@ -205,7 +206,7 @@ INSERT INTO hotel (
     '14:00',
     '12:00',
     'https://www.ninhchu.com',
-    4.3, 180, 100, 1,
+    4.3, 180, 100, 46,
     'Hotel',
     'Hủy miễn phí trong vòng 72 giờ trước khi nhận phòng.',
     'Yes',
@@ -228,62 +229,88 @@ INSERT INTO hotel (
     1, 0, 1
 );
 
-
 INSERT INTO room (
     name, type, room_size, max_guests, type_bed_1, no_bed_1, type_bed_2, no_bed_2,
     price, available_rooms, hotel_id
 ) VALUES
--- Phòng cho Sunset Paradise Hotel (hotel_id = 1)
-('Ocean View Deluxe', 'Deluxe', 50, 3, 'King', 1, NULL, 0, 200.0, 10, 1),
-('Family Suite', 'Suite', 80, 5, 'Queen', 2, 'Single', 1, 350.0, 5, 1),
-('Standard Room', 'Standard', 30, 2, 'Double', 1, NULL, 0, 120.0, 15, 1),
+-- Phòng cho The Ascott Apartments (hotel_id = 1)
+('Ocean View Deluxe', 'Deluxe', 50, 3, 'King', 1, NULL, 0, 4800000, 10, 1),
+('Family Suite', 'Suite', 80, 5, 'Queen', 2, 'Single', 1, 8400000, 5, 1),
+('Standard Room', 'Standard', 30, 2, 'Double', 1, NULL, 0, 2880000, 15, 1),
 
--- Phòng cho Mountain View Inn (hotel_id = 2)
-('Mountain View Room', 'Deluxe', 40, 3, 'Queen', 1, NULL, 0, 180.0, 8, 2),
-('Nature Suite', 'Suite', 70, 4, 'Queen', 2, NULL, 0, 300.0, 4, 2),
-('Budget Room', 'Standard', 25, 2, 'Single', 2, NULL, 0, 100.0, 12, 2),
+-- Phòng cho Furama Resort Danang (hotel_id = 2)
+('Sea View Room', 'Deluxe', 45, 3, 'King', 1, NULL, 0, 4320000, 8, 2),
+('Pool Villa', 'Villa', 120, 6, 'Queen', 2, 'Single', 2, 9600000, 4, 2),
+('Budget Room', 'Standard', 25, 2, 'Single', 2, NULL, 0, 2400000, 12, 2),
 
--- Phòng cho Urban Central Hotel (hotel_id = 3)
-('City View Executive', 'Executive', 45, 3, 'King', 1, NULL, 0, 220.0, 7, 3),
-('Business Suite', 'Suite', 60, 4, 'Queen', 1, 'Single', 1, 280.0, 6, 3),
-('Compact Room', 'Standard', 20, 2, 'Double', 1, NULL, 0, 90.0, 20, 3);
+-- Phòng cho Vinhomes Central Park (hotel_id = 3)
+('City View Executive', 'Executive', 60, 4, 'King', 1, 'Single', 1, 5760000, 6, 3),
+('Business Suite', 'Suite', 70, 5, 'Queen', 2, 'Single', 1, 6720000, 4, 3),
+('Compact Studio', 'Studio', 25, 2, 'Double', 1, NULL, 0, 2160000, 20, 3),
 
+-- Phòng cho Anantara Mui Ne Resort (hotel_id = 4)
+('Beachfront Villa', 'Villa', 100, 4, 'King', 1, NULL, 0, 9600000, 6, 4),
+('Garden View Suite', 'Suite', 60, 3, 'Queen', 1, NULL, 0, 5280000, 8, 4),
+('Standard Room', 'Standard', 30, 2, 'Double', 1, NULL, 0, 2880000, 12, 4),
+
+-- Phòng cho Azerai La Residence (hotel_id = 5)
+('Deluxe River View', 'Deluxe', 45, 3, 'Queen', 1, NULL, 0, 5520000, 8, 5),
+('Junior Suite', 'Suite', 70, 4, 'King', 1, 'Single', 1, 7920000, 5, 5),
+('Classic Room', 'Standard', 25, 2, 'Double', 1, NULL, 0, 2160000, 14, 5),
+
+-- Phòng cho Alma Resort Cam Ranh (hotel_id = 6)
+('Ocean Front Villa', 'Villa', 120, 6, 'Queen', 2, 'Single', 2, 11520000, 4, 6),
+('Garden Suite', 'Suite', 60, 4, 'King', 1, 'Single', 1, 6240000, 6, 6),
+('Economy Room', 'Standard', 25, 2, 'Single', 2, NULL, 0, 2160000, 10, 6),
+
+-- Phòng cho InterContinental Hanoi Westlake (hotel_id = 7)
+('Lake View Room', 'Deluxe', 50, 3, 'King', 1, NULL, 0, 5280000, 7, 7),
+('Presidential Suite', 'Suite', 90, 6, 'Queen', 2, 'Single', 1, 14400000, 3, 7),
+('Standard Room', 'Standard', 30, 2, 'Double', 1, NULL, 0, 2880000, 15, 7),
+
+-- Phòng cho Vinpearl Resort & Spa Phu Quoc (hotel_id = 8)
+('Beachfront Villa', 'Villa', 120, 6, 'King', 2, 'Single', 2, 12000000, 4, 8),
+('Ocean View Suite', 'Suite', 70, 4, 'Queen', 1, 'Single', 1, 7200000, 6, 8),
+('Cozy Room', 'Standard', 30, 2, 'Double', 1, NULL, 0, 3600000, 10, 8),
+
+-- Phòng cho Grand Mercure Danang (hotel_id = 9)
+('Executive Room', 'Executive', 50, 3, 'King', 1, NULL, 0, 4800000, 7, 9),
+('Luxury Suite', 'Suite', 75, 5, 'Queen', 2, 'Single', 1, 8400000, 4, 9),
+('Budget Room', 'Standard', 25, 2, 'Single', 2, NULL, 0, 2400000, 10, 9),
+
+-- Phòng cho Muong Thanh Grand Hanoi (hotel_id = 10)
+('Deluxe Room', 'Deluxe', 50, 3, 'King', 1, NULL, 0, 5520000, 6, 10),
+('Business Suite', 'Suite', 70, 5, 'Queen', 2, 'Single', 1, 7920000, 3, 10),
+('Compact Room', 'Standard', 25, 2, 'Single', 2, NULL, 0, 2160000, 15, 10),
+
+-- Phòng cho Melia Hanoi Hotel (hotel_id = 11)
+('Executive Suite', 'Suite', 65, 4, 'King', 1, 'Single', 1, 8400000, 5, 11),
+('Deluxe Room', 'Deluxe', 50, 3, 'Queen', 1, NULL, 0, 5520000, 8, 11),
+('Standard Room', 'Standard', 30, 2, 'Double', 1, NULL, 0, 2880000, 12, 11),
+
+-- Phòng cho JW Marriott Phu Quoc Emerald Bay (hotel_id = 12)
+('Emerald Bay Suite', 'Suite', 75, 5, 'King', 1, 'Single', 1, 10800000, 4, 12),
+('Oceanfront Villa', 'Villa', 120, 6, 'Queen', 2, 'Single', 2, 13200000, 3, 12),
+('Deluxe Room', 'Deluxe', 40, 3, 'Queen', 1, NULL, 0, 5280000, 10, 12),
+
+-- Phòng cho The Reverie Saigon (hotel_id = 13)
+('Panoramic Suite', 'Suite', 80, 5, 'King', 1, 'Single', 1, 14400000, 4, 13),
+('City View Deluxe', 'Deluxe', 45, 3, 'Queen', 1, NULL, 0, 5760000, 7, 13),
+('Economy Room', 'Standard', 25, 2, 'Single', 2, NULL, 0, 2400000, 15, 13),
+
+-- Phòng cho Vinpearl Luxury Nha Trang (hotel_id = 14)
+('Luxury Villa', 'Villa', 130, 6, 'King', 2, 'Single', 2, 18000000, 3, 14),
+('Beachfront Deluxe', 'Deluxe', 50, 4, 'Queen', 1, NULL, 0, 7200000, 6, 14),
+('Cozy Room', 'Standard', 30, 2, 'Double', 1, NULL, 0, 3600000, 12, 14);
 
 INSERT INTO amenity (name) VALUES
-('Wi-Fi miễn phí'),
-('Bể bơi'),
-('Dịch vụ giặt là'),
-('Trung tâm thể dục'),
-('Bãi đỗ xe miễn phí'),
-('Nhà hàng'),
-('Dịch vụ phòng'),
-('Spa và chăm sóc sức khỏe'),
-('Quầy bar'),
-('Phòng hội nghị'),
-('Đưa đón sân bay'),
-('Phòng không hút thuốc'),
-('Tiện nghi cho người khuyết tật'),
-('Sân chơi trẻ em'),
-('Máy điều hòa'),
-('TV màn hình phẳng'),
-('Tủ lạnh mini'),
-('Két sắt'),
-('Máy pha cà phê'),
-('Bàn làm việc'),
-('Ban công riêng'),
-('Bồn tắm'),
-('Đồ vệ sinh cá nhân miễn phí'),
-('Máy sấy tóc'),
-('Dép đi trong phòng'),
-('Điện thoại nội bộ'),
-('Bộ ấm chén'),
-('Dịch vụ báo thức'),
-('Wifi trong phòng');
-
-INSERT INTO nearby_attraction (distance, hotel_id, attraction_id)
-VALUES
-(4, 1, 1);
-
+('Wi-Fi miễn phí'), ('Bể bơi'), ('Dịch vụ giặt là'), ('Trung tâm thể dục'),
+('Bãi đỗ xe miễn phí'), ('Nhà hàng'), ('Dịch vụ phòng'), ('Spa và chăm sóc sức khỏe'),
+('Quầy bar'), ('Phòng hội nghị'), ('Đưa đón sân bay'), ('Phòng không hút thuốc'),
+('Tiện nghi cho người khuyết tật'), ('Sân chơi trẻ em'), ('Máy điều hòa'), ('TV'),
+('Tủ lạnh mini'), ('Két sắt'), ('Máy pha cà phê'), ('Bàn làm việc'), ('Ban công riêng'),
+('Bồn tắm'), ('Đồ vệ sinh cá nhân miễn phí'), ('Máy sấy tóc'), ('Dép đi trong phòng'),
+('Điện thoại nội bộ'), ('Bộ ấm chén'), ('Dịch vụ báo thức'), ('Wifi trong phòng');
 
 INSERT INTO hotel_image (image_url, hotel_id)
 VALUES
@@ -331,10 +358,20 @@ VALUES
 ("https://firebasestorage.googleapis.com/v0/b/travel-web-7b510.appspot.com/o/hotel%2Fimage-03.jpg?alt=media&token=02d05419-1248-4487-9885-c09ccc7026e3", 14);
 
 INSERT INTO amenity_for_hotel (amenity_id, hotel_id) VALUES
-(1, 1),
-(2, 1),
-(3, 1),
-(4, 1);
+(1, 1), (2, 1), (3, 1), (4, 1), (5, 1), (6, 1), (7, 1), (8, 1),
+(1, 2), (3, 2), (4, 2), (5, 2), (6, 2), (7, 2), (8, 2), (9, 2),
+(2, 3), (3, 3), (4, 3), (5, 3), (6, 3), (7, 3), (8, 3), (9, 3),
+(1, 4), (2, 4), (5, 4), (6, 4), (7, 4), (8, 4), (10, 4), (11, 4),
+(1, 5), (3, 5), (4, 5), (5, 5), (6, 5), (7, 5), (12, 5), (13, 5),
+(2, 6), (3, 6), (5, 6), (7, 6), (8, 6), (9, 6), (10, 6), (14, 6),
+(1, 7), (3, 7), (4, 7), (5, 7), (6, 7), (7, 7), (15, 7), (16, 7),
+(1, 8), (2, 8), (3, 8), (4, 8), (6, 8), (7, 8), (9, 8), (17, 8),
+(5, 9), (6, 9), (7, 9), (8, 9), (11, 9), (12, 9), (13, 9), (18, 9),
+(1, 10), (2, 10), (6, 10), (7, 10), (8, 10), (9, 10), (14, 10), (19, 10),
+(1, 11), (2, 11), (3, 11), (4, 11), (5, 11), (6, 11), (7, 11), (20, 11),
+(1, 12), (3, 12), (5, 12), (6, 12), (7, 12), (9, 12), (10, 12), (21, 12),
+(2, 13), (3, 13), (4, 13), (6, 13), (7, 13), (8, 13), (11, 13), (22, 13),
+(1, 14), (3, 14), (5, 14), (7, 14), (8, 14), (9, 14), (13, 14), (23, 14);
 
 INSERT INTO amenity_for_room (amenity_id, room_id)
 VALUES
@@ -342,7 +379,9 @@ VALUES
 (26, 1),
 (27, 1);
 
-
+INSERT INTO nearby_attraction (distance, hotel_id, attraction_id)
+VALUES
+(4, 1, 1);
 
 
 
