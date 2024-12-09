@@ -14,12 +14,6 @@ import lombok.experimental.SuperBuilder;
 @SuperBuilder
 @DiscriminatorValue("MOTOR")
 public class Motor extends Vehicle {
-    @Column(name = "type_of_motor")
-    private String type_of_motor;
-
-    @Column(name = "handle_bar_type")
-    private String handle_bar_type;
-
-    @Column(name = "engine")
-    private Long engine;
+    @Column(name = "capacity")
+    private String capacity;
 }

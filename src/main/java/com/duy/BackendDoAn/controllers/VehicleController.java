@@ -1,10 +1,8 @@
 package com.duy.BackendDoAn.controllers;
 
-import com.duy.BackendDoAn.dtos.CarDTO;
-import com.duy.BackendDoAn.dtos.MotorDTO;
+
+import com.duy.BackendDoAn.dtos.UpdateVehicleDTO;
 import com.duy.BackendDoAn.dtos.VehicleDTO;
-import com.duy.BackendDoAn.models.Car;
-import com.duy.BackendDoAn.models.Motor;
 import com.duy.BackendDoAn.models.Vehicle;
 import com.duy.BackendDoAn.responses.vehicles.*;
 import com.duy.BackendDoAn.services.VehicleService;
@@ -26,21 +24,6 @@ import java.util.List;
 @RestController
 public class VehicleController {
     private final VehicleService vehicleService;
-
-//    @PostMapping("/cars")
-//    public ResponseEntity<CarResponse> createCar(@Valid @RequestBody CarDTO carDTO) throws Exception {
-//        Car newCar = vehicleService.addCar(carDTO);
-//        CarResponse carResponse = CarResponse.fromCar(newCar);
-//        return ResponseEntity.ok(carResponse);
-//    }
-//
-//    @PostMapping("/motors")
-//    public ResponseEntity<MotorResponse> createMotor(@Valid @RequestBody MotorDTO motorDTO) throws Exception {
-//        Motor newMotor = vehicleService.addMotor(motorDTO);
-//        MotorResponse motorResponse = MotorResponse.fromMotor(newMotor);
-//        return ResponseEntity.ok(motorResponse);
-//    }
-
 
     @GetMapping("")
     public ResponseEntity<VehicleListResponse> searchCar(
@@ -97,7 +80,7 @@ public class VehicleController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<VehicleResponse> updateVehicle(@PathVariable("id") Long id, @Valid @RequestBody VehicleDTO vehicleDTO) throws Exception {
+    public ResponseEntity<VehicleResponse> updateVehicle(@PathVariable("id") Long id, @Valid @RequestBody UpdateVehicleDTO vehicleDTO) throws Exception {
         Vehicle vehicle = new Vehicle();
         if(vehicleDTO.getType().equals("CAR")){
             vehicle = vehicleService.updateCar(id, vehicleDTO);
@@ -112,25 +95,15 @@ public class VehicleController {
         return ResponseEntity.ok(vehicleResponse);
     }
 
-//    @PutMapping("/cars/{id}")
-//    public ResponseEntity<CarResponse> updateCarById( @PathVariable("id") Long id, @Valid @RequestBody CarDTO carDTO) throws Exception {
-//        CarResponse carResponse = new CarResponse();
-//        Car car = vehicleService.updateCar(id, carDTO);
-//        carResponse = CarResponse.fromCar(car);
-//        return ResponseEntity.ok(carResponse);
-//    }
-//
-//    @PutMapping("/motors/{id}")
-//    public ResponseEntity<MotorResponse> updateMotorById( @PathVariable("id") Long id, @Valid @RequestBody MotorDTO motorDTO) throws Exception {
-//        MotorResponse motorResponse = new MotorResponse();
-//        Motor motor = vehicleService.updateMotor(id, motorDTO);
-//        motorResponse = MotorResponse.fromMotor(motor);
-//        return ResponseEntity.ok(motorResponse);
-//    }
-
     @DeleteMapping("/{id}")
     public ResponseEntity<String> deleteVehicle(@PathVariable Long id) throws Exception {
-        vehicleService.deleteVehicleById(id);
-        return ResponseEntity.ok("Vehicle delete successfully");
+        try {
+            vehicleService.deleteVehicleById(id);
+            return ResponseEntity.ok("Vehicle delete successfully");
+        }
+        catch (Exception e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
+
     }
 }

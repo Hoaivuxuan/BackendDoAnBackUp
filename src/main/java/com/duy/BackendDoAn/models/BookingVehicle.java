@@ -46,9 +46,9 @@ public class BookingVehicle {
     private Float total_price;
 
     @ManyToOne
-    @JoinColumn(name = "vehicle_id")
+    @JoinColumn(name = "rental_vehicle_id")
     @JsonBackReference
-    private Vehicle vehicle;
+    private VehicleRentalFacility vehicleRentalFacility;
 
     @ManyToOne
     @JoinColumn(name = "user_id")

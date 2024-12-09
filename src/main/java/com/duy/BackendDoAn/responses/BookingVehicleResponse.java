@@ -61,7 +61,7 @@ public class BookingVehicleResponse {
                 .returnTime(bookingVehicle.getReturn_time())
                 .returnAddress(bookingVehicle.getReturn_address())
                 .totalPrice(bookingVehicle.getTotal_price())
-                .vehicle(bookingVehicle.getVehicle().getId())
+                .vehicle(bookingVehicle.getVehicleRentalFacility().getVehicle().getId())
                 .user(bookingVehicle.getUser().getId())
                 .accessoryBookings(bookingVehicle.getAccessoryBookings())
                 .build();

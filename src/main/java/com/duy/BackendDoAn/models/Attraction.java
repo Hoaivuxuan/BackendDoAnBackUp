@@ -23,8 +23,8 @@ public class Attraction {
     @Column(name = "name")
     private String name;
 
-    @Column(name = "description")
-    private String description;
+    @Column(name = "address")
+    private String address;
 
     @Column(name = "type")
     private String type;

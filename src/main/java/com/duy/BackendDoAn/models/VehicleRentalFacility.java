@@ -1,11 +1,14 @@
 package com.duy.BackendDoAn.models;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.List;
+
 @Entity
-@Table(name = "vehicle_rental_facility")
+@Table(name = "rental_vehicle")
 @Getter
 @Setter
 @AllArgsConstructor
@@ -26,6 +29,16 @@ public class VehicleRentalFacility {
     @JsonBackReference
     private RentalFacility rentalFacility;
 
+    @Column(name = "stake")
+    private Float stake;
+
+    @Column(name = "available_vehicle")
+    private Long availableVehicle;
+
     @Column(name = "price")
     private Float price;
+
+    @OneToMany(mappedBy = "vehicleRentalFacility", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JsonManagedReference
+    private List<BookingVehicle> bookingVehicles;
 }

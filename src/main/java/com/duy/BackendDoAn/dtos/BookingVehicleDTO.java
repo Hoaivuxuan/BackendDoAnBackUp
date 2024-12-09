@@ -41,8 +41,8 @@ public class BookingVehicleDTO {
     @JsonProperty("rental_id")
     private Long rental;
 
-    @JsonProperty("vehicle_id")
-    private Long vehicle;
+    @JsonProperty("rental_vehicle_id")
+    private Long rentalVehicle;
 
     @JsonProperty("user_id")
     private Long user;

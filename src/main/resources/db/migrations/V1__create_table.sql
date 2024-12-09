@@ -148,32 +148,38 @@ CREATE TABLE office (
 CREATE TABLE vehicle (
     id INT AUTO_INCREMENT PRIMARY KEY,
     name NVARCHAR(255),
-    stake FLOAT,
-    image_url NVARCHAR(255),
-    description TEXT,
-    seat_amount INT,
-    luggage_amount INT,
-    facility_id INT,
-    fuel_type NVARCHAR(255),
+    brand NVARCHAR(255),
     vehicle_type NVARCHAR(255),
-    CONSTRAINT fk_motor_rental_facility foreign key (facility_id) references rental_facility(id)
+    fuel NVARCHAR(255),
+    engine NVARCHAR(255),
+    year INT
 );
 
 
 CREATE TABLE motor (
     motor_id INT PRIMARY KEY,
-    type_of_motor NVARCHAR(255),
-    handle_bar_type NVARCHAR(255),
-    engine INT,
+    capacity NVARCHAR(255),
     FOREIGN KEY (motor_id) references vehicle(id)
 );
 
 
 CREATE TABLE car (
     car_id INT PRIMARY KEY,
-    transmission_type NVARCHAR(255),
-    trunk_capacity NVARCHAR(255),
+    transmission NVARCHAR(255),
+    baggage_capacity NVARCHAR(255),
+    seats INT,
     FOREIGN KEY (car_id) references vehicle(id)
+);
+
+CREATE TABLE rental_vehicle (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    vehicle_id INT NOT NULL,
+    rental_facility_id INT NOT NULL,
+    price FLOAT NOT NULL,
+    stake FLOAT,
+    available_vehicle INT,
+    CONSTRAINT fk_vrf_vehicle FOREIGN KEY (vehicle_id) REFERENCES vehicle(id),
+    CONSTRAINT fk_vrf_rental FOREIGN KEY (rental_facility_id) REFERENCES rental_facility(id)
 );
 
 CREATE TABLE booking_vehicle (
@@ -187,9 +193,9 @@ CREATE TABLE booking_vehicle (
     return_address NVARCHAR(255),
     total_price FLOAT,
     user_id INT,
-    vehicle_id INT,
+    rental_vehicle_id INT,
     CONSTRAINT fk_booking_motor_users foreign key (user_id) references users(id),
-    CONSTRAINT fk_booking_motor_motor foreign key (vehicle_id) references vehicle(id)
+    CONSTRAINT fk_booking_motor_rental_vehicle foreign key (rental_vehicle_id) references rental_vehicle(id)
 );
 
 create table accessory (
@@ -309,14 +315,7 @@ CREATE TABLE review_rental (
         CONSTRAINT fk_review_rental_user foreign key (user_id) references users(id)
 );
 
-CREATE TABLE vehicle_rental_facility (
-    id INT PRIMARY KEY AUTO_INCREMENT,
-    vehicle_id INT NOT NULL,
-    rental_facility_id INT NOT NULL,
-    price FLOAT NOT NULL,
-    CONSTRAINT fk_vrf_vehicle FOREIGN KEY (vehicle_id) REFERENCES vehicle(id),
-    CONSTRAINT fk_vrf_rental FOREIGN KEY (rental_facility_id) REFERENCES rental_facility(id)
-);
+
 
 
 

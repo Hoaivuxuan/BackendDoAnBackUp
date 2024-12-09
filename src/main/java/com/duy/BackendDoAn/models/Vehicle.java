@@ -25,33 +25,22 @@ public class Vehicle {
     @Column(name = "name")
     private String name;
 
-    @Column(name = "stake")
-    private Float stake;
+    @Column(name = "brand")
+    private String brand;
 
-    @Column(name = "image_url")
-    private String image_url;
+    @Column(name = "year")
+    private Long year;
 
-    @Column(name = "description")
-    private String description;
+    @Column(name = "fuel")
+    private String fuel;
 
-    @Column(name = "seat_amount")
-    private Long seat_amount;
-
-    @Column(name = "luggage_amount")
-    private Long luggage_amount;
-
-    @Column(name = "fuel_type")
-    private String fuel_type;
-
-    @OneToMany(mappedBy = "vehicle", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    @JsonManagedReference
-    private List<VehicleRentalFacility> vehicleRentalFacilities;
-
-    @OneToMany(mappedBy = "vehicle", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JsonIgnore
-    @JsonManagedReference
-    private List<BookingVehicle> bookingVehicles;
+    @Column(name = "engine")
+    private String engine;
 
     @Column(name="vehicle_type", insertable = false, updatable = false)
     protected String vehicle_type;
+
+    @OneToMany(mappedBy = "vehicle", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JsonManagedReference
+    private List<VehicleRentalFacility> vehicleRentalFacilities;
 }

@@ -13,14 +13,14 @@ import java.time.LocalTime;
 
 public interface VehicleRepository extends JpaRepository<Vehicle, Long> {
     @Query(value = "SELECT DISTINCT v FROM Vehicle v " +
-            "LEFT JOIN FETCH v.vehicleRentalFacilities vrf " +  // JOIN FETCH để tránh LazyInitializationException
+            "LEFT JOIN FETCH v.vehicleRentalFacilities vrf " +  // JOIN với VehicleRentalFacility
             "LEFT JOIN FETCH vrf.rentalFacility rf " +          // Liên kết với RentalFacility
             "LEFT JOIN FETCH rf.attraction a " +                // Liên kết với Attraction
             "LEFT JOIN FETCH a.city c " +                       // Liên kết với City
-            "WHERE (:type IS NULL OR LOWER(v.vehicle_type) LIKE LOWER(CONCAT('%', :type, '%'))) " +  // LIKE với CONCAT
-            "AND (:location IS NULL OR LOWER(c.city_name) LIKE LOWER(CONCAT('%', :location, '%'))) " + // Tìm kiếm không phân biệt hoa thường
+            "WHERE (:type IS NULL OR LOWER(v.vehicle_type) LIKE LOWER(CONCAT('%', :type, '%'))) " +  // Tìm kiếm theo loại xe
+            "AND (:location IS NULL OR LOWER(c.city_name) LIKE LOWER(CONCAT('%', :location, '%'))) " +    // Tìm kiếm theo thành phố
             "AND v.id NOT IN (" +
-            "    SELECT bv.vehicle.id FROM BookingVehicle bv " +
+            "    SELECT bv.vehicleRentalFacility.vehicle.id FROM BookingVehicle bv " +               // Liên kết qua VehicleRentalFacility
             "    WHERE bv.start_date < :endDate AND bv.return_date > :startDate " +
             "    AND bv.start_time < :endTime AND bv.return_time > :startTime" +
             ")")
@@ -33,6 +33,7 @@ public interface VehicleRepository extends JpaRepository<Vehicle, Long> {
             @Param("endTime") LocalTime endTime,
             Pageable pageable
     );
+
 
 
 

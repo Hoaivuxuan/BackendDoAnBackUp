@@ -13,8 +13,7 @@ public class AttractionResponse {
     @JsonProperty("name")
     private String name;
 
-    @JsonProperty("description")
-    private String description;
+    private String address;
 
     private String type;
     private String image;
@@ -25,7 +24,7 @@ public class AttractionResponse {
     public static AttractionResponse fromAttraction(Attraction attraction) {
         AttractionResponse response = AttractionResponse.builder()
                 .name(attraction.getName())
-                .description(attraction.getDescription())
+                .address(attraction.getAddress())
                 .type(attraction.getType())
                 .image(attraction.getImage())
                 .city(attraction.getCity().getId())

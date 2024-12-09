@@ -24,18 +24,28 @@ public class DetailResponse {
     private String fuel;
     private Long year;
 
-    private Long engine;
+    private String engine;
+    private String brand;
+    private String capacity;
 
     public static DetailResponse fromVehicle(Vehicle vehicle) {
         DetailResponse response = new DetailResponse();
-        response.fuel = vehicle.getFuel_type();
-        response.baggageCapacity = vehicle.getLuggage_amount();
-        response.seats = vehicle.getSeat_amount();
+        response.fuel = vehicle.getFuel();
+        response.brand = vehicle.getBrand();
+        response.engine = vehicle.getEngine();
+        response.year = vehicle.getYear();
+
+        response.seats = (Objects.equals(vehicle.getVehicle_type(), "CAR"))
+                ? (((Car) vehicle)).getSeats()
+                : null;
+        response.baggageCapacity = (Objects.equals(vehicle.getVehicle_type(), "CAR"))
+                ? (((Car) vehicle)).getBaggage_capacity()
+                : null;
         response.transmission = (Objects.equals(vehicle.getVehicle_type(), "CAR"))
                 ? (((Car) vehicle)).getTransmission_type()
                 : null;
-        response.engine = (Objects.equals(vehicle.getVehicle_type(), "MOTOR"))
-                ? ((Motor) vehicle).getEngine()
+        response.capacity = (Objects.equals(vehicle.getVehicle_type(), "MOTOR"))
+                ? ((Motor) vehicle).getCapacity()
                 : null;
         return response;
     }

@@ -2,15 +2,14 @@ package com.duy.BackendDoAn.dtos;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.*;
-import lombok.experimental.SuperBuilder;
 
 @Data
-@SuperBuilder
+@Builder
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
 @Setter
-public class VehicleDTO {
+public class UpdateVehicleDTO {
     @JsonProperty("name")
     private String name;
 
@@ -43,4 +42,8 @@ public class VehicleDTO {
 
     @JsonProperty("available_vehicle")
     private Long availableVehicle;
+
+    @JsonProperty("rental_vehicle_id")
+    private Long rentalVehicle;
+
 }

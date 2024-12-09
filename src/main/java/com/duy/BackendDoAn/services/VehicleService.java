@@ -1,13 +1,11 @@
 package com.duy.BackendDoAn.services;
 
-import com.duy.BackendDoAn.dtos.CarDTO;
-import com.duy.BackendDoAn.dtos.MotorDTO;
+import com.duy.BackendDoAn.dtos.UpdateVehicleDTO;
 import com.duy.BackendDoAn.dtos.VehicleDTO;
 import com.duy.BackendDoAn.models.*;
 import com.duy.BackendDoAn.repositories.*;
-import com.duy.BackendDoAn.responses.CarResponse;
-import com.duy.BackendDoAn.responses.MotorResponse;
 import com.duy.BackendDoAn.responses.vehicles.VehicleResponse;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -16,6 +14,7 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.Collections;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -25,21 +24,21 @@ public class VehicleService {
     public final CarRepository carRepository;
     public final MotorRepository motorRepository;
     public final VehicleRentalFacilityRepository vehicleRentalFacilityRepository;
+
     public Vehicle addCar(VehicleDTO carDTO) throws Exception {
         RentalFacility facility = rentalFacilityRepository.findById(carDTO.getFacility())
                 .orElseThrow(() -> new Exception("Rental Facility doesn't exist"));
 
         Car newCar = Car.builder()
                 .name(carDTO.getName())
-                .stake(carDTO.getStake())
-                .image_url(carDTO.getImageUrl())
+                .brand(carDTO.getBrand())
+                .year(carDTO.getYear())
                 .vehicle_type(carDTO.getType())
-                .description(carDTO.getDescription())
-                .seat_amount(carDTO.getSeatAmount())
-                .luggage_amount(carDTO.getLuggageAmount())
-                .fuel_type(carDTO.getFuelType())
-                .transmission_type(carDTO.getTransmission())
-                .trunk_capacity(carDTO.getTrunk())
+                .transmission_type(carDTO.getTransmissionType())
+                .baggage_capacity(carDTO.getBaggageCapacity())
+                .seats(carDTO.getSeats())
+                .fuel(carDTO.getFuel())
+                .engine(carDTO.getEngine())
                 .build();
 
         Car savedCar = carRepository.save(newCar);
@@ -48,7 +47,9 @@ public class VehicleService {
         VehicleRentalFacility vehicleRentalFacility = VehicleRentalFacility.builder()
                 .vehicle(savedCar)
                 .rentalFacility(facility)
-                .price(carDTO.getPricePerHour())
+                .price(carDTO.getPrice())
+                .stake(carDTO.getStake())
+                .availableVehicle(carDTO.getAvailableVehicle())
                 .build();
 
         vehicleRentalFacilityRepository.save(vehicleRentalFacility);
@@ -63,15 +64,11 @@ public class VehicleService {
 
         Motor newMotor = Motor.builder()
                 .name(motorDTO.getName())
-                .stake(motorDTO.getStake())
-                .image_url(motorDTO.getImageUrl())
+                .brand(motorDTO.getBrand())
+                .year(motorDTO.getYear())
                 .vehicle_type(motorDTO.getType())
-                .description(motorDTO.getDescription())
-                .seat_amount(motorDTO.getSeatAmount())
-                .luggage_amount(motorDTO.getLuggageAmount())
-                .type_of_motor(motorDTO.getTypeOfMotor())
-                .handle_bar_type(motorDTO.getHandleBarType())
-                .fuel_type(motorDTO.getFuelType())
+                .capacity(motorDTO.getCapacity())
+                .fuel(motorDTO.getFuel())
                 .engine(motorDTO.getEngine())
                 .build();
         Motor savedMotor = motorRepository.save(newMotor);
@@ -80,7 +77,8 @@ public class VehicleService {
         VehicleRentalFacility vehicleRentalFacility = VehicleRentalFacility.builder()
                 .vehicle(savedMotor)
                 .rentalFacility(facility)
-                .price(motorDTO.getPricePerHour())
+                .price(motorDTO.getPrice())
+                .availableVehicle(motorDTO.getAvailableVehicle())
                 .build();
 
         vehicleRentalFacilityRepository.save(vehicleRentalFacility);
@@ -104,95 +102,96 @@ public class VehicleService {
         return VehicleResponse.fromVehicle(vehicle);
     }
 
-    public Vehicle updateCar(long id, VehicleDTO vehicleDTO) throws Exception {
+    public Vehicle updateCar(long id, UpdateVehicleDTO vehicleDTO) throws Exception {
         Vehicle car = getVehicleById(id);
+        RentalFacility rentalFacility = rentalFacilityRepository.findById(vehicleDTO.getFacility())
+                .orElseThrow(() -> new Exception("Rental facility not found!!"));
+        VehicleRentalFacility vehicleRentalFacility = vehicleRentalFacilityRepository
+                .findById(vehicleDTO.getRentalVehicle())
+                .orElseThrow(() -> new Exception("Rental Vehicle not found!!"));
+
         if (car instanceof Car existingCar) {
-            RentalFacility rentalFacility = rentalFacilityRepository.findById(vehicleDTO.getFacility())
-                    .orElseThrow(() -> new Exception("Facility not exist"));
 
             if (vehicleDTO.getName() != null && !vehicleDTO.getName().isEmpty()) {
                 existingCar.setName(vehicleDTO.getName());
             }
-            if (vehicleDTO.getDescription() != null && !vehicleDTO.getDescription().isEmpty()) {
-                existingCar.setDescription(vehicleDTO.getDescription());
+            if (vehicleDTO.getBrand() != null && !vehicleDTO.getBrand().isEmpty()) {
+                existingCar.setBrand(vehicleDTO.getBrand());
             }
-            if (vehicleDTO.getSeatAmount() > 0) {
-                existingCar.setSeat_amount(vehicleDTO.getSeatAmount());
+            if (vehicleDTO.getYear() != null && vehicleDTO.getYear() > 0) {
+                existingCar.setYear(vehicleDTO.getYear());
             }
-            if (vehicleDTO.getLuggageAmount() >= 0) {
-                existingCar.setLuggage_amount(vehicleDTO.getLuggageAmount());
+            if (vehicleDTO.getSeats() != null && vehicleDTO.getSeats() > 0) {
+                existingCar.setSeats(vehicleDTO.getSeats());
             }
-            if (vehicleDTO.getFuelType() != null && !vehicleDTO.getFuelType().isEmpty()) {
-                existingCar.setFuel_type(vehicleDTO.getFuelType());
+            if (vehicleDTO.getBaggageCapacity() != null && vehicleDTO.getBaggageCapacity() >= 0) {
+                existingCar.setBaggage_capacity(vehicleDTO.getBaggageCapacity());
             }
-            if (vehicleDTO.getTransmission() != null && !vehicleDTO.getTransmission().isEmpty()) {
-                existingCar.setTransmission_type(vehicleDTO.getTransmission());
+            if (vehicleDTO.getFuel() != null && !vehicleDTO.getFuel().isEmpty()) {
+                existingCar.setFuel(vehicleDTO.getFuel());
             }
-            if (vehicleDTO.getTrunk() > 0) {
-                existingCar.setTrunk_capacity(vehicleDTO.getTrunk());
+            if (vehicleDTO.getTransmissionType() != null && !vehicleDTO.getTransmissionType().isEmpty()) {
+                existingCar.setTransmission_type(vehicleDTO.getTransmissionType());
+            }
+            if (vehicleDTO.getEngine() != null && !vehicleDTO.getEngine().isEmpty()) {
+                existingCar.setEngine(vehicleDTO.getEngine());
             }
             Car savedCar = carRepository.save(existingCar);
-            VehicleRentalFacility vehicleRentalFacility = VehicleRentalFacility.builder()
-                    .vehicle(savedCar)
-                    .rentalFacility(rentalFacility)
-                    .price(vehicleDTO.getPricePerHour())
-                    .build();
-            savedCar.setVehicleRentalFacilities(Collections.singletonList(vehicleRentalFacility));
-            return carRepository.findById(savedCar.getId()).orElseThrow(() -> new Exception("Vehicle not found")); // Trả về kiểu Vehicle thay vì Car
+
+            vehicleRentalFacility.setRentalFacility(rentalFacility);
+            vehicleRentalFacility.setVehicle(savedCar);
+            vehicleRentalFacility.setStake(vehicleDTO.getStake());
+            vehicleRentalFacility.setAvailableVehicle(vehicleDTO.getAvailableVehicle());
+            vehicleRentalFacility.setPrice(vehicleDTO.getPrice());
+
+            vehicleRentalFacilityRepository.save(vehicleRentalFacility);
+            return savedCar;
         } else {
             throw new Exception("Car not found or invalid vehicle type");
         }
     }
 
 
-    public Vehicle updateMotor(long id, VehicleDTO motorDTO) throws Exception {
-        Object motor = getVehicleById(id);
-        if(motor instanceof Motor existingMotor){
-            RentalFacility rentalFacility = rentalFacilityRepository.findById(motorDTO.getFacility()).orElseThrow(()-> new Exception("Facility not exist"));
-            if(motorDTO.getName() != null && !motorDTO.getName().isEmpty()){
+    public Vehicle updateMotor(long id, UpdateVehicleDTO motorDTO) throws Exception {
+        Vehicle motor = getVehicleById(id);
+        RentalFacility rentalFacility = rentalFacilityRepository.findById(motorDTO.getFacility())
+                .orElseThrow(() -> new Exception("Rental facility not found!!"));
+        VehicleRentalFacility vehicleRentalFacility = vehicleRentalFacilityRepository.findById(motorDTO.getRentalVehicle())
+                .orElseThrow(() -> new Exception("Rental vehicle not found!!"));
+        if (motor instanceof Motor existingMotor) {
+            if (motorDTO.getName() != null && !motorDTO.getName().isEmpty()) {
                 existingMotor.setName(motorDTO.getName());
             }
-            if(motorDTO.getDescription() != null && !motorDTO.getDescription().isEmpty()){
-                existingMotor.setDescription(motorDTO.getDescription());
+            if (motorDTO.getBrand() != null && !motorDTO.getBrand().isEmpty()) {
+                existingMotor.setBrand(motorDTO.getBrand());
             }
-            if(motorDTO.getSeatAmount() > 0){
-                existingMotor.setSeat_amount(motorDTO.getSeatAmount());
+            if (motorDTO.getYear() != null && motorDTO.getYear() > 0) {
+                existingMotor.setYear(motorDTO.getYear());
             }
-            if(motorDTO.getLuggageAmount() >= 0){
-                existingMotor.setLuggage_amount(motorDTO.getLuggageAmount());
+            if (motorDTO.getCapacity() != null && !motorDTO.getCapacity().isEmpty()) {
+                existingMotor.setCapacity(motorDTO.getCapacity());
             }
-            if(motorDTO.getFuelType() != null && !motorDTO.getFuelType().isEmpty()){
-                existingMotor.setFuel_type(motorDTO.getFuelType());
+            if (motorDTO.getFuel() != null && !motorDTO.getFuel().isEmpty()) {
+                existingMotor.setFuel(motorDTO.getFuel());
             }
-            if(motorDTO.getTypeOfMotor() != null && !motorDTO.getTypeOfMotor().isEmpty()){
-                existingMotor.setType_of_motor(motorDTO.getTypeOfMotor());
-            }
-            if(motorDTO.getHandleBarType() != null && !motorDTO.getHandleBarType().isEmpty()){
-                existingMotor.setHandle_bar_type(motorDTO.getHandleBarType());
-            }
-            if(motorDTO.getEngine() >= 0){
+            if (motorDTO.getEngine() != null && !motorDTO.getEngine().isEmpty()) {
                 existingMotor.setEngine(motorDTO.getEngine());
             }
             Motor savedMotor = motorRepository.save(existingMotor);
-            VehicleRentalFacility vehicleRentalFacility = VehicleRentalFacility.builder()
+            vehicleRentalFacility = VehicleRentalFacility.builder()
                     .vehicle(savedMotor)
                     .rentalFacility(rentalFacility)
-                    .price(motorDTO.getPricePerHour())
+                    .price(motorDTO.getPrice())
+                    .availableVehicle(motorDTO.getAvailableVehicle())
                     .build();
-            savedMotor.setVehicleRentalFacilities(Collections.singletonList(vehicleRentalFacility));
-            return motorRepository.findById(savedMotor.getId()).orElseThrow(() -> new Exception("Vehicle not found"));
-        }
-        else return null;
+            vehicleRentalFacilityRepository.save(vehicleRentalFacility);
+            return savedMotor;
+        } else return null;
     }
 
-    public void deleteVehicleById(Long id) throws Exception {
-        Vehicle vehicle = getVehicleById(id);
-        if("CAR".equals(vehicle.getVehicle_type())) {
-            carRepository.deleteById(id);
-        }
-        else if ("MOTOR".equals(vehicle.getVehicle_type())) {
-            motorRepository.deleteById(id);
-        }
-        vehicleRepository.deleteById(id);
+    @Transactional
+    public void deleteVehicleById(Long id) {
+        Optional<VehicleRentalFacility> vehicleRentalFacility = vehicleRentalFacilityRepository.findById(id);
+        vehicleRentalFacility.ifPresent(vehicleRentalFacilityRepository::delete);
     }
 }

@@ -25,11 +25,7 @@ public class BookingVehicleService {
     private final AccessoryBookingRepository accessoryBookingRepository;
     private final RentalFacilityRepository rentalFacilityRepository;
     public BookingVehicle createBooking(BookingVehicleDTO bookingVehicleDTO) throws Exception {
-        Vehicle vehicle = vehicleRepository.findById(bookingVehicleDTO.getVehicle()).orElseThrow(()-> new Exception("Vehicle not found"));
-        RentalFacility rentalFacility = rentalFacilityRepository.findById(bookingVehicleDTO.getRental()).orElseThrow(()-> new Exception("Rental Facility not found"));
-        VehicleRentalFacility vehicleRentalFacility = vehicleRentalFacilityRepository
-                .findByVehicleAndRentalFacility(vehicle, rentalFacility)
-                .orElseThrow(() -> new Exception("VehicleRentalFacility not found"));
+        VehicleRentalFacility vehicleRentalFacility = vehicleRentalFacilityRepository.findById(bookingVehicleDTO.getRentalVehicle()).orElseThrow(()->new Exception("Rental vahicle not found!"));
 
         User user = userRepository.findById(bookingVehicleDTO.getUser()).orElseThrow(()-> new Exception("User not found"));
         BookingVehicle bookingVehicle = BookingVehicle.builder()
@@ -40,7 +36,7 @@ public class BookingVehicleService {
                 .return_date(bookingVehicleDTO.getReturnDate())
                 .return_time(bookingVehicleDTO.getReturnTime())
                 .return_address(bookingVehicleDTO.getReturnAddress())
-                .vehicle(vehicle)
+                .vehicleRentalFacility(vehicleRentalFacility)
                 .user(user)
                 .build();
         Float total = 0F;
