@@ -27,12 +27,7 @@ public class VehicleController {
 
     @GetMapping("")
     public ResponseEntity<VehicleListResponse> searchCar(
-            @RequestParam(defaultValue = "") String type,
             @RequestParam(defaultValue = "") String location,
-            @RequestParam String startDate,
-            @RequestParam String endDate,
-            @RequestParam String startTime,
-            @RequestParam String endTime,
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "10") int limit
     ) {
@@ -41,15 +36,15 @@ public class VehicleController {
                 Sort.by("id").ascending()
         );
 
-        DateTimeFormatter dateFormat = (DateTimeFormatter.ISO_LOCAL_DATE);
-        LocalDate start_date = LocalDate.parse(startDate, dateFormat);
-        LocalDate end_date = LocalDate.parse(endDate, dateFormat);
+//        DateTimeFormatter dateFormat = (DateTimeFormatter.ISO_LOCAL_DATE);
+//        LocalDate start_date = LocalDate.parse(startDate, dateFormat);
+//        LocalDate end_date = LocalDate.parse(endDate, dateFormat);
+//
+//        DateTimeFormatter timeFormatter = (DateTimeFormatter.ofPattern("HH:mm"));
+//        LocalTime start_time = LocalTime.parse(startTime, timeFormatter);
+//        LocalTime end_time = LocalTime.parse(endTime, timeFormatter);
 
-        DateTimeFormatter timeFormatter = (DateTimeFormatter.ofPattern("HH:mm"));
-        LocalTime start_time = LocalTime.parse(startTime, timeFormatter);
-        LocalTime end_time = LocalTime.parse(endTime, timeFormatter);
-
-        Page<VehicleResponse> carPage = vehicleService.getAllVehicle(type, location, start_date, end_date, start_time, end_time, pageRequest);
+        Page<VehicleResponse> carPage = vehicleService.getAllVehicle(location, pageRequest);
         int totalPages = carPage.getTotalPages();
         List<VehicleResponse> vehicles = carPage.getContent();
         return ResponseEntity.ok(VehicleListResponse.builder()

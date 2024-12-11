@@ -14,8 +14,14 @@ import java.util.stream.Collectors;
 public class AttractionService {
 
     private final AttractionRepository attractionRepository;
-    public List<AttractionResponse> searchAllRental(Long city) {
-        List<Attraction> result = attractionRepository.findByCityIdAndType(city, "RENTAL");
+
+    public List<AttractionResponse> searchOffice(Long city, Long rental) {
+        List<Attraction> result = attractionRepository.findAttractionsByCityAndRentalFacilityId(city, rental);
+        return result.stream().map(AttractionResponse::fromAttraction).collect(Collectors.toList());
+    }
+
+    public List<AttractionResponse> searchUnOffice(Long city){
+        List<Attraction> result = attractionRepository.findAttractionsByCityAndExcludeTypeOffice(city);
         return result.stream().map(AttractionResponse::fromAttraction).collect(Collectors.toList());
     }
 }

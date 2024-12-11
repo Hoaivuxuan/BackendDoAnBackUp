@@ -1,5 +1,7 @@
 package com.duy.BackendDoAn.responses.vehicles;
 
+import com.duy.BackendDoAn.models.Car;
+import com.duy.BackendDoAn.models.Motor;
 import com.duy.BackendDoAn.models.Vehicle;
 import com.duy.BackendDoAn.responses.AttractionResponse;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -43,7 +45,13 @@ public class VehicleResponse {
             response.setRentalResponses(Collections.emptyList()); // Trả về danh sách rỗng nếu null
         }
         response.type = vehicle.getVehicle_type();
-        response.details = DetailResponse.fromVehicle(vehicle);
+        if ("CAR".equalsIgnoreCase(vehicle.getVehicle_type())) {
+            response.details = DetailCarResponse.fromCar((Car) vehicle);
+        } else if ("MOTOR".equalsIgnoreCase(vehicle.getVehicle_type())) {
+            response.details = DetailMotorResponse.fromMotor((Motor) vehicle);
+        } else {
+            response.details = null; // Hoặc xử lý ngoại lệ nếu cần
+        }
         return response;
     }
 

@@ -17,12 +17,21 @@ import java.util.List;
 @RestController
 public class AttractionController {
     private final AttractionService attractionService;
-    @GetMapping
-    public ResponseEntity<List<AttractionResponse>> getAllRentalByCity(
+
+    @GetMapping("/office")
+    public ResponseEntity<List<AttractionResponse>> getOfficeByRentalAndCity(
+            @RequestParam Long rental,
             @RequestParam Long city
     ){
-        List<AttractionResponse> responses = attractionService.searchAllRental(city);
+        List<AttractionResponse> responses = attractionService.searchOffice(city, rental);
         return ResponseEntity.ok(responses);
     }
 
+    @GetMapping("/not-office")
+    public ResponseEntity<List<AttractionResponse>> getUnOfficeByRentalAndCity(
+            @RequestParam Long city
+    ){
+        List<AttractionResponse> responses = attractionService.searchUnOffice(city);
+        return ResponseEntity.ok(responses);
+    }
 }

@@ -39,5 +39,5 @@ public class Attraction {
 
     @OneToMany(mappedBy = "attraction", cascade = CascadeType.ALL, fetch = FetchType.LAZY )
     @JsonManagedReference
-    private List<RentalFacility> rentalFacilities;
+    private List<Office> offices;
 }

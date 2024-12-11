@@ -9,7 +9,8 @@ import lombok.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class RentalResponse {
+public class
+RentalResponse {
     private Long id;
 
     private String name;

@@ -87,9 +87,9 @@ public class VehicleService {
     }
 
 
-    public Page<VehicleResponse> getAllVehicle(String type, String location, LocalDate startDate, LocalDate endDate, LocalTime startTime, LocalTime endTime, PageRequest pageRequest) {
+    public Page<VehicleResponse> getAllVehicle( String location,  PageRequest pageRequest) {
         Page<Vehicle> vehiclePage;
-        vehiclePage = vehicleRepository.searchVehicle(type, location, startDate, endDate, startTime, endTime, pageRequest);
+        vehiclePage = vehicleRepository.searchVehicle( location, pageRequest);
         return vehiclePage.map(VehicleResponse::fromVehicle);
     }
 

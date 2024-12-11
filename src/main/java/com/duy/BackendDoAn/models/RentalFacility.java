@@ -43,10 +43,9 @@ public class RentalFacility {
     @Column(name = "review_count")
     private Long review_count;
 
-    @ManyToOne
-    @JsonBackReference
-    @JoinColumn(name = "attraction_id")
-    private Attraction attraction;
+    @OneToMany(mappedBy = "rentalFacility", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JsonManagedReference
+    private List<Office> offices;
 
     @OneToMany(mappedBy = "rentalFacility", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JsonManagedReference

@@ -12,29 +12,17 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 
 public interface VehicleRepository extends JpaRepository<Vehicle, Long> {
-    @Query(value = "SELECT DISTINCT v FROM Vehicle v " +
-            "LEFT JOIN FETCH v.vehicleRentalFacilities vrf " +  // JOIN với VehicleRentalFacility
-            "LEFT JOIN FETCH vrf.rentalFacility rf " +          // Liên kết với RentalFacility
-            "LEFT JOIN FETCH rf.attraction a " +                // Liên kết với Attraction
-            "LEFT JOIN FETCH a.city c " +                       // Liên kết với City
-            "WHERE (:type IS NULL OR LOWER(v.vehicle_type) LIKE LOWER(CONCAT('%', :type, '%'))) " +  // Tìm kiếm theo loại xe
-            "AND (:location IS NULL OR LOWER(c.city_name) LIKE LOWER(CONCAT('%', :location, '%'))) " +    // Tìm kiếm theo thành phố
-            "AND v.id NOT IN (" +
-            "    SELECT bv.vehicleRentalFacility.vehicle.id FROM BookingVehicle bv " +               // Liên kết qua VehicleRentalFacility
-            "    WHERE bv.start_date < :endDate AND bv.return_date > :startDate " +
-            "    AND bv.start_time < :endTime AND bv.return_time > :startTime" +
-            ")")
+    @Query("SELECT v FROM Vehicle v " +
+            "JOIN v.vehicleRentalFacilities vrf " +
+            "JOIN vrf.rentalFacility rf " +
+            "JOIN rf.offices o " +
+            "JOIN o.attraction a " +
+            "JOIN a.city c " +
+            "WHERE (:location IS NULL OR LOWER(c.city_name) LIKE LOWER(CONCAT('%', :location, '%')))")
     Page<Vehicle> searchVehicle(
-            @Param("type") String type,
             @Param("location") String location,
-            @Param("startDate") LocalDate startDate,
-            @Param("endDate") LocalDate endDate,
-            @Param("startTime") LocalTime startTime,
-            @Param("endTime") LocalTime endTime,
             Pageable pageable
     );
-
-
 
 
 }
