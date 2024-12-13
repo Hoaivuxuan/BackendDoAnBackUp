@@ -1,3 +1,30 @@
+INSERT INTO users (id, name, first_name, last_name, phone_number, avatar, email, country, address, date_of_birth, active, password, role)
+VALUES
+(
+    1, 'admin01', NULL, NULL, NULL,
+    'https://firebasestorage.googleapis.com/v0/b/travel-web-7b510.appspot.com/o/UNKNOWN_USER.PNG?alt=media&token=5a0b3bba-f852-491c-8f50-c532be5ca4b0',
+    'admin01@hanoitravel.com.vn', NULL, NULL, '2002-10-08', 1,
+    '$2a$10$xtiuHyOW7CRExUx0dt9wquac2hDwiXzsZkPyYsp0HlQh5oB7DChqi', 'ADMIN'
+),
+(
+    2, 'ddthumonky0810', 'Do', 'Duc Thu', NULL,
+    'https://firebasestorage.googleapis.com/v0/b/travel-web-7b510.appspot.com/o/UNKNOWN_USER.PNG?alt=media&token=5a0b3bba-f852-491c-8f50-c532be5ca4b0',
+    'ddthumonky0810@gmail.com', 'Vietnam', NULL, '2002-10-08', 1,
+    '$2a$10$xtiuHyOW7CRExUx0dt9wquac2hDwiXzsZkPyYsp0HlQh5oB7DChqi', 'USER'
+),
+(
+    3, 'daoquangduy441', 'Dao', 'Quang Duy', NULL,
+    'https://firebasestorage.googleapis.com/v0/b/travel-web-7b510.appspot.com/o/UNKNOWN_USER.PNG?alt=media&token=5a0b3bba-f852-491c-8f50-c532be5ca4b0',
+    'daoquangduy441@gmail.com', 'Vietnam', NULL, NULL, 1,
+    '$2a$10$xtiuHyOW7CRExUx0dt9wquac2hDwiXzsZkPyYsp0HlQh5oB7DChqi', 'USER'
+),
+(
+    4, 'vuxuanhoai28', 'Vu', 'Xuan Hoai', NULL,
+    'https://firebasestorage.googleapis.com/v0/b/travel-web-7b510.appspot.com/o/UNKNOWN_USER.PNG?alt=media&token=5a0b3bba-f852-491c-8f50-c532be5ca4b0',
+    'vuxuanhoai28@gmail.com', 'Vietnam', NULL, NULL, 1,
+    '$2a$10$xtiuHyOW7CRExUx0dt9wquac2hDwiXzsZkPyYsp0HlQh5oB7DChqi', 'USER'
+);
+
 INSERT INTO city (id, city_name, type, parent_id)
 VALUES
 -- Thành phố trực thuộc TW
@@ -128,7 +155,7 @@ INSERT INTO attraction (name, address, type, image, latitude, longitude, city_id
 ),
 (
     'Sân bay quốc tế Tân Sơn Nhất (SGN)',
-    'TP. Hồ Chí Minh', 'airport', NULL,
+    'TP.HCM', 'airport', NULL,
     10.815970316474269, 106.66502208280289, 41
 ),
 (
@@ -138,12 +165,12 @@ INSERT INTO attraction (name, address, type, image, latitude, longitude, city_id
 ),
 (
     'Sân vận động Quốc gia Mỹ Đình',
-    'Hà Nội', 'stadium', NULL,
+    'Nam Tu Liem, Hà Nội', 'stadium', NULL,
     21.02072383698477, 105.7647562446359, 29
 ),
 (
     'Sân vận động Thống Nhất',
-    'TP. Hồ Chí Minh', 'stadium', NULL,
+    'TP.HCM', 'stadium', NULL,
     10.760874208123209, 106.66378859126175, 41
 ),
 (
@@ -185,4 +212,42 @@ INSERT INTO attraction (name, address, type, image, latitude, longitude, city_id
     'Sân vận động 19/8 Nha Trang',
     'Nha Trang, Khánh Hòa', 'stadium', NULL,
     12.250589194133235, 109.19369422726382, 79
+),
+(
+    'Ga Hà Nội',
+    'Hoàn Kiếm, Hà Nội', 'traffic', NULL,
+    21.024525584524245, 105.84153318223726, 29
+),
+(
+    'Ga Sài Gòn',
+    'Quận 3, TP.HCM', 'traffic', NULL,
+    10.783980398783381, 106.68068011208564, 41
+),
+(
+    'Ga Đà Nẵng',
+    'Thanh Khê, Đà Nẵng', 'traffic', NULL,
+    16.074043009438196, 108.21706386050032, 43
+),
+(
+    'Ga Huế',
+    'Thuận Hóa, Huế', 'traffic', NULL,
+    16.45662635257507, 107.57773670590839, 75
+),
+(
+    'Ga Nha Trang',
+    'Nha Trang, Khánh Hòa', 'traffic', NULL,
+    12.2486879190878, 109.18471969757748, 79
+),
+(
+    'Ga Vinh',
+    'Vinh, Nghệ An', 'traffic', NULL,
+    18.68829430279842, 105.66447418203238, 37
+),
+(
+    'Ga Hải Phòng',
+    'Hải Phòng', 'traffic', NULL,
+    20.856035848707947, 106.68722214965443, 15
 );
+
+
+
