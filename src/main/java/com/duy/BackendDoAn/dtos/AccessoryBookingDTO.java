@@ -11,6 +11,9 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class AccessoryBookingDTO {
+    @JsonProperty("amount")
+    private Long amount;
+
     @JsonProperty("price_per")
     private Float pricePer;
 

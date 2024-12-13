@@ -23,6 +23,12 @@ public class Attraction {
     @Column(name = "name")
     private String name;
 
+    @Column(name = "longitude")
+    private Float longitude;
+
+    @Column(name = "latitude")
+    private Float latitude;
+
     @Column(name = "address")
     private String address;
 

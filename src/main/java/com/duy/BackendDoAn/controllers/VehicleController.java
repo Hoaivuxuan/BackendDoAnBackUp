@@ -29,7 +29,7 @@ public class VehicleController {
     public ResponseEntity<VehicleListResponse> searchCar(
             @RequestParam(defaultValue = "") String location,
             @RequestParam(defaultValue = "0") int page,
-            @RequestParam(defaultValue = "10") int limit
+            @RequestParam(defaultValue = "100") int limit
     ) {
         PageRequest pageRequest = PageRequest.of(
                 page, limit,
@@ -57,9 +57,9 @@ public class VehicleController {
     @PostMapping()
     public ResponseEntity<VehicleResponse> createNewVehicle(@Valid @RequestBody VehicleDTO vehicleDTO) throws Exception {
         Vehicle savedVehicle = new Vehicle();
-        if(vehicleDTO.getType().equals("MOTOR")) {
+        if(vehicleDTO.getType().equals("motor")) {
             savedVehicle = vehicleService.addMotor(vehicleDTO);
-        } else if (vehicleDTO.getType().equals("CAR")) {
+        } else if (vehicleDTO.getType().equals("car")) {
             savedVehicle = vehicleService.addCar(vehicleDTO);
         }
         else {
@@ -77,10 +77,10 @@ public class VehicleController {
     @PutMapping("/{id}")
     public ResponseEntity<VehicleResponse> updateVehicle(@PathVariable("id") Long id, @Valid @RequestBody UpdateVehicleDTO vehicleDTO) throws Exception {
         Vehicle vehicle = new Vehicle();
-        if(vehicleDTO.getType().equals("CAR")){
+        if(vehicleDTO.getType().equals("car")){
             vehicle = vehicleService.updateCar(id, vehicleDTO);
         }
-        else if (vehicleDTO.getType().equals("MOTOR")) {
+        else if (vehicleDTO.getType().equals("motor")) {
             vehicle = vehicleService.updateMotor(id, vehicleDTO);
         }
         else {

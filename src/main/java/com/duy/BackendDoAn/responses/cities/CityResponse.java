@@ -11,6 +11,7 @@ import lombok.*;
 @NoArgsConstructor
 @Builder
 public class CityResponse {
+    private Long id;
     private String name;
     private String type;
 
@@ -22,6 +23,7 @@ public class CityResponse {
         if (city == null) return null;
 
         return new CityResponse(
+                city.getId(),
                 city.getCity_name(),
                 city.getType(),
                 city.getParent() != null ? city.getParent().getCity_name() : null

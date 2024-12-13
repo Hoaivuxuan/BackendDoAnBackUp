@@ -12,7 +12,7 @@ import lombok.experimental.SuperBuilder;
 @NoArgsConstructor
 @PrimaryKeyJoinColumn(name = "motor_id")
 @SuperBuilder
-@DiscriminatorValue("MOTOR")
+@DiscriminatorValue("motor")
 public class Motor extends Vehicle {
     @Column(name = "capacity")
     private String capacity;

@@ -19,11 +19,15 @@ public class AccessoryResponse {
     @JsonProperty("type")
     private String type;
 
+    @JsonProperty("max_value")
+    private Long maxValue;
+
     public static AccessoryResponse fromService(Accessory accessory) {
         AccessoryResponse serviceResponse = AccessoryResponse.builder()
                 .name(accessory.getName())
                 .price(accessory.getPrice())
                 .type(accessory.getType())
+                .maxValue(accessory.getMaxValue())
                 .build();
         return serviceResponse;
     }

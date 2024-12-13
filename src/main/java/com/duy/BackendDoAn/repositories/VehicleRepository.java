@@ -23,6 +23,4 @@ public interface VehicleRepository extends JpaRepository<Vehicle, Long> {
             @Param("location") String location,
             Pageable pageable
     );
-
-
 }

@@ -45,9 +45,9 @@ public class VehicleResponse {
             response.setRentalResponses(Collections.emptyList()); // Trả về danh sách rỗng nếu null
         }
         response.type = vehicle.getVehicle_type();
-        if ("CAR".equalsIgnoreCase(vehicle.getVehicle_type())) {
+        if ("car".equalsIgnoreCase(vehicle.getVehicle_type())) {
             response.details = DetailCarResponse.fromCar((Car) vehicle);
-        } else if ("MOTOR".equalsIgnoreCase(vehicle.getVehicle_type())) {
+        } else if ("motor".equalsIgnoreCase(vehicle.getVehicle_type())) {
             response.details = DetailMotorResponse.fromMotor((Motor) vehicle);
         } else {
             response.details = null; // Hoặc xử lý ngoại lệ nếu cần

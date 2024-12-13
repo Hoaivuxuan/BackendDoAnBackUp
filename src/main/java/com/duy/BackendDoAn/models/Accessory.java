@@ -27,6 +27,9 @@ public class Accessory {
     @Column(name = "type")
     private String type;
 
+    @Column(name = "max_value")
+    private Long maxValue;
+
     @OneToMany(mappedBy = "accessory", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JsonManagedReference
     private List<AccessoryBooking> accessoryBookings;
