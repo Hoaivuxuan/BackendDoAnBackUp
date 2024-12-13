@@ -144,7 +144,6 @@ CREATE TABLE office (
     CONSTRAINT fk_office_rental foreign key (rental_facility_id) references rental_facility(id)
 );
 
-
 CREATE TABLE vehicle (
     id INT AUTO_INCREMENT PRIMARY KEY,
     name NVARCHAR(255),

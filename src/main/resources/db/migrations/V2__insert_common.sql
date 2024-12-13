@@ -1,155 +1,190 @@
-INSERT INTO city (city_name, type, parent_id)
+INSERT INTO city (id, city_name, type, parent_id)
 VALUES
 -- Thành phố trực thuộc TW
-('Hà Nội', 'thành phố', NULL),
-('Hồ Chí Minh', 'thành phố', NULL),
-('Đà Nẵng', 'thành phố', NULL),
-('Hải Phòng', 'thành phố', NULL),
-('Cần Thơ', 'thành phố', NULL),
-('Huế', 'thành phố', NULL),
--- Thành phố trực thuộc TPTW
-('Thủ Đức', 'thành phố', 2),
-('Thủy Nguyên', 'thành phố', 4),
+(29, 'Hà Nội', 'thành phố', NULL),
+(41, 'Hồ Chí Minh', 'thành phố', NULL),
+(43, 'Đà Nẵng', 'thành phố', NULL),
+(15, 'Hải Phòng', 'thành phố', NULL),
+(65, 'Cần Thơ', 'thành phố', NULL),
+(75, 'Huế', 'thành phố', NULL),
 -- Các tỉnh còn lại
-('An Giang', 'tỉnh', NULL),
-('Bà Rịa-Vũng Tàu', 'tỉnh', NULL),
-('Bắc Giang', 'tỉnh', NULL),
-('Bắc Kạn', 'tỉnh', NULL),
-('Bạc Liêu', 'tỉnh', NULL),
-('Bắc Ninh', 'tỉnh', NULL),
-('Bến Tre', 'tỉnh', NULL),
-('Bình Định', 'tỉnh', NULL),
-('Bình Dương', 'tỉnh', NULL),
-('Bình Phước', 'tỉnh', NULL),
-('Bình Thuận', 'tỉnh', NULL),
-('Cà Mau', 'tỉnh', NULL),
-('Cao Bằng', 'tỉnh', NULL),
-('Đắk Lắk', 'tỉnh', NULL),
-('Đắk Nông', 'tỉnh', NULL),
-('Điện Biên', 'tỉnh', NULL),
-('Đồng Nai', 'tỉnh', NULL),
-('Đồng Tháp', 'tỉnh', NULL),
-('Gia Lai', 'tỉnh', NULL),
-('Hà Giang', 'tỉnh', NULL),
-('Hà Nam', 'tỉnh', NULL),
-('Hà Tĩnh', 'tỉnh', NULL),
-('Hải Dương', 'tỉnh', NULL),
-('Hậu Giang', 'tỉnh', NULL),
-('Hòa Bình', 'tỉnh', NULL),
-('Hưng Yên', 'tỉnh', NULL),
-('Khánh Hòa', 'tỉnh', NULL),
-('Kiên Giang', 'tỉnh', NULL),
-('Kon Tum', 'tỉnh', NULL),
-('Lai Châu', 'tỉnh', NULL),
-('Lâm Đồng', 'tỉnh', NULL),
-('Lạng Sơn', 'tỉnh', NULL),
-('Lào Cai', 'tỉnh', NULL),
-('Long An', 'tỉnh', NULL),
-('Nam Định', 'tỉnh', NULL),
-('Nghệ An', 'tỉnh', NULL),
-('Ninh Bình', 'tỉnh', NULL),
-('Ninh Thuận', 'tỉnh', NULL),
-('Phú Thọ', 'tỉnh', NULL),
-('Phú Yên', 'tỉnh', NULL),
-('Quảng Bình', 'tỉnh', NULL),
-('Quảng Nam', 'tỉnh', NULL),
-('Quảng Ngãi', 'tỉnh', NULL),
-('Quảng Ninh', 'tỉnh', NULL),
-('Quảng Trị', 'tỉnh', NULL),
-('Sóc Trăng', 'tỉnh', NULL),
-('Sơn La', 'tỉnh', NULL),
-('Tây Ninh', 'tỉnh', NULL),
-('Thái Bình', 'tỉnh', NULL),
-('Thái Nguyên', 'tỉnh', NULL),
-('Thanh Hóa', 'tỉnh', NULL),
-('Tiền Giang', 'tỉnh', NULL),
-('Trà Vinh', 'tỉnh', NULL),
-('Tuyên Quang', 'tỉnh', NULL),
-('Vĩnh Long', 'tỉnh', NULL),
-('Vĩnh Phúc', 'tỉnh', NULL),
-('Yên Bái', 'tỉnh', NULL);
+(67, 'An Giang', 'tỉnh', NULL),
+(72, 'Bà Rịa-Vũng Tàu', 'tỉnh', NULL),
+(98, 'Bắc Giang', 'tỉnh', NULL),
+(97, 'Bắc Kạn', 'tỉnh', NULL),
+(94, 'Bạc Liêu', 'tỉnh', NULL),
+(99, 'Bắc Ninh', 'tỉnh', NULL),
+(71, 'Bến Tre', 'tỉnh', NULL),
+(77, 'Bình Định', 'tỉnh', NULL),
+(61, 'Bình Dương', 'tỉnh', NULL),
+(93, 'Bình Phước', 'tỉnh', NULL),
+(86, 'Bình Thuận', 'tỉnh', NULL),
+(69, 'Cà Mau', 'tỉnh', NULL),
+(11, 'Cao Bằng', 'tỉnh', NULL),
+(47, 'Đắk Lắk', 'tỉnh', NULL),
+(48, 'Đắk Nông', 'tỉnh', NULL),
+(27, 'Điện Biên', 'tỉnh', NULL),
+(60, 'Đồng Nai', 'tỉnh', NULL),
+(66, 'Đồng Tháp', 'tỉnh', NULL),
+(81, 'Gia Lai', 'tỉnh', NULL),
+(23, 'Hà Giang', 'tỉnh', NULL),
+(90, 'Hà Nam', 'tỉnh', NULL),
+(38, 'Hà Tĩnh', 'tỉnh', NULL),
+(34, 'Hải Dương', 'tỉnh', NULL),
+(95, 'Hậu Giang', 'tỉnh', NULL),
+(28, 'Hòa Bình', 'tỉnh', NULL),
+(89, 'Hưng Yên', 'tỉnh', NULL),
+(79, 'Khánh Hòa', 'tỉnh', NULL),
+(68, 'Kiên Giang', 'tỉnh', NULL),
+(82, 'Kon Tum', 'tỉnh', NULL),
+(25, 'Lai Châu', 'tỉnh', NULL),
+(49, 'Lâm Đồng', 'tỉnh', NULL),
+(12, 'Lạng Sơn', 'tỉnh', NULL),
+(24, 'Lào Cai', 'tỉnh', NULL),
+(62, 'Long An', 'tỉnh', NULL),
+(18, 'Nam Định', 'tỉnh', NULL),
+(37, 'Nghệ An', 'tỉnh', NULL),
+(35, 'Ninh Bình', 'tỉnh', NULL),
+(85, 'Ninh Thuận', 'tỉnh', NULL),
+(19, 'Phú Thọ', 'tỉnh', NULL),
+(78, 'Phú Yên', 'tỉnh', NULL),
+(73, 'Quảng Bình', 'tỉnh', NULL),
+(92, 'Quảng Nam', 'tỉnh', NULL),
+(76, 'Quảng Ngãi', 'tỉnh', NULL),
+(14, 'Quảng Ninh', 'tỉnh', NULL),
+(74, 'Quảng Trị', 'tỉnh', NULL),
+(83, 'Sóc Trăng', 'tỉnh', NULL),
+(26, 'Sơn La', 'tỉnh', NULL),
+(70, 'Tây Ninh', 'tỉnh', NULL),
+(17, 'Thái Bình', 'tỉnh', NULL),
+(20, 'Thái Nguyên', 'tỉnh', NULL),
+(36, 'Thanh Hóa', 'tỉnh', NULL),
+(63, 'Tiền Giang', 'tỉnh', NULL),
+(84, 'Trà Vinh', 'tỉnh', NULL),
+(22, 'Tuyên Quang', 'tỉnh', NULL),
+(64, 'Vĩnh Long', 'tỉnh', NULL),
+(88, 'Vĩnh Phúc', 'tỉnh', NULL),
+(21, 'Yên Bái', 'tỉnh', NULL);
 
-INSERT INTO attraction (name, latitude, longitude, address, type, image, city_id)
-VALUES
+INSERT INTO attraction (name, address, type, image, latitude, longitude, city_id) VALUES
+('Văn Phòng Mouse Rental tại Hà Nội', NULL, 'office', NULL, 21.0278, 105.8342, 29),
+('Văn Phòng Mouse Rental tại TPHCM', NULL, 'office', NULL, 10.7769, 106.6951, 41),
+('Văn Phòng Mouse Rental tại Hải Phòng', NULL, 'office', NULL, 20.8448, 106.6888, 15),
+('Văn Phòng Buffalo Rental tại Hà Nội', NULL, 'office', NULL, 21.0285, 105.8542, 29),
+('Văn Phòng Buffalo Rental tại Đà Nẵng', NULL, 'office', NULL, 16.0671, 108.2208, 43),
+('Văn Phòng Buffalo Rental tại Cần Thơ', NULL, 'office', NULL, 10.0340, 105.7830, 65),
+('Văn Phòng Tiger Rental tại TPHCM', NULL, 'office', NULL, 10.7770, 106.6952, 41),
+('Văn Phòng Tiger Rental tại Đà Nẵng', NULL, 'office', NULL, 16.0672, 108.2209, 43),
+('Văn Phòng Tiger Rental tại Huế', NULL, 'office', NULL, 16.4644, 107.5785, 75),
+('Văn Phòng Cat Rental tại Hà Nội', NULL, 'office', NULL, 21.0290, 105.8550, 29),
+('Văn Phòng Cat Rental tại Hải Phòng', NULL, 'office', NULL, 20.8450, 106.6890, 15),
+('Văn Phòng Cat Rental tại Cần Thơ', NULL, 'office', NULL, 10.0953, 105.7714, 65),
+('Văn Phòng Dragon Rental tại Đà Nẵng', NULL, 'office', NULL, 16.0673, 108.2210, 43),
+('Văn Phòng Dragon Rental tại TPHCM', NULL, 'office', NULL, 10.7771, 106.6953, 41),
+('Văn Phòng Dragon Rental tại Huế', NULL, 'office', NULL, 16.4640, 107.5790, 75),
+('Văn Phòng Snake Rental tại Hải Phòng', NULL, 'office', NULL, 20.8440, 106.6870, 15),
+('Văn Phòng Snake Rental tại Cần Thơ', NULL, 'office', NULL, 10.0950, 105.7700, 65),
+('Văn Phòng Snake Rental tại Đà Nẵng', NULL, 'office', NULL, 16.0674, 108.2211, 43),
+('Văn Phòng Horse Rental tại Hà Nội', NULL, 'office', NULL, 21.0300, 105.8560, 29),
+('Văn Phòng Horse Rental tại TPHCM', NULL, 'office', NULL, 10.7772, 106.6954, 41),
+('Văn Phòng Horse Rental tại Huế', NULL, 'office', NULL, 16.4645, 107.5795, 75),
+('Văn Phòng Goat Rental tại Đà Nẵng', NULL, 'office', NULL, 16.0675, 108.2212, 43),
+('Văn Phòng Goat Rental tại Hải Phòng', NULL, 'office', NULL, 20.8451, 106.6891, 15),
+('Văn Phòng Goat Rental tại Cần Thơ', NULL, 'office', NULL, 10.0955, 105.7715, 65),
 (
-    'Hồ Gươm',
-    21.0285, 105.8520,
-    'Phố Đinh Tiên Hoàng, Hoàn Kiếm, Hà Nội',
-    'Di tích lịch sử',
-    'ho_guom.jpg',
-    1
+    'Sân bay quốc tế Cam Ranh (CXR)',
+    'Cam Ranh, Khánh Hòa', 'airport', NULL,
+    11.998556790517712, 109.22070838179276, 79
 ),
 (
-    'Lăng Chủ tịch Hồ Chí Minh',
-    21.0369, 105.8342,
-    '2 Hùng Vương, Ba Đình, Hà Nội',
-    'Di tích lịch sử',
-    'lang_bac.jpg',
-    1
+    'Sân bay quốc tế Cần Thơ (VCA)',
+    'Cần Thơ', 'airport', NULL,
+    10.080662638930567, 105.7130251459081, 65
 ),
 (
-    'Chợ Bến Thành',
-    10.7725, 106.6981,
-    'Quận 1, Thành phố Hồ Chí Minh',
-    'Địa điểm mua sắm',
-    'cho_ben_thanh.jpg',
-    2
+    'Sân bay quốc tế Đà Nẵng (DAD)',
+    'Đà Nẵng', 'airport', NULL,
+    16.070284113204004, 108.24617634660565, 43
 ),
 (
-    'Cầu Rồng',
-    16.0605, 108.2271,
-    'Đường Nguyễn Văn Linh, Đà Nẵng',
-    'Công trình kiến trúc',
-    'cau_rong.jpg',
-    3
+    'Sân bay quốc tế Nội Bài (HAN)',
+    'Hà Nội', 'airport', NULL,
+    21.21551052996324, 105.78980573778564, 29
 ),
 (
-    'Bãi biển Mỹ Khê',
-    16.0599, 108.2496,
-    'Đường Võ Nguyên Giáp, Đà Nẵng',
-    'Bãi biển',
-    'my_khe_beach.jpg',
-    3
+    'Sân bay quốc tế Cát Bi (HPH)',
+    'Hải Phòng', 'airport', NULL,
+    20.81892405995717, 106.72399621980605, 15
 ),
 (
-    'Bảo tàng Quân đội',
-    21.0308, 105.8330,
-    '28A Điện Biên Phủ, Ba Đình, Hà Nội',
-    'Bảo tàng',
-    'bao_tang_quan_doi.jpg',
-    1
+    'Sân bay quốc tế Phú Quốc (PQC)',
+    'Phú Quốc, Kiên Giang', 'airport', NULL,
+    10.163048644498208, 103.99872872353349, 68
 ),
 (
-    'Bảo tàng Cần Thơ',
-    10.0343, 105.7871,
-    'Số 1 Đại lộ Hòa Bình, Cần Thơ',
-    'Bảo tàng',
-    'bao_tang_can_tho.jpg',
-    5
+    'Sân bay quốc tế Vân Đồn (VDO)',
+    'Vân Đồn, Quảng Ninh', 'airport', NULL,
+    21.120536267507006, 107.41651767770436, 14
 ),
 (
-    'Vinpearl Land Nha Trang',
-    12.2388, 109.1967,
-    'Đảo Hòn Tre, Nha Trang',
-    'Khu vui chơi',
-    'vinpearl_land.jpg',
-    35
+    'Sân bay quốc tế Tân Sơn Nhất (SGN)',
+    'TP. Hồ Chí Minh', 'airport', NULL,
+    10.815970316474269, 106.66502208280289, 41
 ),
 (
-    'Chùa Dơi',
-    9.6033, 105.9787,
-    'Đường Lê Hồng Phong, Sóc Trăng',
-    'Di tích văn hóa',
-    'chua_doi.jpg',
-    54
+    'Sân bay quốc tế Vinh',
+    'Vinh, Nghệ An', 'airport', NULL,
+    18.727863206378387, 105.66928765251403, 37
 ),
 (
-    'Nhà thờ Đức Bà',
-    10.7798, 106.6994,
-    'Quận 1, Thành phố Hồ Chí Minh',
-    'Công trình kiến trúc',
-    'nha_tho_duc_ba.jpg',
-    2
+    'Sân vận động Quốc gia Mỹ Đình',
+    'Hà Nội', 'stadium', NULL,
+    21.02072383698477, 105.7647562446359, 29
+),
+(
+    'Sân vận động Thống Nhất',
+    'TP. Hồ Chí Minh', 'stadium', NULL,
+    10.760874208123209, 106.66378859126175, 41
+),
+(
+    'Sân vận động Hàng Đẫy',
+    'Hà Nội', 'stadium', NULL,
+    21.030035250820667, 105.83408459437376, 29
+),
+(
+    'Sân vận động Lạch Tray',
+    'Hải Phòng', 'stadium', NULL,
+    20.851927746706547, 106.69012877109022, 15
+),
+(
+    'Sân vận động Gò Đậu',
+    'Thủ Dầu Một, Bình Dương', 'stadium', NULL,
+    10.970577282313677, 106.67195946741992, 61
+),
+(
+    'Sân vận động Thanh Hóa',
+    'Thanh Hóa, Thanh Hóa', 'stadium', NULL,
+    19.799357889794578, 105.77396220968677, 36
+),
+(
+    'Sân vận động Pleiku',
+    'Pleiku, Gia Lai', 'stadium', NULL,
+    13.982697249597257, 108.01666761971181, 81
+),
+(
+    'Sân vận động Quy Nhơn',
+    'Quy Nhơn, Bình Định', 'stadium', NULL,
+    13.77464405768291, 109.2278175785767, 77
+),
+(
+    'Sân vận động Vinh',
+    'Vinh, Nghệ An', 'stadium', NULL,
+    18.6691745464956, 105.6711215667224, 37
+),
+(
+    'Sân vận động 19/8 Nha Trang',
+    'Nha Trang, Khánh Hòa', 'stadium', NULL,
+    12.250589194133235, 109.19369422726382, 79
 );
 
 -----------------------------------------------------------------------------------------------
