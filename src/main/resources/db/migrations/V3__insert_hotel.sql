@@ -1,4 +1,3 @@
---
 INSERT INTO hotel (
     hotel_name, hotel_email, phone_number, address, latitude, longitude, description,
     check_in_time, check_out_time, website, rating, total_rating, review_count,
@@ -304,22 +303,3 @@ INSERT INTO amenity_for_hotel (amenity_id, hotel_id) VALUES
 (1, 12), (3, 12), (5, 12), (6, 12), (7, 12), (9, 12), (10, 12), (21, 12),
 (2, 13), (3, 13), (4, 13), (6, 13), (7, 13), (8, 13), (11, 13), (22, 13),
 (1, 14), (3, 14), (5, 14), (7, 14), (8, 14), (9, 14), (13, 14), (23, 14);
-
-INSERT INTO amenity_for_room (amenity_id, room_id)
-VALUES
-(25, 1),
-(26, 1),
-(27, 1);
-
-INSERT INTO nearby_attraction (distance, hotel_id, attraction_id)
-VALUES
-(4, 1, 1);
-
-
-
-
-
-
-
-
-

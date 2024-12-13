@@ -13,21 +13,23 @@ public class AttractionResponse {
     @JsonProperty("name")
     private String name;
 
-    private String address;
+    private Float longitude;
+    private Float latitude;
 
     private String type;
     private String image;
 
     @JsonProperty("city_name")
-    private Long city;
+    private String city;
 
     public static AttractionResponse fromAttraction(Attraction attraction) {
         AttractionResponse response = AttractionResponse.builder()
                 .name(attraction.getName())
-                .address(attraction.getAddress())
+                .latitude(attraction.getLatitude())
+                .longitude(attraction.getLongitude())
                 .type(attraction.getType())
                 .image(attraction.getImage())
-                .city(attraction.getCity().getId())
+                .city(attraction.getCity().getCity_name())
                 .build();
         return response;
     }

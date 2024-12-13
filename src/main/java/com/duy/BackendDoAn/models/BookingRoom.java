@@ -42,6 +42,12 @@ public class BookingRoom {
     @Column(name = "total_rooms")
     private Long total_rooms;
 
+    @Column(name = "special_request")
+    private String specialRequest;
+
+    @Column(name = "arrival_time")
+    private String arrivalTime;
+
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;

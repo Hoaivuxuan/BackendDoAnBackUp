@@ -12,7 +12,7 @@ import lombok.experimental.SuperBuilder;
 @NoArgsConstructor
 @PrimaryKeyJoinColumn(name = "car_id")
 @SuperBuilder
-@DiscriminatorValue("CAR")
+@DiscriminatorValue("car")
 public class Car extends Vehicle{
     @Column(name = "transmission")
     private String transmission_type;

@@ -19,6 +19,9 @@ public class AccessoryBooking {
     @Column(name = "price_per")
     private Float price_per;
 
+    @Column(name = "amount")
+    private Long amount;
+
     @ManyToOne
     @JoinColumn(name = "accessory_id")
     @JsonBackReference

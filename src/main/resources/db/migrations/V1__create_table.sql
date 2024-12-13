@@ -201,11 +201,13 @@ create table accessory (
     id INT AUTO_INCREMENT PRIMARY KEY,
     name NVARCHAR(255),
     price FLOAT,
-    type NVARCHAR(255)
+    type NVARCHAR(255),
+    max_value INT
 );
 
 CREATE TABLE accessory_booking (
     id INT AUTO_INCREMENT PRIMARY KEY,
+    amount int,
     price_per FLOAT,
     accessory_id INT,
     booking_vehicle_id INT,
@@ -315,7 +317,92 @@ CREATE TABLE review_rental (
 );
 
 
+-----------------------------------------------------------------------------------------
 
+-- Tạo Trigger cho bảng hotel
+DELIMITER //
+
+CREATE TRIGGER after_hotel_insert
+AFTER INSERT ON hotel
+FOR EACH ROW
+BEGIN
+    DECLARE done INT DEFAULT 0;
+    DECLARE a_id INT;
+    DECLARE a_lat FLOAT;
+    DECLARE a_lon FLOAT;
+    DECLARE cur CURSOR FOR
+        SELECT id, latitude, longitude FROM attraction WHERE city_id = NEW.city_id;
+    DECLARE CONTINUE HANDLER FOR NOT FOUND SET done = 1;
+
+    OPEN cur;
+    read_loop: LOOP
+        FETCH cur INTO a_id, a_lat, a_lon;
+        IF done THEN
+            LEAVE read_loop;
+        END IF;
+
+        SET @distance = 6371 * ACOS(
+            COS(RADIANS(NEW.latitude)) *
+            COS(RADIANS(a_lat)) *
+            COS(RADIANS(a_lon) - RADIANS(NEW.longitude)) +
+            SIN(RADIANS(NEW.latitude)) *
+            SIN(RADIANS(a_lat))
+        );
+
+        IF @distance < 10 THEN
+            INSERT INTO nearby_attraction (distance, hotel_id, attraction_id)
+            VALUES (ROUND(@distance, 2), NEW.id, a_id);
+        END IF;
+    END LOOP;
+
+    CLOSE cur;
+END;
+//
+
+DELIMITER ;
+
+
+-- Tạo Trigger cho bảng attraction
+DELIMITER //
+
+CREATE TRIGGER after_attraction_insert
+AFTER INSERT ON attraction
+FOR EACH ROW
+BEGIN
+    DECLARE done INT DEFAULT 0;
+    DECLARE h_id INT;
+    DECLARE h_lat FLOAT;
+    DECLARE h_lon FLOAT;
+    DECLARE cur CURSOR FOR
+        SELECT id, latitude, longitude FROM hotel WHERE city_id = NEW.city_id;
+    DECLARE CONTINUE HANDLER FOR NOT FOUND SET done = 1;
+
+    OPEN cur;
+    read_loop: LOOP
+        FETCH cur INTO h_id, h_lat, h_lon;
+        IF done THEN
+            LEAVE read_loop;
+        END IF;
+
+        SET @distance = 6371 * ACOS(
+            COS(RADIANS(NEW.latitude)) *
+            COS(RADIANS(h_lat)) *
+            COS(RADIANS(h_lon) - RADIANS(NEW.longitude)) +
+            SIN(RADIANS(NEW.latitude)) *
+            SIN(RADIANS(h_lat))
+        );
+
+        IF @distance < 10 THEN
+            INSERT INTO nearby_attraction (distance, hotel_id, attraction_id)
+            VALUES (ROUND(@distance, 2), h_id, NEW.id);
+        END IF;
+    END LOOP;
+
+    CLOSE cur;
+END;
+//
+
+DELIMITER ;
 
 
 

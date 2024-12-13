@@ -186,12 +186,3 @@ INSERT INTO attraction (name, address, type, image, latitude, longitude, city_id
     'Nha Trang, Khánh Hòa', 'stadium', NULL,
     12.250589194133235, 109.19369422726382, 79
 );
-
------------------------------------------------------------------------------------------------
-
-
-
-
-
-
-
