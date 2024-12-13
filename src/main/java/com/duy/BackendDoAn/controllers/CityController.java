@@ -21,7 +21,7 @@ public class CityController {
     @GetMapping
     public ResponseEntity<CityListResponse> getAllCities(
             @RequestParam(defaultValue = "0") int page,
-            @RequestParam(defaultValue = "10") int limit
+            @RequestParam(defaultValue = "100") int limit
     ) {
 
         PageRequest pageRequest =PageRequest.of(
