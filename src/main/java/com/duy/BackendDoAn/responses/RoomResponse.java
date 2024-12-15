@@ -17,6 +17,8 @@ import java.util.stream.Collectors;
 @NoArgsConstructor
 @Builder
 public class RoomResponse {
+    @JsonProperty("room_id")
+    private Long id;
 
     @JsonProperty("name")
     private String name;
@@ -53,6 +55,7 @@ public class RoomResponse {
 
     public static RoomResponse fromRoom(Room room){
         RoomResponse response = new RoomResponse();
+        response.id = room.getId();
         response.name = room.getName();
         response.price = room.getPrice();
         response.availableRooms = room.getAvailable_room();
