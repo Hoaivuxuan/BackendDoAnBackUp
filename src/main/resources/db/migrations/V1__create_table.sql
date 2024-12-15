@@ -21,6 +21,7 @@ CREATE TABLE city (
     parent_id INT
 );
 
+ALTER TABLE city ADD FULLTEXT(city_name);
 
 CREATE TABLE hotel (
     id INT AUTO_INCREMENT PRIMARY KEY,
@@ -94,6 +95,12 @@ CREATE TABLE booking_room (
     check_out_date DATE,
     total_price FLOAT,
     total_rooms INT,
+    customer_full_name NVARCHAR(255),
+    customer_email NVARCHAR(255),
+    customer_phone_number NVARCHAR(255),
+    customer_country NVARCHAR(255),
+    special_request NVARCHAR(255),
+    arrival_time NVARCHAR(255),
     status NVARCHAR(255),
     user_id INT,
     CONSTRAINT fk_booking_room_users foreign key (user_id) references users(id)
@@ -129,11 +136,9 @@ CREATE TABLE rental_facility (
     email NVARCHAR(100),
     description TEXT,
     address TEXT,
-    attraction_id INT,
     rating FLOAT,
     total_rating INT,
-    review_count INT,
-    CONSTRAINT fk_rental_facility_attraction FOREIGN KEY (attraction_id) REFERENCES attraction(id)
+    review_count INT
 );
 
 CREATE TABLE office (

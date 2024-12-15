@@ -40,6 +40,10 @@ public class BookingRoomService {
                 .children(bookingRoomDTO.getChildren())
                 .check_in_date(bookingRoomDTO.getCheckInDate())
                 .check_out_date(bookingRoomDTO.getCheckOutDate())
+                .customerFullName(bookingRoomDTO.getCustomerFullName())
+                .customerEmail(bookingRoomDTO.getCustomerEmail())
+                .customerPhoneNumber(bookingRoomDTO.getCustomerPhoneNumber())
+                .customerCountry(bookingRoomDTO.getCustomerCountry())
                 .status(bookingRoomDTO.getStatus())
                 .user(user)
                 .build();

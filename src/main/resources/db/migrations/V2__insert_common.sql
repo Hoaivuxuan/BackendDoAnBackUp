@@ -91,6 +91,7 @@ INSERT INTO attraction (name, address, type, image, latitude, longitude, city_id
 ('Văn Phòng Goat Rental tại Đà Nẵng', NULL, 'office', NULL, 16.0675, 108.2212, 43),
 ('Văn Phòng Goat Rental tại Hải Phòng', NULL, 'office', NULL, 20.8451, 106.6891, 15),
 ('Văn Phòng Goat Rental tại Cần Thơ', NULL, 'office', NULL, 10.0955, 105.7715, 65),
+('Văn Phòng Thái Bình tại Thái Bình', NULL, 'office', NULL, 20.449956828264547, 106.33307310262715, 17),
 (
     'Sân bay quốc tế Cam Ranh (CXR)',
     'Cam Ranh, Khánh Hòa', 'airport', NULL,

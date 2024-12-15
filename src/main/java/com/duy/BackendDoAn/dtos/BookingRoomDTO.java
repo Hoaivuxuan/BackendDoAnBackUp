@@ -14,8 +14,8 @@ import java.util.List;
 @Getter
 @Setter
 public class BookingRoomDTO {
-    @JsonProperty("booking_date")
-    private LocalDate bookingDate;
+    @JsonProperty("user_id")
+    private Long user;
 
     private Long adults;
     private Long children;
@@ -29,11 +29,26 @@ public class BookingRoomDTO {
     @JsonProperty("total_price")
     private Float totalPrice;
 
-    @JsonProperty("user_id")
-    private Long user;
+    @JsonProperty("full_name")
+    private String customerFullName;
+
+    @JsonProperty("email")
+    private String customerEmail;
+
+    @JsonProperty("phone")
+    private String customerPhoneNumber;
+
+    @JsonProperty("country")
+    private String customerCountry;
 
     @JsonProperty("status")
     private String status;
+
+    @JsonProperty("special_request")
+    private String specialRequest;
+
+    @JsonProperty("arrival_time")
+    private String arrivalTime;
 
     @JsonProperty("booked_rooms")
     private List<BookedRoomDTO> bookedRooms;
