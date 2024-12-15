@@ -330,28 +330,32 @@ BEGIN
     DECLARE a_id INT;
     DECLARE a_lat FLOAT;
     DECLARE a_lon FLOAT;
+    DECLARE a_type NVARCHAR(255);
     DECLARE cur CURSOR FOR
-        SELECT id, latitude, longitude FROM attraction WHERE city_id = NEW.city_id;
+        SELECT id, latitude, longitude, type FROM attraction WHERE city_id = NEW.city_id;
     DECLARE CONTINUE HANDLER FOR NOT FOUND SET done = 1;
 
     OPEN cur;
     read_loop: LOOP
-        FETCH cur INTO a_id, a_lat, a_lon;
+        FETCH cur INTO a_id, a_lat, a_lon, a_type;
         IF done THEN
             LEAVE read_loop;
         END IF;
 
-        SET @distance = 6371 * ACOS(
-            COS(RADIANS(NEW.latitude)) *
-            COS(RADIANS(a_lat)) *
-            COS(RADIANS(a_lon) - RADIANS(NEW.longitude)) +
-            SIN(RADIANS(NEW.latitude)) *
-            SIN(RADIANS(a_lat))
-        );
+        -- Kiểm tra type của attraction phải khác "office"
+        IF a_type <> 'office' THEN
+            SET @distance = 6371 * ACOS(
+                COS(RADIANS(NEW.latitude)) *
+                COS(RADIANS(a_lat)) *
+                COS(RADIANS(a_lon) - RADIANS(NEW.longitude)) +
+                SIN(RADIANS(NEW.latitude)) *
+                SIN(RADIANS(a_lat))
+            );
 
-        IF @distance < 10 THEN
-            INSERT INTO nearby_attraction (distance, hotel_id, attraction_id)
-            VALUES (ROUND(@distance, 2), NEW.id, a_id);
+            IF @distance < 10 THEN
+                INSERT INTO nearby_attraction (distance, hotel_id, attraction_id)
+                VALUES (ROUND(@distance, 2), NEW.id, a_id);
+            END IF;
         END IF;
     END LOOP;
 
@@ -360,6 +364,7 @@ END;
 //
 
 DELIMITER ;
+
 
 
 -- Tạo Trigger cho bảng attraction
@@ -384,17 +389,20 @@ BEGIN
             LEAVE read_loop;
         END IF;
 
-        SET @distance = 6371 * ACOS(
-            COS(RADIANS(NEW.latitude)) *
-            COS(RADIANS(h_lat)) *
-            COS(RADIANS(h_lon) - RADIANS(NEW.longitude)) +
-            SIN(RADIANS(NEW.latitude)) *
-            SIN(RADIANS(h_lat))
-        );
+        -- Kiểm tra type của attraction phải khác "office"
+        IF NEW.type <> 'office' THEN
+            SET @distance = 6371 * ACOS(
+                COS(RADIANS(NEW.latitude)) *
+                COS(RADIANS(h_lat)) *
+                COS(RADIANS(h_lon) - RADIANS(NEW.longitude)) +
+                SIN(RADIANS(NEW.latitude)) *
+                SIN(RADIANS(h_lat))
+            );
 
-        IF @distance < 10 THEN
-            INSERT INTO nearby_attraction (distance, hotel_id, attraction_id)
-            VALUES (ROUND(@distance, 2), h_id, NEW.id);
+            IF @distance < 10 THEN
+                INSERT INTO nearby_attraction (distance, hotel_id, attraction_id)
+                VALUES (ROUND(@distance, 2), h_id, NEW.id);
+            END IF;
         END IF;
     END LOOP;
 
@@ -403,6 +411,7 @@ END;
 //
 
 DELIMITER ;
+
 
 
 
