@@ -12,6 +12,8 @@ import java.time.format.DateTimeFormatter;
 @NoArgsConstructor
 @Builder
 public class BookingRoomResponse {
+    private String id;
+
     private Long adults;
     private Long children;
     private Long hotel;
@@ -32,6 +34,7 @@ public class BookingRoomResponse {
 
     public static BookingRoomResponse fromBooking(BookingRoom bookingRoom) {
         BookingRoomResponse response = new BookingRoomResponse();
+        response.id = bookingRoom.getId();
         response.adults = bookingRoom.getAdults();
         response.children = bookingRoom.getChildren();
         response.hotel = bookingRoom.getHotel().getId();
