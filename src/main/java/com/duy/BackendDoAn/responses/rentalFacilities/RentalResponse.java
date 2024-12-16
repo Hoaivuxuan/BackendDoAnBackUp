@@ -1,5 +1,6 @@
 package com.duy.BackendDoAn.responses.rentalFacilities;
 
+import com.duy.BackendDoAn.models.City;
 import com.duy.BackendDoAn.models.RentalFacility;
 import com.duy.BackendDoAn.models.VehicleRentalFacility;
 import lombok.*;
@@ -9,8 +10,7 @@ import lombok.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class
-RentalResponse {
+public class RentalResponse {
     private Long id;
 
     private String name;

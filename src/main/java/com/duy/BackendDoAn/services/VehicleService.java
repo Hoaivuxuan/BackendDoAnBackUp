@@ -24,6 +24,7 @@ public class VehicleService {
     public final CarRepository carRepository;
     public final MotorRepository motorRepository;
     public final VehicleRentalFacilityRepository vehicleRentalFacilityRepository;
+    public final CityRepository cityRepository;
 
     public Vehicle addCar(VehicleDTO carDTO) throws Exception {
         RentalFacility facility = rentalFacilityRepository.findById(carDTO.getFacility())
@@ -87,10 +88,16 @@ public class VehicleService {
     }
 
 
-    public Page<VehicleResponse> getAllVehicle( String location,  PageRequest pageRequest) {
+    public Page<VehicleResponse> getAllVehicle( String location, Long id,  PageRequest pageRequest) {
         Page<Vehicle> vehiclePage;
-        vehiclePage = vehicleRepository.searchVehicle( location, pageRequest);
-        return vehiclePage.map(VehicleResponse::fromVehicle);
+        try {
+            City city = cityRepository.findById(id)
+                    .orElseThrow(()-> new Exception("City not exist"));
+            vehiclePage = vehicleRepository.searchVehicle( location, pageRequest);
+            return vehiclePage.map(vehicle -> VehicleResponse.fromVehicleWithCity(vehicle, city));
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
     }
 
     public Vehicle getVehicleById(Long id) throws Exception {

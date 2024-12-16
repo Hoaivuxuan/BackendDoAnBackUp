@@ -39,6 +39,9 @@ public class UserResponse {
     @JsonProperty("address")
     private String address;
 
+    @JsonProperty("country")
+    private String country;
+
     @JsonProperty("date_of_birth")
     private String dateOfBirth;
 
@@ -57,6 +60,7 @@ public class UserResponse {
                 .email(user.getEmail())
                 .avatar(user.getAvatar())
                 .address(user.getAddress())
+                .country(user.getCountry())
                 .dateOfBirth(formatDateOfBirth(user.getDate_of_birth()))
                 .active(user.isActive())
                 .role(user.getRole())

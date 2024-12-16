@@ -113,8 +113,12 @@ public class HotelController {
             @RequestParam(defaultValue = "") String keyword,
             @RequestParam int noRooms,
             @RequestParam(defaultValue = "0") int page,
-            @RequestParam(defaultValue = "100") int limit
+            @RequestParam(defaultValue = "10000") int limit
     ) {
+        if (limit >= 10000) {
+            limit = Integer.MAX_VALUE;
+        }
+
         PageRequest pageRequest = PageRequest.of(
             page, limit, Sort.by("id").ascending()
         );

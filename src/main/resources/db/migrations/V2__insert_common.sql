@@ -248,6 +248,3 @@ INSERT INTO attraction (name, address, type, image, latitude, longitude, city_id
     'Hải Phòng', 'traffic', NULL,
     20.856035848707947, 106.68722214965443, 15
 );
-
-
-

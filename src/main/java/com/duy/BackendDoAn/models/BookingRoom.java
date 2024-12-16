@@ -42,6 +42,18 @@ public class BookingRoom {
     @Column(name = "total_rooms")
     private Long total_rooms;
 
+    @Column(name = "customer_full_name")
+    private String customerFullName;
+
+    @Column(name = "customer_email")
+    private String customerEmail;
+
+    @Column(name = "customer_phone_number")
+    private String customerPhoneNumber;
+
+    @Column(name = "customer_country")
+    private String customerCountry;
+
     @Column(name = "special_request")
     private String specialRequest;
 

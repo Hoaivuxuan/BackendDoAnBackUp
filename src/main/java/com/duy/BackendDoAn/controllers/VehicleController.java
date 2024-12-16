@@ -3,8 +3,10 @@ package com.duy.BackendDoAn.controllers;
 
 import com.duy.BackendDoAn.dtos.UpdateVehicleDTO;
 import com.duy.BackendDoAn.dtos.VehicleDTO;
+import com.duy.BackendDoAn.models.City;
 import com.duy.BackendDoAn.models.Vehicle;
 import com.duy.BackendDoAn.responses.vehicles.*;
+import com.duy.BackendDoAn.services.CityService;
 import com.duy.BackendDoAn.services.VehicleService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -24,13 +26,19 @@ import java.util.List;
 @RestController
 public class VehicleController {
     private final VehicleService vehicleService;
+    private final CityService cityService;
 
     @GetMapping("")
     public ResponseEntity<VehicleListResponse> searchCar(
             @RequestParam(defaultValue = "") String location,
+            @RequestParam Long id,
             @RequestParam(defaultValue = "0") int page,
-            @RequestParam(defaultValue = "100") int limit
+            @RequestParam(defaultValue = "10000") int limit
     ) {
+        if (limit >= 10000) {
+            limit = Integer.MAX_VALUE;
+        }
+        
         PageRequest pageRequest = PageRequest.of(
                 page, limit,
                 Sort.by("id").ascending()
@@ -44,7 +52,7 @@ public class VehicleController {
 //        LocalTime start_time = LocalTime.parse(startTime, timeFormatter);
 //        LocalTime end_time = LocalTime.parse(endTime, timeFormatter);
 
-        Page<VehicleResponse> carPage = vehicleService.getAllVehicle(location, pageRequest);
+        Page<VehicleResponse> carPage = vehicleService.getAllVehicle(location, id, pageRequest);
         int totalPages = carPage.getTotalPages();
         List<VehicleResponse> vehicles = carPage.getContent();
         return ResponseEntity.ok(VehicleListResponse.builder()

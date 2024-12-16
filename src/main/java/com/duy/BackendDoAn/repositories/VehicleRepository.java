@@ -12,13 +12,13 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 
 public interface VehicleRepository extends JpaRepository<Vehicle, Long> {
-    @Query("SELECT v FROM Vehicle v " +
-            "JOIN v.vehicleRentalFacilities vrf " +
-            "JOIN vrf.rentalFacility rf " +
+    @Query("SELECT DISTINCT v FROM Vehicle v " +
+            "JOIN v.vehicleRentalFacilities rv " +
+            "JOIN rv.rentalFacility rf " +
             "JOIN rf.offices o " +
             "JOIN o.attraction a " +
             "JOIN a.city c " +
-            "WHERE (:location IS NULL OR LOWER(c.city_name) LIKE LOWER(CONCAT('%', :location, '%')))")
+            "WHERE c.city_name LIKE %:location%")
     Page<Vehicle> searchVehicle(
             @Param("location") String location,
             Pageable pageable
