@@ -90,14 +90,26 @@ public class VehicleService {
 
     public Page<VehicleResponse> getAllVehicle( String location, Long id,  PageRequest pageRequest) {
         Page<Vehicle> vehiclePage;
-        try {
-            City city = cityRepository.findById(id)
-                    .orElseThrow(()-> new Exception("City not exist"));
-            vehiclePage = vehicleRepository.searchVehicle( location, pageRequest);
-            return vehiclePage.map(vehicle -> VehicleResponse.fromVehicleWithCity(vehicle, city));
-        } catch (Exception e) {
-            throw new RuntimeException(e);
+        if(id==0){
+            try {
+                vehiclePage = vehicleRepository.searchVehicle(null, pageRequest);
+                return vehiclePage.map(VehicleResponse::fromVehicle);
+            }
+            catch (Exception e) {
+                throw new RuntimeException(e);
+            }
         }
+        else {
+            try {
+                City city = cityRepository.findById(id)
+                        .orElseThrow(()-> new Exception("City not exist"));
+                vehiclePage = vehicleRepository.searchVehicle( location, pageRequest);
+                return vehiclePage.map(vehicle -> VehicleResponse.fromVehicleWithCity(vehicle, city));
+            } catch (Exception e) {
+                throw new RuntimeException(e);
+            }
+        }
+
     }
 
     public Vehicle getVehicleById(Long id) throws Exception {

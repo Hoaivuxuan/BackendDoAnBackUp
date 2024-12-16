@@ -18,7 +18,7 @@ public interface VehicleRepository extends JpaRepository<Vehicle, Long> {
             "JOIN rf.offices o " +
             "JOIN o.attraction a " +
             "JOIN a.city c " +
-            "WHERE c.city_name LIKE %:location%")
+            "WHERE (:location IS NULL OR c.city_name LIKE %:location%)")
     Page<Vehicle> searchVehicle(
             @Param("location") String location,
             Pageable pageable
