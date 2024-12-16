@@ -16,7 +16,6 @@ public class BookingRoomResponse {
 
     private Long adults;
     private Long children;
-    private Long hotel;
 
     @JsonProperty("checkin_date")
     private String checkInDate;
@@ -32,12 +31,14 @@ public class BookingRoomResponse {
 
     private Float totalPrice;
 
+    private HotelBookingResponse hotel;
+
     public static BookingRoomResponse fromBooking(BookingRoom bookingRoom) {
         BookingRoomResponse response = new BookingRoomResponse();
         response.id = bookingRoom.getId();
         response.adults = bookingRoom.getAdults();
         response.children = bookingRoom.getChildren();
-        response.hotel = bookingRoom.getHotel().getId();
+        response.hotel = HotelBookingResponse.fromBooking(bookingRoom);
         response.checkInDate = bookingRoom.getCheck_in_date().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
         response.checkOutDate = bookingRoom.getCheck_out_date().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
         response.roomSelectionResponse = (bookingRoom.getBookedRooms() != null)

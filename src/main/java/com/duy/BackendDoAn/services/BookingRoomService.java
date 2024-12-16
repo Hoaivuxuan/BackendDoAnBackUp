@@ -45,6 +45,8 @@ public class BookingRoomService {
                 .customerPhoneNumber(bookingRoomDTO.getCustomerPhoneNumber())
                 .customerCountry(bookingRoomDTO.getCustomerCountry())
                 .status(bookingRoomDTO.getStatus())
+                .specialRequest(bookingRoomDTO.getSpecialRequest())
+                .arrivalTime(bookingRoomDTO.getArrivalTime())
                 .user(user)
                 .build();
         Float total = 0F;
@@ -71,7 +73,7 @@ public class BookingRoomService {
         newBookingRoom.setTotal_rooms(totalRoom);
         newBookingRoom.setBookedRooms(instanceBookedRoom);
         bookingRoomRepository.save(newBookingRoom);
-        bookedRoomRepository.saveAll(instanceBookedRoom);
+//        bookedRoomRepository.saveAll(instanceBookedRoom);
         return newBookingRoom;
     }
 

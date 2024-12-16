@@ -91,11 +91,9 @@ public class EmailService {
 
     private String buildEmailBody(BookingRoomResponse bookingResponse) {
         StringBuilder body = new StringBuilder();
-        Optional<Hotel> optionalHotel = hotelRepository.findById(bookingResponse.getHotel());
-        Hotel hotel = optionalHotel.orElse(new Hotel());
 
         body.append("<h1>Thông tin đặt phòng của bạn</h1>");
-        body.append("<p><strong>Khách sạn:</strong> ").append(hotel.getHotelName()).append("</p>");
+        body.append("<p><strong>Khách sạn:</strong> ").append(bookingResponse.getHotel().getName()).append("</p>");
         body.append("<p><strong>Ngày check-in:</strong> ").append(bookingResponse.getCheckInDate()).append("</p>");
         body.append("<p><strong>Ngày check-out:</strong> ").append(bookingResponse.getCheckOutDate()).append("</p>");
         body.append("<p><strong>Người lớn:</strong> ").append(bookingResponse.getAdults()).append("</p>");
