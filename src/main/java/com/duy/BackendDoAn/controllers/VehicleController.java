@@ -20,6 +20,7 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 @RequestMapping("/vehicles")
@@ -55,8 +56,11 @@ public class VehicleController {
         Page<VehicleResponse> carPage = vehicleService.getAllVehicle(location, id, pageRequest);
         int totalPages = carPage.getTotalPages();
         List<VehicleResponse> vehicles = carPage.getContent();
+        List<VehicleResponse> filteredVehicles = vehicles.stream()
+                .filter(vehicle -> vehicle.getRentalResponses() != null && !vehicle.getRentalResponses().isEmpty())
+                .collect(Collectors.toList());
         return ResponseEntity.ok(VehicleListResponse.builder()
-                .vehicles(vehicles)
+                .vehicles(filteredVehicles)
                 .totalPages(totalPages)
                 .build());
     }

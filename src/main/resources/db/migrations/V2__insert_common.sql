@@ -3,25 +3,25 @@ VALUES
 (
     1, 'admin01', NULL, NULL, NULL,
     'https://firebasestorage.googleapis.com/v0/b/travel-web-7b510.appspot.com/o/UNKNOWN_USER.PNG?alt=media&token=5a0b3bba-f852-491c-8f50-c532be5ca4b0',
-    'admin01@hanoitravel.com.vn', 'VN', NULL, '2002-10-08', 1,
+    'admin01@hanoitravel.com.vn', NULL, NULL, '2002-10-08', 1,
     '$2a$10$xtiuHyOW7CRExUx0dt9wquac2hDwiXzsZkPyYsp0HlQh5oB7DChqi', 'ADMIN'
 ),
 (
     2, 'ddthumonky0810', 'Do', 'Duc Thu', NULL,
     'https://firebasestorage.googleapis.com/v0/b/travel-web-7b510.appspot.com/o/UNKNOWN_USER.PNG?alt=media&token=5a0b3bba-f852-491c-8f50-c532be5ca4b0',
-    'ddthumonky0810@gmail.com', 'VN', NULL, '2002-10-08', 1,
+    'ddthumonky0810@gmail.com', 'Vietnam', NULL, '2002-10-08', 1,
     '$2a$10$xtiuHyOW7CRExUx0dt9wquac2hDwiXzsZkPyYsp0HlQh5oB7DChqi', 'USER'
 ),
 (
     3, 'daoquangduy441', 'Dao', 'Quang Duy', NULL,
     'https://firebasestorage.googleapis.com/v0/b/travel-web-7b510.appspot.com/o/UNKNOWN_USER.PNG?alt=media&token=5a0b3bba-f852-491c-8f50-c532be5ca4b0',
-    'daoquangduy441@gmail.com', 'VN', NULL, NULL, 1,
+    'daoquangduy441@gmail.com', 'Vietnam', NULL, NULL, 1,
     '$2a$10$xtiuHyOW7CRExUx0dt9wquac2hDwiXzsZkPyYsp0HlQh5oB7DChqi', 'USER'
 ),
 (
     4, 'vuxuanhoai28', 'Vu', 'Xuan Hoai', NULL,
     'https://firebasestorage.googleapis.com/v0/b/travel-web-7b510.appspot.com/o/UNKNOWN_USER.PNG?alt=media&token=5a0b3bba-f852-491c-8f50-c532be5ca4b0',
-    'vuxuanhoai28@gmail.com', 'VN', NULL, NULL, 1,
+    'vuxuanhoai28@gmail.com', 'Vietnam', NULL, NULL, 1,
     '$2a$10$xtiuHyOW7CRExUx0dt9wquac2hDwiXzsZkPyYsp0HlQh5oB7DChqi', 'USER'
 );
 
@@ -118,6 +118,7 @@ INSERT INTO attraction (name, address, type, image, latitude, longitude, city_id
 ('Văn Phòng Goat Rental tại Đà Nẵng', NULL, 'office', NULL, 16.0675, 108.2212, 43),
 ('Văn Phòng Goat Rental tại Hải Phòng', NULL, 'office', NULL, 20.8451, 106.6891, 15),
 ('Văn Phòng Goat Rental tại Cần Thơ', NULL, 'office', NULL, 10.0955, 105.7715, 65),
+('Văn Phòng Thái Bình tại Thái Bình', NULL, 'office', NULL, 20.449956828264547, 106.33307310262715, 17),
 (
     'Sân bay quốc tế Cam Ranh (CXR)',
     'Cam Ranh, Khánh Hòa', 'airport', NULL,
@@ -248,3 +249,6 @@ INSERT INTO attraction (name, address, type, image, latitude, longitude, city_id
     'Hải Phòng', 'traffic', NULL,
     20.856035848707947, 106.68722214965443, 15
 );
+
+
+
