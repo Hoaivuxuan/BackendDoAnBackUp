@@ -21,9 +21,6 @@ public class BookingVehicleResponse {
     @JsonProperty("return")
     private PlaceAndTimeResponse returnResponse;
 
-    @JsonProperty("total_price")
-    private Float totalPrice;
-
     @JsonProperty("services")
     private ServicesListResponse servicesResponse;
 
@@ -50,7 +47,6 @@ public class BookingVehicleResponse {
                     )
                     .pickUpResponse(PlaceAndTimeResponse.fromBookingStart(bookingVehicle))
                     .returnResponse(PlaceAndTimeResponse.fromBookingReturn(bookingVehicle))
-                    .totalPrice(bookingVehicle.getTotal_price())
                     .servicesResponse(
                             (bookingVehicle.getAccessoryBookings() != null)
                                     ? ServicesListResponse.fromBookingVehicle(bookingVehicle)
