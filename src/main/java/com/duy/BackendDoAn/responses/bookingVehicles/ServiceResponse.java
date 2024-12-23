@@ -11,7 +11,7 @@ import lombok.*;
 public class ServiceResponse {
     private String name;
     private Long count;
-    private Float price;
+    private Long price;
 
     public static ServiceResponse fromAccessoryBooking(AccessoryBooking accessoryBooking) {
         return ServiceResponse.builder()

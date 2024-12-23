@@ -54,10 +54,13 @@ public class BookingVehicle {
     private String customerCountry;
 
     @Column(name = "total_service_price")
-    private Float totalService;
+    private Long totalService;
 
     @Column(name = "total_price")
-    private Float total_price;
+    private Long total_price;
+
+    @Column(name = "status")
+    private String status;
 
     @ManyToOne
     @JoinColumn(name = "rental_vehicle_id")

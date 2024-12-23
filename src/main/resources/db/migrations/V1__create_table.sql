@@ -35,8 +35,6 @@ CREATE TABLE hotel (
     check_in_time TIME,
     check_out_time TIME,
     website NVARCHAR(255),
-    rating FLOAT,
-    total_rating INT,
     review_count INT,
     city_id INT,
     type_of_hotel NVARCHAR(255),
@@ -66,7 +64,7 @@ CREATE TABLE room (
     no_bed_1 INT,
     type_bed_2 NVARCHAR(255),
     no_bed_2 INT,
-    price FLOAT,
+    price INT,
     available_rooms INT,
     hotel_id INT,
     CONSTRAINT fk_room_hotel FOREIGN KEY (hotel_id) references hotel(id)
@@ -93,7 +91,7 @@ CREATE TABLE booking_room (
     children INT,
     check_in_date DATE,
     check_out_date DATE,
-    total_price FLOAT,
+    total_price INT,
     total_rooms INT,
     customer_full_name NVARCHAR(255),
     customer_email NVARCHAR(255),
@@ -109,7 +107,7 @@ CREATE TABLE booking_room (
 CREATE TABLE booked_room (
     id INT AUTO_INCREMENT PRIMARY KEY,
     amount INT,
-    price_per FLOAT,
+    price_per INT,
     room_id INT,
     booking_room_id NVARCHAR(20),
     CONSTRAINT fk_booked_room_room foreign key (room_id) references room(id),
@@ -136,8 +134,6 @@ CREATE TABLE rental_facility (
     email NVARCHAR(100),
     description TEXT,
     address TEXT,
-    rating FLOAT,
-    total_rating INT,
     review_count INT
 );
 
@@ -156,7 +152,8 @@ CREATE TABLE vehicle (
     vehicle_type NVARCHAR(255),
     fuel NVARCHAR(255),
     engine NVARCHAR(255),
-    year INT
+    year INT,
+    image_url NVARCHAR(255)
 );
 
 
@@ -179,8 +176,8 @@ CREATE TABLE rental_vehicle (
     id INT PRIMARY KEY AUTO_INCREMENT,
     vehicle_id INT NOT NULL,
     rental_facility_id INT NOT NULL,
-    price FLOAT NOT NULL,
-    stake FLOAT,
+    price INT NOT NULL,
+    stake INT,
     available_vehicle INT,
     CONSTRAINT fk_vrf_vehicle FOREIGN KEY (vehicle_id) REFERENCES vehicle(id),
     CONSTRAINT fk_vrf_rental FOREIGN KEY (rental_facility_id) REFERENCES rental_facility(id)
@@ -199,8 +196,9 @@ CREATE TABLE booking_vehicle (
     customer_email NVARCHAR(255),
     customer_phone_number NVARCHAR(255),
     customer_country NVARCHAR(255),
-    total_service_price FLOAT,
-    total_price FLOAT,
+    total_service_price INT,
+    total_price INT,
+    status NVARCHAR(255),
     user_id INT,
     rental_vehicle_id INT,
     CONSTRAINT fk_booking_motor_users foreign key (user_id) references users(id),
@@ -219,7 +217,7 @@ CREATE TABLE addition_driver (
 create table accessory (
     id INT AUTO_INCREMENT PRIMARY KEY,
     name NVARCHAR(255),
-    price FLOAT,
+    price INT,
     type NVARCHAR(255),
     max_value INT
 );
@@ -227,7 +225,7 @@ create table accessory (
 CREATE TABLE accessory_booking (
     id INT AUTO_INCREMENT PRIMARY KEY,
     amount int,
-    price_per FLOAT,
+    price_per INT,
     accessory_id INT,
     booking_vehicle_id NVARCHAR(8),
     CONSTRAINT fk_service_booking_service foreign key (accessory_id) references accessory(id),
@@ -238,12 +236,21 @@ CREATE TABLE tour (
     id INT AUTO_INCREMENT PRIMARY KEY,
     name NVARCHAR(255),
     address NVARCHAR(255),
-    start_time TIME,
-    end_time TIME,
     description TEXT,
     attraction_id INT,
     CONSTRAINT fk_tour_city foreign key (attraction_id) references attraction(id)
 );
+
+CREATE TABLE tour_schedule (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    happen_date DATE,
+    start_time TIME,
+    end_time TIME,
+    tour_id INT,
+    CONSTRAINT fk_tour_tour_schedule foreign key (tour_id) references tour(id)
+);
+
+
 
 CREATE TABLE tour_image (
     id INT AUTO_INCREMENT PRIMARY KEY,
@@ -256,8 +263,8 @@ CREATE TABLE tour_image (
 CREATE TABLE ticket_class (
     id INT AUTO_INCREMENT PRIMARY KEY,
     name NVARCHAR(255),
-    adult_price FLOAT,
-    children_price FLOAT,
+    adult_price INT,
+    children_price INT,
     available_ticket INT,
     description TEXT,
     tour_id INT,
@@ -283,7 +290,7 @@ CREATE TABLE booking_ticket (
     tour_date DATE,
     number_adult_ticket INT,
     number_children_ticket INT,
-    total_price FLOAT,
+    total_price INT,
     ticket_class_id INT,
     user_id INT,
     CONSTRAINT fk_booking_ticket_ticket foreign key (ticket_class_id) references ticket_class(id),
@@ -333,6 +340,17 @@ CREATE TABLE review_rental (
         user_id INT,
         CONSTRAINT fk_review_rental foreign key (rental_id) references rental_facility(id),
         CONSTRAINT fk_review_rental_user foreign key (user_id) references users(id)
+);
+
+CREATE TABLE review_tour (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    rating INT,
+        comment TEXT,
+        review_date DATETIME,
+        tour_id INT,
+        user_id INT,
+        CONSTRAINT fk_review_tour foreign key (tour_id) references tour(id),
+        CONSTRAINT fk_review_tour_user foreign key (user_id) references users(id)
 );
 
 

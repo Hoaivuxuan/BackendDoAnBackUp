@@ -29,7 +29,10 @@ public class BookingVehicleDTO {
     private PlaceAndDateDTO return_place;
 
     @JsonProperty("total_price")
-    private Float totalPrice;
+    private Long totalPrice;
+
+    @JsonProperty("status")
+    private String status;
 
     @JsonProperty("customerInfo")
     private CustomerInfoDTO customerInfoDTO;
